@@ -1,0 +1,53 @@
+@font-face {
+  font-family: 'firago-regular';
+  src: url('/fonts/firago-regular.ttf'), format('truetype');
+}
+
+@font-face {
+  font-family: 'firago-medium';
+  src: url('/fonts/firago-medium.ttf'), format('truetype');
+}
+
+@font-face {
+  font-family: 'firago-semibold';
+  src: url('/fonts/firago-semibold.ttf'), format('truetype');
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  letter-spacing: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+@mixin regular() {
+  font-family: 'firago-regular';
+}
+
+@mixin medium() {
+  font-family: 'firago-medium';
+}
+
+@mixin bold() {
+  font-family: 'firago-semibold';
+}
+
+$orange-main: #ec5e2a;
+$orange-primary: #f28f6a;
+$orange-second: #f6af95;
+$orange-tertiary: #ec5e2a80;
+$orange-fourtiary: #ec5e2a4d;
+$red-main: #ff0900;
+$black-main: #000;
+$gray-primary: #f2f2f2;
+$gray-tertiary: #f7f7f7;
+$white-main: #ffffff;
+$blue-secondary: #292d32;
+$green-main: #369260;
