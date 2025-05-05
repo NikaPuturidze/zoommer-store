@@ -1,0 +1,49 @@
+{
+  "dependencies": {
+    "@nestjs/mapped-types": "*"
+  },
+  "name": "zoommer",
+  "private": true,
+  "version": "0.0.0",
+  "author": "Nika Puturidze",
+  "type": "commonjs",
+  "scripts": {
+    "w": "pnpm --filter @zoommer/webapp",
+    "b": "pnpm --filter @zoommer/backend",
+    "start:frontend": "pnpm --filter @zoommer/webapp start",
+    "start:backend": "pnpm --filter @zoommer/backend start",
+    "build:frontend": "pnpm --filter @zoommer/webapp build",
+    "build:backend": "pnpm --filter @zoommer/backend build",
+    "start": "pnpm -r --parallel start:frontend start:backend",
+    "build": "pnpm -r --parallel build:frontend build:backend",
+    "prettify": "pnpm -r --parallel format",
+    "lint": "concurrently 'pnpm b lint'",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.18.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "concurrently": "^8.2.2",
+    "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-prettier": "^5.2.2",
+    "eslint-plugin-unicorn": "^59.0.0",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3",
+    "rimraf": "^5.0.10",
+    "typescript-eslint": "^8.20.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pnpm lint-staged",
+      "commit-msg": "pnpm --no-git-hook commitlint --edit ${1}"
+    }
+  }
+}

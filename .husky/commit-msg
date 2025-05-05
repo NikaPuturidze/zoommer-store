@@ -1,0 +1,3 @@
+#!/bin/sh
+
+pnpm --no-git-hook commitlint --edit "$1"

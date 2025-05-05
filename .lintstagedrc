@@ -1,0 +1,6 @@
+{
+  "*.ts": ["prettier --parser typescript --write", "eslint --fix"],
+  "*.js": ["eslint --fix"],
+  "*.json": "prettier --write",
+  "*.md": "prettier --write"
+}
