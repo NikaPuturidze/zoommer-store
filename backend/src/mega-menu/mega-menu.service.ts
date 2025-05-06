@@ -7,7 +7,7 @@ export class MegaMenuService {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
 
     try {
-      const response = await fetch('https://api.zoommer.ge/v1/Topics/get-topics', {
+      const response = await fetch('https://api.zoommer.ge/v1/Content/mega-menu', {
         method: 'GET',
         headers: {
           'accept-language': selectedLang,
