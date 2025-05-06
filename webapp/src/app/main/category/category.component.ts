@@ -1,4 +1,7 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+import { ApiService } from '../../services/api.service'
+import { LanguageService } from '../../services/language.service'
+import { ICategoryItem } from '../../interfaces/mega-menu.interface'
 
 @Component({
   selector: 'app-category',
@@ -6,4 +9,30 @@ import { Component } from '@angular/core'
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
 })
-export class CategoryComponent {}
+export class CategoryComponent implements OnInit {
+  public megaMenu?: ICategoryItem
+  public currentLang: 'en' | 'ka' = 'en'
+
+  constructor(
+    private readonly apiService: ApiService,
+    private languageService: LanguageService
+  ) {}
+
+  ngOnInit(): void {
+    this.languageService.currentLanguage$.subscribe((language) => {
+      this.currentLang = language
+      this.loadMegaMenu()
+    })
+  }
+
+  private loadMegaMenu(): void {
+    this.apiService.megaMenu(this.currentLang).subscribe({
+      next: (data: ICategoryItem) => {
+        this.megaMenu = data
+      },
+      error: (error: ErrorOptions) => {
+        console.error('Failed to load mega-menu', error)
+      },
+    })
+  }
+}

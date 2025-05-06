@@ -21,8 +21,12 @@ export class ApiService {
     })
   }
 
-  megaMenu(): Observable<ICategoryItem> {
-    return this.httpClient.get<ICategoryItem>(this.serverUrl + 'mega-menu')
+  megaMenu(lang: string): Observable<ICategoryItem> {
+    return this.httpClient.get<ICategoryItem>(this.serverUrl + 'mega-menu', {
+      headers: {
+        'accept-language': lang,
+      },
+    })
   }
 
   content(lang: string): Observable<IContentResponse> {
