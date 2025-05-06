@@ -28,11 +28,11 @@ export class ImageCarouselComponent implements OnInit, OnChanges {
     }
   }
 
-  setImageDimension(image: IBanner): string {
+  public setImageDimension(image: IBanner): string {
     return image.largeBanner ? `${EImage.LARGE.toString()}px` : `${EImage.SMALL.toString()}px`
   }
 
-  nextImage(): void {
+  public nextImage(): void {
     if (this.imageIndex == this.bannerWidths.length - 1) {
       this.offsetX = 0
       this.imageIndex = 0
@@ -43,7 +43,7 @@ export class ImageCarouselComponent implements OnInit, OnChanges {
     this.translate = `translateX(${this.offsetX.toString()}px)`
   }
 
-  previousImage(): void {
+  public previousImage(): void {
     if (this.imageIndex === 0) {
       this.imageIndex = this.bannerWidths.length - 1
 
