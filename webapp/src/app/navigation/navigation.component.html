@@ -1,0 +1,24 @@
+@if (topics) {
+  <nav>
+    <div class="nav-container">
+      <div class="nav-number">
+        <img src="https://zoommer.ge/icons/header-phone.svg" />
+        <h4>*7007 / +995 (32) 2 60 30 60</h4>
+      </div>
+      <div class="nav-other">
+        @for (item of topics.showInTopMenu; track $index) {
+          <h4>{{ item.title }}</h4>
+        }
+        <h4>{{ currentBranch }}</h4>
+        @if (currentFlag) {
+          <div class="nav-language" (click)="toggleLanguageMenu()">
+            <img [src]="currentFlag" />
+            <div class="languages" [ngClass]="isLanguageMenuOpen ? 'active' : 'inactive'">
+              <h4 (click)="chooseLanguage($event)">{{ currentLanguage }}</h4>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </nav>
+}

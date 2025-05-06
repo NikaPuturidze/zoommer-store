@@ -33,9 +33,18 @@ export default tseslint.config(
         },
         {
           selector: 'variable',
-          format: ['UPPER_CASE'],
           types: ['boolean'],
+          format: ['UPPER_CASE'],
           prefix: ['is', 'should', 'has', 'can', 'did', 'will'],
+        },
+        {
+          selector: 'classProperty',
+          types: ['boolean'],
+          format: ['camelCase'],
+          filter: {
+            regex: '^(is|should|has|can|did|will)[A-Z]',
+            match: true,
+          },
         },
         {
           selector: 'variableLike',

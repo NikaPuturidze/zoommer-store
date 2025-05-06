@@ -12,8 +12,12 @@ export class ApiService {
 
   private serverUrl = 'http://localhost:3000/api/'
 
-  topics(): Observable<ITopicsResponse> {
-    return this.httpClient.get<ITopicsResponse>(this.serverUrl + 'topics')
+  topics(lang: string): Observable<ITopicsResponse> {
+    return this.httpClient.get<ITopicsResponse>(this.serverUrl + 'topics', {
+      headers: {
+        'accept-language': lang,
+      },
+    })
   }
 
   megaMenu(): Observable<ICategoryItem> {

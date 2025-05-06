@@ -27,6 +27,10 @@
   width: 0;
 }
 
+body {
+  background: #369260;
+}
+
 @mixin regular() {
   font-family: 'firago-regular';
 }
