@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { LanguageService } from '../services/language-service.service'
 
 @Component({
   selector: 'app-header',
@@ -13,11 +14,13 @@ export class HeaderComponent implements OnInit {
   public search = ''
   public logIn = ''
 
-  ngOnInit(): void {
-    const savedLang = window.localStorage.getItem('lang')
-    this.currentLang = savedLang === 'ka' ? 'ka' : 'en'
+  constructor(private languageService: LanguageService) {}
 
-    this.updateLanguageState()
+  ngOnInit(): void {
+    this.languageService.currentLanguage$.subscribe((language) => {
+      this.currentLang = language
+      this.updateLanguageState()
+    })
   }
 
   updateLanguageState(): void {

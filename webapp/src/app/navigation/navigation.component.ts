@@ -2,29 +2,33 @@ import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../services/api.service'
 import { ITopicsResponse } from '../interfaces/topics.interface'
 import { CommonModule } from '@angular/common'
+import { LanguageService } from '../services/language-service.service'
 
 @Component({
   selector: 'app-navigation',
   imports: [CommonModule],
   templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.scss',
+  styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnInit {
   public topics?: ITopicsResponse
-  public currentLang = 'en'
+  public currentLang: 'en' | 'ka' = 'en'
   public currentFlag = ''
   public currentBranch = ''
   public currentLanguage = ''
   public isLanguageMenuOpen = false
 
-  constructor(private readonly apiService: ApiService) {}
+  constructor(
+    private readonly apiService: ApiService,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit(): void {
-    const savedLang = window.localStorage.getItem('lang')
-    this.currentLang = savedLang === 'ka' ? 'ka' : 'en'
-
-    this.updateLanguageState()
-    this.loadTopics()
+    this.languageService.currentLanguage$.subscribe((language) => {
+      this.currentLang = language
+      this.updateLanguageState()
+      this.loadTopics()
+    })
   }
 
   public toggleLanguageMenu(): void {
@@ -34,8 +38,7 @@ export class NavigationComponent implements OnInit {
   public chooseLanguage(event: MouseEvent): void {
     event.stopPropagation()
     this.currentLang = this.currentLang === 'en' ? 'ka' : 'en'
-    window.localStorage.setItem('lang', this.currentLang)
-
+    this.languageService.setLanguage(this.currentLang)
     this.updateLanguageState()
     this.loadTopics()
     this.isLanguageMenuOpen = false

@@ -91,7 +91,7 @@ nav {
           padding: 7px 10px;
           position: absolute;
           top: 100%;
-          background: $white-main;
+          background: $black-main;
           border-radius: 8px;
           min-width: 48px;
           height: 30px;
@@ -99,6 +99,7 @@ nav {
           align-items: center;
           justify-content: center;
           margin-top: 4px;
+          z-index: 2;
           transition: none !important;
 
           h4 {
