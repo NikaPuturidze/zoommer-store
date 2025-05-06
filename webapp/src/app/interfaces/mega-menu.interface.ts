@@ -1,7 +1,3 @@
-export interface IMegaMenuResponse {
-  items: IMegaMenu[]
-}
-
 export interface IMegaMenu {
   id: number
   name: string

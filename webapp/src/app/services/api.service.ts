@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { ITopicsResponse } from '../interfaces/topics.interface'
 import { Observable } from 'rxjs'
-import { IMegaMenuResponse } from '../interfaces/mega-menu.interface'
 import { IContentResponse } from '../interfaces/content.interface'
+import { IMegaMenu } from '../interfaces/mega-menu.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -21,8 +21,8 @@ export class ApiService {
     })
   }
 
-  megaMenu(lang: string): Observable<IMegaMenuResponse> {
-    return this.httpClient.get<IMegaMenuResponse>(this.serverUrl + 'mega-menu', {
+  megaMenu(lang: string): Observable<IMegaMenu[]> {
+    return this.httpClient.get<IMegaMenu[]>(this.serverUrl + 'mega-menu', {
       headers: {
         'accept-language': lang,
       },

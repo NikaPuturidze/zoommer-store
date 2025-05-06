@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../../services/api.service'
 import { LanguageService } from '../../services/language.service'
-import { IMegaMenuResponse } from '../../interfaces/mega-menu.interface'
+import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 
 @Component({
   selector: 'app-category',
@@ -10,7 +10,7 @@ import { IMegaMenuResponse } from '../../interfaces/mega-menu.interface'
   styleUrl: './category.component.scss',
 })
 export class CategoryComponent implements OnInit {
-  public megaMenu?: IMegaMenuResponse
+  public megaMenu?: IMegaMenu[]
   public currentLang: 'en' | 'ka' = 'en'
 
   constructor(
@@ -27,7 +27,7 @@ export class CategoryComponent implements OnInit {
 
   private loadMegaMenu(): void {
     this.apiService.megaMenu(this.currentLang).subscribe({
-      next: (data: IMegaMenuResponse) => {
+      next: (data: IMegaMenu[]) => {
         this.megaMenu = data
       },
       error: (error: ErrorOptions) => {
