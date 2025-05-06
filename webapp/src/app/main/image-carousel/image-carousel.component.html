@@ -1,1 +1,18 @@
-<p>image-carousel works!</p>
+@if (content) {
+  <div class="carousel-container" [style.transform]="translate">
+    @for (banner of content.section[0].banners; track $index) {
+      <div class="img-container" [style.maxWidth]="setImageDimension(banner)">
+        <img [class]="banner.largeBanner ? 'image-large' : 'image-small'" [src]="banner.webImageUrl" />
+      </div>
+    }
+  </div>
+
+  <div class="arrows">
+    <div class="arrow">
+      <img (click)="previousImage()" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+    </div>
+    <div class="arrow">
+      <img (click)="nextImage()" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+    </div>
+  </div>
+}

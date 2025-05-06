@@ -1,3 +1,9 @@
+export enum EImage {
+  SMALL = 220,
+  LARGE = 895,
+  GAP = 30,
+}
+
 export interface IContentResponse {
   section: ISection[]
 }
