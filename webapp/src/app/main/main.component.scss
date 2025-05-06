@@ -1,0 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: 15px;
+  margin-top: 30px;
+
+  .primary-section {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+  }
+}

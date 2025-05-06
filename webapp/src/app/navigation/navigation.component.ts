@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../services/api.service'
 import { ITopicsResponse } from '../interfaces/topics.interface'
 import { CommonModule } from '@angular/common'
-import { LanguageService } from '../services/language-service.service'
+import { LanguageService } from '../services/language.service'
 
 @Component({
   selector: 'app-navigation',

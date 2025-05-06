@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { LanguageService } from '../services/language-service.service'
+import { LanguageService } from '../services/language.service'
 
 @Component({
   selector: 'app-header',
