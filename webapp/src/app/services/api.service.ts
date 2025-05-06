@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { ITopicsResponse } from '../interfaces/topics.interface'
 import { Observable } from 'rxjs'
-import { ICategoryItem } from '../interfaces/mega-menu.interface'
+import { IMegaMenuResponse } from '../interfaces/mega-menu.interface'
 import { IContentResponse } from '../interfaces/content.interface'
 
 @Injectable({
@@ -21,8 +21,8 @@ export class ApiService {
     })
   }
 
-  megaMenu(lang: string): Observable<ICategoryItem> {
-    return this.httpClient.get<ICategoryItem>(this.serverUrl + 'mega-menu', {
+  megaMenu(lang: string): Observable<IMegaMenuResponse> {
+    return this.httpClient.get<IMegaMenuResponse>(this.serverUrl + 'mega-menu', {
       headers: {
         'accept-language': lang,
       },

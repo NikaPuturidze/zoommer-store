@@ -1,4 +1,8 @@
-export interface ICategoryItem {
+export interface IMegaMenuResponse {
+  items: IMegaMenu[]
+}
+
+export interface IMegaMenu {
   id: number
   name: string
   url: string
@@ -14,5 +18,5 @@ export interface ICategoryItem {
   imageId?: number
   imageUrl?: string
   description?: string
-  childItems?: ICategoryItem[]
+  childItems?: IMegaMenu[]
 }
