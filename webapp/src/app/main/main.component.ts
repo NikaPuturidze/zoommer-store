@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core'
 import { CategoryComponent } from './category/category.component'
 import { ImageCarouselComponent } from './image-carousel/image-carousel.component'
-import { IContentResponse } from '../interfaces/content.interface'
+import { EImage, IContentResponse } from '../interfaces/content.interface'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 
@@ -14,6 +14,10 @@ import { LanguageService } from '../services/language.service'
 export class MainComponent implements OnInit {
   public content?: IContentResponse
   public currentLang: 'en' | 'ka' = 'en'
+  public carouselWidth = 0
+
+  @ViewChild(ImageCarouselComponent, { read: ElementRef, static: true })
+  private carouselHost!: ElementRef<HTMLElement>
 
   constructor(
     private readonly apiService: ApiService,
@@ -25,6 +29,19 @@ export class MainComponent implements OnInit {
       this.currentLang = language
       this.loadContent()
     })
+  }
+
+  ngAfterViewInit(): void {
+    this.updateCarouselWidth()
+  }
+
+  @HostListener('window:resize')
+  public onWindowResize(): void {
+    this.updateCarouselWidth()
+  }
+
+  private updateCarouselWidth(): void {
+    this.carouselWidth = this.carouselHost.nativeElement.offsetWidth + EImage.GAP
   }
 
   private loadContent(): void {

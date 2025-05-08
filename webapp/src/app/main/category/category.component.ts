@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { ApiService } from '../../services/api.service'
 import { LanguageService } from '../../services/language.service'
 import { IMegaMenu } from '../../interfaces/mega-menu.interface'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-category',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
 })
 export class CategoryComponent implements OnInit {
   public megaMenu?: IMegaMenu[]
   public currentLang: 'en' | 'ka' = 'en'
+  public isInCategory = false
+  public currentCategory = -1
+  @Input() width = 0
 
   constructor(
     private readonly apiService: ApiService,
@@ -34,5 +38,20 @@ export class CategoryComponent implements OnInit {
         console.error('Failed to load mega-menu', error)
       },
     })
+  }
+
+  public getHeightBefore(index: number): string {
+    const heightBefore = ['555.5px', '409.5px', '580px', '745.5px', '483px', '483px', '378px', '378px']
+    return heightBefore[index]
+  }
+
+  public getCurrentCategory(index: number): void {
+    this.currentCategory = index
+    this.isInCategory = true
+  }
+
+  public resetCurrentCategory(): void {
+    this.currentCategory = -1
+    this.isInCategory = false
   }
 }

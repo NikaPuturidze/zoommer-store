@@ -1,1 +1,44 @@
-<p>category works!</p>
+<div
+  class="mega-menu-container"
+  [style.height]="getHeightBefore(currentCategory)"
+  (mouseleave)="resetCurrentCategory()"
+  [ngClass]="isInCategory ? 'inCategory' : 'notInCategory'"
+>
+  <div class="categories">
+    @if (megaMenu) {
+      @for (category of megaMenu; track $index) {
+        <div class="category" (mouseenter)="getCurrentCategory($index)">
+          <div class="category-content">
+            <img [src]="category.iconUrl" />
+            <h4>{{ category.name }}</h4>
+          </div>
+          @if ($index != megaMenu.length - 1) {
+            <div class="hr"></div>
+          }
+        </div>
+      }
+    }
+  </div>
+  <div class="category-items" [ngClass]="isInCategory ? 'inCategory' : 'notInCategory'">
+    @if (megaMenu) {
+      <div
+        class="container"
+        [ngClass]="isInCategory ? 'inCategory' : 'notInCategory'"
+        [style.height]="getHeightBefore(currentCategory)"
+        [style.width]="width"
+      >
+        @for (category of megaMenu[currentCategory].childItems; track $index) {
+          <div class="content-wrapper">
+            <h5 class="title">{{ category.name }}</h5>
+
+            <ul>
+              @for (subCategory of category.childItems; track $index) {
+                <li class="sub-category">{{ subCategory.name }}</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>
