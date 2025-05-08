@@ -147,6 +147,14 @@
             }
           }
         }
+
+        .thumb {
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          height: 220px;
+          width: 200px;
+        }
       }
     }
   }
