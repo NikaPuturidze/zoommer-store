@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common'
   styleUrl: './category.component.scss',
 })
 export class CategoryComponent implements OnInit {
-  public megaMenu?: IMegaMenu[]
+  public megaMenu?: (IMegaMenu | undefined)[]
   public currentLang: 'en' | 'ka' = 'en'
   public isInCategory = false
   public currentCategory = -1

@@ -1,5 +1,7 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { EImage, IBanner, IContentResponse } from '../../interfaces/content.interface'
+import { ApiService } from '../../services/api.service'
+import { LanguageService } from '../../services/language.service'
 
 @Component({
   selector: 'app-image-carousel',
@@ -7,27 +9,25 @@ import { EImage, IBanner, IContentResponse } from '../../interfaces/content.inte
   templateUrl: './image-carousel.component.html',
   styleUrl: './image-carousel.component.scss',
 })
-export class ImageCarouselComponent implements OnInit, OnChanges {
-  @Input() public content?: IContentResponse
+export class ImageCarouselComponent implements OnInit {
+  public content?: IContentResponse
   public bannerWidths: number[] = []
+  public currentLang: 'en' | 'ka' = 'en'
   public translate = ''
   public offsetX = 0
   public imageIndex = 0
 
+  constructor(
+    private readonly apiService: ApiService,
+    private languageService: LanguageService
+  ) {}
+
   ngOnInit(): void {
-    setInterval(() => {
-      this.nextImage()
-    }, 5000)
+    this.languageService.currentLanguage$.subscribe((language) => {
+      this.currentLang = language
+      this.loadContent()
+    })
   }
-
-  ngOnChanges(): void {
-    if (this.content?.section?.[0]?.banners) {
-      this.bannerWidths = this.content.section[0].banners.map((banner) =>
-        banner.largeBanner ? EImage.LARGE : EImage.SMALL
-      )
-    }
-  }
-
   public setImageDimension(image: IBanner): string {
     return image.largeBanner ? `${EImage.LARGE.toString()}px` : `${EImage.SMALL.toString()}px`
   }
@@ -56,5 +56,21 @@ export class ImageCarouselComponent implements OnInit, OnChanges {
     }
 
     this.translate = `translateX(-${this.offsetX.toString()}px)`
+  }
+
+  private loadContent(): void {
+    this.apiService.content(this.currentLang).subscribe({
+      next: (data: IContentResponse) => {
+        this.content = data
+        if (this.content?.section?.[0]?.banners) {
+          this.bannerWidths = this.content.section[0].banners.map((banner) =>
+            banner.largeBanner ? EImage.LARGE : EImage.SMALL
+          )
+        }
+      },
+      error: (error: ErrorOptions) => {
+        console.error('Failed to load content', error)
+      },
+    })
   }
 }
