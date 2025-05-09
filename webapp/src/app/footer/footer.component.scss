@@ -1,0 +1,106 @@
+@use '../../styles.scss' as *;
+
+li {
+  list-style: none;
+}
+
+footer {
+  margin-top: 60px;
+  width: 100%;
+  background: $gray-primary;
+  text-wrap: nowrap;
+
+  .footer-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    .options-wrapper {
+      position: relative;
+      padding: 20px 0px;
+      display: flex;
+      gap: 120px;
+
+      .option-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        a {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          color: $black-main;
+          text-decoration: none;
+
+          &:visited {
+            text-decoration: none;
+            color: $black-main;
+          }
+
+          p {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 20px;
+            color: $black-main;
+            cursor: pointer;
+            @include medium;
+          }
+        }
+
+        .option {
+          border-bottom: 1px solid $orange-main;
+          padding-bottom: 15px;
+          margin-bottom: 5px;
+
+          h4 {
+            color: $black-main;
+            font-weight: 700;
+            font-size: 12px;
+            line-height: 20px;
+            @include bold;
+          }
+        }
+
+        p {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 20px;
+          color: $black-main;
+          cursor: pointer;
+          @include medium;
+        }
+      }
+
+      .ecommerce {
+        position: absolute;
+        right: 0px;
+        height: 25px;
+        width: 135px;
+        bottom: 20px;
+      }
+    }
+  }
+
+  .copyright {
+    display: flex;
+    justify-content: center;
+    border-top: 2px $white-main solid;
+
+    .copyright-wrapper {
+      max-width: 1200px;
+      width: 100%;
+      padding: 10px 15px;
+
+      h5 {
+        font-weight: 350;
+        font-size: 14px;
+        line-height: 15px;
+        color: rgba($black-main, 0.6);
+        @include regular;
+      }
+    }
+  }
+}

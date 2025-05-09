@@ -1,1 +1,73 @@
-<p>footer works!</p>
+<footer>
+  <div class="footer-wrapper">
+    <div class="options-wrapper">
+      <div class="option-wrapper">
+        <div class="option">
+          <h4>{{ optionsArray[0] }}</h4>
+        </div>
+        @for (first of topics?.firstFooter; track $index) {
+          <p class="option-text">{{ first.title }}</p>
+        }
+      </div>
+      <div class="option-wrapper">
+        <div class="option">
+          <h4>{{ optionsArray[1] }}</h4>
+        </div>
+        @for (second of topics?.secondFooter; track $index) {
+          <p class="option-text">{{ second.title }}</p>
+        }
+      </div>
+      <div class="option-wrapper">
+        <div class="option">
+          <h4>{{ optionsArray[2] }}</h4>
+        </div>
+        <a target="_blank" href="https://www.facebook.com/zoommerge/?ref=page_internal">
+          <img width="20" height="20" src="https://zoommer.ge/icons/footer/fb.svg" />
+          <p>Facebook</p>
+        </a>
+        <a target="_blank" href="https://www.youtube.com/user/WwwZoommerGe">
+          <img l width="20" height="20" src="https://zoommer.ge/icons/footer/youtube.svg" />
+          <p>Youtube</p>
+        </a>
+        <a target="_blank" href="https://www.instagram.com/zoommer.ge/?hl=en"
+          ><img width="20" height="20" src="https://zoommer.ge/icons/footer/instagram.svg" />
+          <p>Instagram</p>
+        </a>
+        <a target="_blank" href="https://www.tiktok.com/@zoommer.ge">
+          <img width="20" height="20" src="https://zoommer.ge/icons/footer/tiktok.svg" />
+          <p>Tik Tok</p>
+        </a>
+      </div>
+      <div class="option-wrapper">
+        <div class="option">
+          <h4>{{ optionsArray[3] }}</h4>
+        </div>
+        <a href="mailto:info&#64;zoommer.ge">
+          <img width="20" height="20" src="https://zoommer.ge/icons/footer/gmail.svg" />
+          <p>Info&commat;zoommer.ge</p>
+        </a>
+        <a href="tel:+995 32 2 60 30 60">
+          <img width="20" height="20" src="https://zoommer.ge/icons/footer/phone.svg" />
+          <p>+995 (32) 2 60 30 60 / *7007</p>
+        </a>
+        <a href="/branches">
+          <img width="20" height="20" src="https://zoommer.ge/icons/footer/locations.svg" />
+          <p>{{ optionsArray[4] }}</p>
+        </a>
+        <a href="/info/corporate-sales">
+          <img width="20" height="20" src="https://zoommer.ge/icons/footer/locations.svg" />
+          <p>{{ optionsArray[5] }}</p>
+        </a>
+        <p>
+          <a href="Zoomerge://success=true&amp;orderId=6372">Zoommer App</a>
+        </p>
+      </div>
+      <img src="https://zoommer.ge/images/e-360.svg" class="ecommerce" />
+    </div>
+  </div>
+  <div class="copyright">
+    <div class="copyright-wrapper">
+      <h5>Copyright © 2023 Zoommer.ge. All rights reserved.</h5>
+    </div>
+  </div>
+</footer>
