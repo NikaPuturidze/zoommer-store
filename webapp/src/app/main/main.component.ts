@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core'
 import { CategoryComponent } from './category/category.component'
 import { ImageCarouselComponent } from './image-carousel/image-carousel.component'
-import { EImage, IContentResponse } from '../interfaces/content.interface'
+import { EContent, IContentResponse } from '../interfaces/content.interface'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { SectionsComponent } from './sections/sections.component'
@@ -43,7 +43,7 @@ export class MainComponent {
 
   private updateCarouselWidth(): void {
     setTimeout(() => {
-      this.carouselWidth = this.carouselHost.nativeElement.offsetWidth + EImage.GAP
+      this.carouselWidth = this.carouselHost.nativeElement.offsetWidth + EContent.GAP
     })
   }
 

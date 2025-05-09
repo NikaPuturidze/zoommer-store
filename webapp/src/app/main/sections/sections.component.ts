@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core'
-import { EImage, IContentResponse } from '../../interfaces/content.interface'
+import { EContent, IContentResponse } from '../../interfaces/content.interface'
 import { CommonModule } from '@angular/common'
 
 @Component({
@@ -23,18 +23,18 @@ export class SectionsComponent implements OnChanges {
 
   public nextImage(index: number): void {
     if (this.content?.section[index].products) {
-      const sliderOneTotalWidth: number = this.content.section[index].products?.length * EImage.SLIDER_ONE_OFFSET
+      const sliderOneTotalWidth: number = this.content.section[index].products?.length * EContent.SLIDER_ONE_OFFSET
 
-      if (sliderOneTotalWidth - this.sectionArray[index] > (EImage.SLIDER_WIDTH as number)) {
-        this.sectionArray[index] += EImage.SLIDER_ONE_OFFSET
+      if (sliderOneTotalWidth - this.sectionArray[index] > (EContent.SLIDER_WIDTH as number)) {
+        this.sectionArray[index] += EContent.SLIDER_ONE_OFFSET
       } else {
         this.sectionArray[index] = 0
       }
     } else if (this.content?.section[index].banners) {
-      const sliderTwoTotalWidth: number = this.content.section[index].banners?.length * EImage.SLIDER_TWO_OFFSET
+      const sliderTwoTotalWidth: number = this.content.section[index].banners?.length * EContent.SLIDER_TWO_OFFSET
 
-      if (sliderTwoTotalWidth - this.sectionArray[index] > (EImage.SLIDER_WIDTH as number)) {
-        this.sectionArray[index] += EImage.SLIDER_TWO_OFFSET
+      if (sliderTwoTotalWidth - this.sectionArray[index] > (EContent.SLIDER_WIDTH as number)) {
+        this.sectionArray[index] += EContent.SLIDER_TWO_OFFSET
       } else {
         this.sectionArray[index] = 0
       }
@@ -43,20 +43,20 @@ export class SectionsComponent implements OnChanges {
 
   public previousImage(index: number): void {
     if (this.content?.section[index].products) {
-      const sliderTotalWidth: number = this.content.section[index].products?.length * EImage.SLIDER_ONE_OFFSET
+      const sliderTotalWidth: number = this.content.section[index].products?.length * EContent.SLIDER_ONE_OFFSET
 
       if (this.sectionArray[index] === 0) {
-        this.sectionArray[index] = sliderTotalWidth - EImage.SLIDER_WIDTH
+        this.sectionArray[index] = sliderTotalWidth - EContent.SLIDER_WIDTH
       } else {
-        this.sectionArray[index] -= EImage.SLIDER_ONE_OFFSET
+        this.sectionArray[index] -= EContent.SLIDER_ONE_OFFSET
       }
     } else if (this.content?.section[index].banners) {
-      const sliderTwoTotalWidth: number = this.content.section[index].banners.length * EImage.SLIDER_TWO_OFFSET
+      const sliderTwoTotalWidth: number = this.content.section[index].banners.length * EContent.SLIDER_TWO_OFFSET
 
       if (this.sectionArray[index] === 0) {
-        this.sectionArray[index] = sliderTwoTotalWidth - EImage.SLIDER_WIDTH
+        this.sectionArray[index] = sliderTwoTotalWidth - EContent.SLIDER_WIDTH
       } else {
-        this.sectionArray[index] -= EImage.SLIDER_TWO_OFFSET
+        this.sectionArray[index] -= EContent.SLIDER_TWO_OFFSET
       }
     }
   }

@@ -1,4 +1,4 @@
-export enum EImage {
+export enum EContent {
   SMALL = 220,
   LARGE = 895,
   GAP = 30,

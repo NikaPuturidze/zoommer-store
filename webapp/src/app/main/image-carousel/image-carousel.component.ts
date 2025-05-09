@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges } from '@angular/core'
-import { EImage, IBanner, IContentResponse } from '../../interfaces/content.interface'
+import { EContent, IBanner, IContentResponse } from '../../interfaces/content.interface'
 
 @Component({
   selector: 'app-image-carousel',
@@ -17,13 +17,13 @@ export class ImageCarouselComponent implements OnChanges {
   ngOnChanges(): void {
     if (this.content?.section?.[0]?.banners) {
       this.bannerWidths = this.content.section[0].banners.map((banner) =>
-        banner.largeBanner ? EImage.LARGE : EImage.SMALL
+        banner.largeBanner ? EContent.LARGE : EContent.SMALL
       )
     }
   }
 
   public setImageDimension(image: IBanner): string {
-    return image.largeBanner ? `${EImage.LARGE.toString()}px` : `${EImage.SMALL.toString()}px`
+    return image.largeBanner ? `${EContent.LARGE.toString()}px` : `${EContent.SMALL.toString()}px`
   }
 
   public nextImage(): void {
@@ -31,7 +31,7 @@ export class ImageCarouselComponent implements OnChanges {
       this.offsetX = 0
       this.imageIndex = 0
     } else {
-      this.offsetX -= this.bannerWidths[this.imageIndex] + EImage.GAP
+      this.offsetX -= this.bannerWidths[this.imageIndex] + EContent.GAP
       this.imageIndex++
     }
     this.translate = `translateX(${this.offsetX.toString()}px)`
@@ -42,11 +42,11 @@ export class ImageCarouselComponent implements OnChanges {
       this.imageIndex = this.bannerWidths.length - 1
 
       const arraySum = this.bannerWidths.reduce((accumulator, current) => accumulator + current, 0)
-      const totalGap = EImage.GAP * (this.bannerWidths.length - 1)
+      const totalGap = EContent.GAP * (this.bannerWidths.length - 1)
       this.offsetX = arraySum + totalGap - this.bannerWidths[this.imageIndex]
     } else {
       this.imageIndex--
-      this.offsetX -= this.bannerWidths[this.imageIndex] + EImage.GAP
+      this.offsetX -= this.bannerWidths[this.imageIndex] + EContent.GAP
     }
 
     this.translate = `translateX(-${this.offsetX.toString()}px)`
