@@ -2,6 +2,11 @@ export enum EImage {
   SMALL = 220,
   LARGE = 895,
   GAP = 30,
+  SLIDER_WIDTH = 1170,
+  SLIDER_ONE_WIDTH = 160,
+  SLIDER_ONE_OFFSET = 195,
+  SLIDER_TWO_WIDTH = 355,
+  SLIDER_TWO_OFFSET = 390,
 }
 
 export interface IContentResponse {
@@ -47,8 +52,8 @@ export interface IBanner {
 }
 
 export interface IDimensions {
-  width: number
-  height: number
+  widthInPixels: number
+  heightInPixels: number
 }
 
 export interface IProduct {
