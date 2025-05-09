@@ -46,7 +46,7 @@ export class NavigationComponent implements OnInit {
 
   private updateLanguageState(): void {
     this.currentFlag = `https://zoommer.ge/icons/footer/${this.currentLang === 'en' ? 'en.svg' : 'flag-geo.png'}`
-    this.currentBranch = this.currentLang === 'en' ? 'branches' : 'ფილიალები'
+    this.currentBranch = this.currentLang === 'en' ? 'Branches' : 'ფილიალები'
     this.currentLanguage = this.currentLang === 'en' ? 'GEO' : 'ENG'
   }
 
