@@ -69,7 +69,7 @@
             font-weight: 500;
             font-size: 12px;
             line-height: 14px;
-            color: $black-main;
+            color: rgba($black-main, 0.8);
             opacity: 0.8;
             cursor: pointer;
             @include medium;
