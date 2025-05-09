@@ -1,4 +1,5 @@
-import { Component } from '@angular/core'
+import { Component, Input, OnChanges } from '@angular/core'
+import { ITopicsResponse } from '../interfaces/topics.interface'
 
 @Component({
   selector: 'app-footer',
@@ -6,4 +7,10 @@ import { Component } from '@angular/core'
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
-export class FooterComponent {}
+export class FooterComponent implements OnChanges {
+  @Input() topics?: ITopicsResponse
+
+  ngOnChanges(): void {
+    console.log(this.topics)
+  }
+}
