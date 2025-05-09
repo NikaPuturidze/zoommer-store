@@ -1,1 +1,125 @@
-<p>sections works!</p>
+@if (content) {
+  <div class="sections">
+    @for (section of content.section; let secIndex = $index; track section.id) {
+      @if (section.orderNumber > -1) {
+        @if (section.sectionType === 5 || section.sectionType === 1) {
+          <section class="section-slider-one">
+            <h4 class="title">{{ section.title }}</h4>
+            <div class="slider-one">
+              <div class="section-one-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
+                @for (product of section.products; track $index) {
+                  <div class="product">
+                    <div class="image">
+                      <img [src]="product.imageUrl" />
+                      @if (product.labelText) {
+                        <div class="best">{{ product.labelText }}</div>
+                      }
+                    </div>
+                    <div class="description">
+                      <div class="price">
+                        <h4 [style.color]="product.previousPrice ? '#ec5e2a' : '#000'">{{ product.price }} ₾</h4>
+                        @if (product.previousPrice) {
+                          <span>{{ product.previousPrice }} ₾</span>
+                        }
+                      </div>
+                      @if (product.price > 0) {
+                        @if (currentLang === 'ka') {
+                          <p>
+                            თვეში:
+                            <span>{{ roundPrice(product.price / 36) }} ₾</span>
+                            -დან
+                          </p>
+                        } @else {
+                          <p>
+                            Per month: from <span>{{ roundPrice(product.price / 36) }} ₾</span>
+                          </p>
+                        }
+                      }
+                      <a>{{ product.name }}</a>
+                    </div>
+                    <div class="buy">
+                      <div class="compare">
+                        <img src="https://zoommer.ge/icons/compare-card.svg" />
+                      </div>
+                      <div class="add">
+                        <img src="https://zoommer.ge/icons/cart-button.svg" />
+                        @if (currentLang === 'ka') {
+                          <h4>დამატება</h4>
+                        } @else {
+                          <h4>Add</h4>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+            <div class="arrows">
+              <div class="arrow">
+                <img (click)="previousImage(secIndex)" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+              </div>
+              <div class="arrow">
+                <img (click)="nextImage(secIndex)" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+              </div>
+            </div>
+          </section>
+        }
+
+        @if (section.sectionType === 3 && !section.isScroll) {
+          <section
+            [ngClass]="{
+              'section-banner-one': section.bannerTemplateRowNumber === 1,
+              'section-banner-two': section.bannerTemplateRowNumber === 2,
+              'section-banner-three': section.colorValue != '#ffffff',
+            }"
+            [style.backgroundColor]="section.colorValue != '#ffffff' ? section.colorValue : null"
+          >
+            @for (banner of section.banners; track $index) {
+              <div class="banner-container">
+                <img class="banner" [src]="banner.webImageUrl" />
+              </div>
+
+              @if (section.isScroll) {
+                <div class="arrows">
+                  <div class="arrow">
+                    <img (click)="previousImage(secIndex)" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+                  </div>
+                  <div class="arrow">
+                    <img (click)="nextImage(secIndex)" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+                  </div>
+                </div>
+              }
+            }
+          </section>
+        }
+
+        @if (section.sectionType === 3 && section.isScroll) {
+          <section
+            class="section-slider-two"
+            [style.backgroundColor]="section.colorValue != '#ffffff' ? section.colorValue : null"
+          >
+            <div class="slider-two">
+              <div class="slider-two-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
+                @for (item of section.banners; track $index) {
+                  <img
+                    [src]="item.webImageUrl"
+                    [style.width]="item.webDimensions?.widthInPixels + 'px'"
+                    [style.height]="item.webDimensions?.heightInPixels + 'px'"
+                  />
+                }
+              </div>
+            </div>
+            <div class="arrows">
+              <div class="arrow">
+                <img (click)="previousImage(secIndex)" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+              </div>
+              <div class="arrow">
+                <img (click)="nextImage(secIndex)" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+              </div>
+            </div>
+          </section>
+        }
+      }
+    }
+  </div>
+}
