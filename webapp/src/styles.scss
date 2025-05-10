@@ -28,15 +28,15 @@
 }
 
 @mixin regular() {
-  font-family: 'firago-regular';
+  font-family: 'firago-regular' !important;
 }
 
 @mixin medium() {
-  font-family: 'firago-medium';
+  font-family: 'firago-medium' !important;
 }
 
 @mixin bold() {
-  font-family: 'firago-semibold';
+  font-family: 'firago-semibold' !important;
 }
 
 $orange-main: #ec5e2a;
