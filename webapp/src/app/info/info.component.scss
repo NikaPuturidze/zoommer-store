@@ -1,0 +1,72 @@
+@use '../../styles.scss' as *;
+
+:host {
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    margin-top: 30px;
+
+    .title {
+      width: 100%;
+      padding-bottom: 24px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid $gray-primary;
+      h1 {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: $black-main;
+        @include bold;
+      }
+    }
+
+    &::ng-deep {
+      .content {
+        min-height: 100vh;
+      }
+
+      .content-12 {
+        .MsoNormal {
+          line-height: 24px !important;
+          max-height: 24px;
+        }
+
+        p {
+          &:first-child {
+            @include bold;
+          }
+        }
+      }
+
+      .content-10 {
+        a {
+          color: $black-main;
+          text-decoration: none;
+        }
+        h1 {
+          @include bold;
+          height: 48px;
+          position: relative;
+          text-wrap: nowrap;
+          span {
+            position: absolute;
+            bottom: 3.5px;
+          }
+        }
+        p {
+          @include regular;
+        }
+        p {
+          &:first-child {
+            @include bold;
+          }
+        }
+      }
+    }
+  }
+}
