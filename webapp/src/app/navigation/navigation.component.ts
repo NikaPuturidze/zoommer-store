@@ -2,10 +2,11 @@ import { Component, Input, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { LanguageService } from '../services/language.service'
 import { ITopicsResponse } from '../interfaces/topics.interface'
+import { RouterModule } from '@angular/router'
 
 @Component({
   selector: 'app-navigation',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
