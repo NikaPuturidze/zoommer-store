@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core'
 import { NavigationComponent } from './navigation/navigation.component'
 import { HeaderComponent } from './header/header.component'
-import { MainComponent } from './main/main.component'
 import { FooterComponent } from './footer/footer.component'
 import { ITopicsResponse } from './interfaces/topics.interface'
 import { ApiService } from './services/api.service'
 import { LanguageService } from './services/language.service'
+import { RouterOutlet } from '@angular/router'
 
 @Component({
   selector: 'app-root',
-  imports: [NavigationComponent, HeaderComponent, MainComponent, FooterComponent],
+  imports: [NavigationComponent, HeaderComponent, FooterComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
