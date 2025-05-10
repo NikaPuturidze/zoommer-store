@@ -4,6 +4,7 @@ import { ITopicsResponse } from '../interfaces/topics.interface'
 import { Observable } from 'rxjs'
 import { IContentResponse } from '../interfaces/content.interface'
 import { IMegaMenu } from '../interfaces/mega-menu.interface'
+import { ITopicResponse } from '../interfaces/topic.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,14 @@ export class ApiService {
 
   topics(lang: string): Observable<ITopicsResponse> {
     return this.httpClient.get<ITopicsResponse>(this.serverUrl + 'topics', {
+      headers: {
+        'accept-language': lang,
+      },
+    })
+  }
+
+  topic(lang: string, title: string): Observable<ITopicResponse> {
+    return this.httpClient.get<ITopicResponse>(this.serverUrl + 'topic?title=' + title.toString(), {
       headers: {
         'accept-language': lang,
       },
