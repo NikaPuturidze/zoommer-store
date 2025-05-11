@@ -6,6 +6,7 @@ import { IContentResponse } from '../interfaces/content.interface'
 import { IMegaMenu } from '../interfaces/mega-menu.interface'
 import { ITopicResponse } from '../interfaces/topic.interface'
 import { IProductsResponse, ProductsOptions } from '../interfaces/products.interface'
+import { IFilterResponse } from '../interfaces/filter.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -58,6 +59,17 @@ export class ApiService {
         Limit: String(limit),
         ...(categoryId != null ? { CategoryId: String(categoryId) } : {}),
         ...(categories != null ? { Categories: String(categories) } : {}),
+      },
+    })
+  }
+
+  filter(lang: string, catId: number): Observable<IFilterResponse> {
+    return this.httpClient.get<IFilterResponse>(this.serverUrl + 'filter', {
+      headers: {
+        'accept-language': lang,
+      },
+      params: {
+        catId,
       },
     })
   }
