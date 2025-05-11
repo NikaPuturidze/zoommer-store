@@ -8,49 +8,7 @@
             <div class="slider-one">
               <div class="section-one-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
                 @for (product of section.products; track $index) {
-                  <div class="product">
-                    <div class="image">
-                      <img [src]="product.imageUrl" />
-                      @if (product.labelText) {
-                        <div class="best">{{ product.labelText }}</div>
-                      }
-                    </div>
-                    <div class="description">
-                      <div class="price">
-                        <h4 [style.color]="product.previousPrice ? '#ec5e2a' : '#000'">{{ product.price }} ₾</h4>
-                        @if (product.previousPrice) {
-                          <span>{{ product.previousPrice }} ₾</span>
-                        }
-                      </div>
-                      @if (product.price > 0) {
-                        @if (currentLang === 'ka') {
-                          <p>
-                            თვეში:
-                            <span>{{ roundPrice(product.price / 36) }} ₾</span>
-                            -დან
-                          </p>
-                        } @else {
-                          <p>
-                            Per month: from <span>{{ roundPrice(product.price / 36) }} ₾</span>
-                          </p>
-                        }
-                      }
-                      <a>{{ product.name }}</a>
-                    </div>
-                    <div class="buy">
-                      <div class="compare">
-                        <img src="https://zoommer.ge/icons/compare-card.svg" />
-                      </div>
-                      <div class="add">
-                        <img src="https://zoommer.ge/icons/cart-button.svg" />
-                        @if (currentLang === 'ka') {
-                          <h4>დამატება</h4>
-                        } @else {
-                          <h4>Add</h4>
-                        }
-                      </div>
-                    </div>
-                  </div>
+                  <app-templ-product [product]="product" [currentLang]="currentLang"></app-templ-product>
                 }
               </div>
             </div>

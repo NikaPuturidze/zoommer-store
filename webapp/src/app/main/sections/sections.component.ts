@@ -1,10 +1,11 @@
 import { Component, Input, OnChanges } from '@angular/core'
 import { EContent, IContentResponse } from '../../interfaces/content.interface'
 import { CommonModule } from '@angular/common'
+import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
 
 @Component({
   selector: 'app-sections',
-  imports: [CommonModule],
+  imports: [CommonModule, TemplProductComponent],
   templateUrl: './sections.component.html',
   styleUrl: './sections.component.scss',
 })
@@ -59,9 +60,5 @@ export class SectionsComponent implements OnChanges {
         this.sectionArray[index] -= EContent.SLIDER_TWO_OFFSET
       }
     }
-  }
-
-  public roundPrice(price: number): number {
-    return Math.floor(price)
   }
 }
