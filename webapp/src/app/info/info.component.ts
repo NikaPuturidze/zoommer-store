@@ -30,7 +30,7 @@ export class InfoComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe(([language, parameters]) => {
         this.currentLang = language
-        this.loadTopic(parameters.topic as string)
+        this.loadTopic(parameters['topic'] as string)
       })
   }
 
