@@ -13,8 +13,12 @@
         @if (currentFlag) {
           <div class="nav-language" (click)="toggleLanguageMenu()">
             <img [src]="currentFlag" />
-            <div class="languages" [ngClass]="isLanguageMenuOpen ? 'active' : 'inactive'">
-              <h4 (click)="chooseLanguage($event)">{{ currentLanguage }}</h4>
+            <div
+              class="languages"
+              (click)="chooseLanguage($event)"
+              [ngClass]="isLanguageMenuOpen ? 'active' : 'inactive'"
+            >
+              <h4>{{ currentLanguage }}</h4>
             </div>
           </div>
         }
