@@ -5,6 +5,7 @@ import { Observable } from 'rxjs'
 import { IContentResponse } from '../interfaces/content.interface'
 import { IMegaMenu } from '../interfaces/mega-menu.interface'
 import { ITopicResponse } from '../interfaces/topic.interface'
+import { IProductsResponse, ProductsOptions } from '../interfaces/products.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -42,6 +43,21 @@ export class ApiService {
     return this.httpClient.get<IContentResponse>(this.serverUrl + 'content', {
       headers: {
         'accept-language': lang,
+      },
+    })
+  }
+
+  products(options: ProductsOptions): Observable<IProductsResponse> {
+    const { lang, page, limit, categoryId, categories } = options
+    return this.httpClient.get<IProductsResponse>(this.serverUrl + 'products', {
+      headers: {
+        'accept-language': lang,
+      },
+      params: {
+        Page: String(page),
+        Limit: String(limit),
+        ...(categoryId != null ? { CategoryId: String(categoryId) } : {}),
+        ...(categories != null ? { Categories: String(categories) } : {}),
       },
     })
   }
