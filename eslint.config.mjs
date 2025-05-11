@@ -25,7 +25,7 @@ export default tseslint.config(
     },
     rules: {
       '@typescript-eslint/no-unnecessary-condition': 'off',
-      'dot-notation': 'off',
+      '@typescript-eslint/dot-notation': 'off',
       '@typescript-eslint/naming-convention': [
         'error',
         {
