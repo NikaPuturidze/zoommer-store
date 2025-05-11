@@ -28,11 +28,19 @@
         >
           @for (category of megaMenu[currentCategory]?.childItems; track $index) {
             <div class="content-wrapper">
-              <h5 class="title">{{ category.name }}</h5>
+              @if (category.url) {
+                <h5 [routerLink]="['/', formatUrl(category.url)]" class="title">
+                  {{ category.name }}
+                </h5>
+              }
 
               <ul>
                 @for (subCategory of category.childItems; track $index) {
-                  <li class="sub-category">{{ subCategory.name }}</li>
+                  @if (category.url) {
+                    <li [routerLink]="['/', formatUrl(subCategory.url)]" class="sub-category">
+                      {{ subCategory.name }}
+                    </li>
+                  }
                 }
               </ul>
             </div>
