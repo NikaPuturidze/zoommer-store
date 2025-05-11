@@ -3,10 +3,11 @@ import { ApiService } from '../../services/api.service'
 import { LanguageService } from '../../services/language.service'
 import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
 
 @Component({
   selector: 'app-category',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
 })
@@ -53,5 +54,9 @@ export class CategoryComponent implements OnInit {
   public resetCurrentCategory(): void {
     this.currentCategory = -1
     this.isInCategory = false
+  }
+
+  public formatUrl(url: string): string {
+    return url?.split('https://zoommer.ge/')[1]
   }
 }
