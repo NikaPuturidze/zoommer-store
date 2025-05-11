@@ -59,36 +59,84 @@ export interface IDimensions {
 export interface IProduct {
   id: number
   name: string
-  price: number
-  previousPrice?: number | null
-  discountAmount?: number | null
-  discountPercent?: number | null
-  barCode?: string | null
-  brandName?: string
+  barCode: string
+  description: string | null
+  accessories: unknown
+  badgeIds: unknown
+  badges: unknown
+  bookingDateTo: string | null
+  brandName: string | null
+  brandPhotoUrl: string | null
+  breadcrumbs: unknown
+  bundleIsInCart: boolean
+  bundleRequestedQuantity: number | null
+  bundleTotalPreviousPrice: number | null
+  bundles: unknown
   categoryId: number
+  categoryIds: number[] | null
   categoryName: string
-  parentCategoryName?: string
-  onSale?: boolean
-  onSaleSoon?: boolean
-  hasDiscount?: boolean
-  preSalePrice?: number | null
-  imageUrl?: string
-  iconUrl?: string | null
-  labelText?: string | null
-  labelColor?: string | null
-  bundleIsInCart?: boolean
-  isBooked?: boolean
-  isFavorite?: boolean
-  isInCart?: boolean
-  isPurchased?: boolean
-  disableBuyButton?: boolean
-  doNotRecordStock?: boolean
-  giftType?: unknown
-  gifts?: unknown
-  productFrame?: unknown
-  productFrameResponsive?: unknown
-  requestedQuantity?: number
-  storageQuantity?: number
+  categoryRoute: string | null
+  certificateFileUrl: string | null
+  disableBuyButton: boolean
+  disabledPopup: boolean
+  discountAmount: number
+  discountPercent: number
+  discountType: string | null
+  doNotRecordStock: boolean
+  giftType: string | null
+  gifts: unknown
+  h1: string | null
+  hasDiscount: boolean
+  iconUrl: string | null
+  imageAlt: string | null
+  imageUrl: string | null
+  images: string[] | null
+  isBooked: boolean
+  isFavorite: boolean
+  isInCart: boolean
+  isKyosk: boolean
+  isNightPromotion: boolean
+  isPriceSubscribed: boolean
+  isPurchased: boolean
+  isStockSubscribed: boolean
+  keySpecification: unknown
+  labelColor: string | null
+  labelText: string | null
+  mainSpecification: unknown
+  manualsFileUrl: string | null
+  maxQuantityInCart: number
+  metaDescription: string | null
+  metaTitle: string | null
+  metaUrlName: string | null
+  onSale: boolean
+  onSaleSoon: boolean
+  orderNo: number
+  parentCategoryName: string
+  preSalePrice: number | null
+  previousPrice: number | null
+  price: number
+  productDetailsFrame: unknown
+  productFrame: unknown
+  productFrameResponsive: unknown
+  productHorizontalFrame: unknown
+  productHorizontalFrameResponsive: unknown
+  promotionFinishDate: string | null
+  promotionQuantity: number | null
+  releaseDate: string | null
+  requestedQuantity: number
   route: string
-  orderNo?: number
+  routeEn: string | null
+  routeGe: string | null
+  routeIsNotValid: boolean | null
+  routeRu: string | null
+  sellType: string | null
+  shareRoute: string | null
+  shopId: number | null
+  shopName: string | null
+  similarProductsList: unknown
+  specificationGroup: unknown
+  subCategoryId: number
+  subCategoryName: string | null
+  storageQuantity: number
+  videoUrls: string[] | null
 }
