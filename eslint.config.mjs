@@ -118,6 +118,9 @@ export default tseslint.config(
       'unicorn/prevent-abbreviations': [
         'error',
         {
+          checkFilenames: true,
+          checkProperties: true,
+          checkShorthandProperties: true,
           allowList: {
             Param: true,
             Req: true,
