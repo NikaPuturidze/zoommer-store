@@ -29,8 +29,6 @@
 **/*.sublime-workspace/
 **/.angular/
 .angular/
-app.module
-app.module.ts
 
 
 # IDE - VSCode
