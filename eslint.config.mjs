@@ -24,6 +24,7 @@ export default tseslint.config(
       },
     },
     rules: {
+      '@typescript-eslint/no-dynamic-delete': 'off',
       '@typescript-eslint/no-unnecessary-condition': 'off',
       '@typescript-eslint/dot-notation': 'off',
       '@typescript-eslint/naming-convention': [
@@ -31,21 +32,6 @@ export default tseslint.config(
         {
           selector: 'default',
           format: null,
-        },
-        {
-          selector: 'variable',
-          types: ['boolean'],
-          format: ['UPPER_CASE'],
-          prefix: ['is', 'should', 'has', 'can', 'did', 'will'],
-        },
-        {
-          selector: 'classProperty',
-          types: ['boolean'],
-          format: ['camelCase'],
-          filter: {
-            regex: '^(is|should|has|can|did|will)[A-Z]',
-            match: true,
-          },
         },
         {
           selector: 'variableLike',
@@ -118,9 +104,6 @@ export default tseslint.config(
       'unicorn/prevent-abbreviations': [
         'error',
         {
-          checkFilenames: true,
-          checkProperties: true,
-          checkShorthandProperties: true,
           allowList: {
             Param: true,
             Req: true,
