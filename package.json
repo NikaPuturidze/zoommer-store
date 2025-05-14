@@ -7,6 +7,10 @@
   "version": "0.0.0",
   "author": "Nika Puturidze",
   "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NikaPuturidze/zoommer-store.git"
+  },
   "scripts": {
     "w": "pnpm --filter @zoommer/webapp",
     "b": "pnpm --filter @zoommer/backend",
