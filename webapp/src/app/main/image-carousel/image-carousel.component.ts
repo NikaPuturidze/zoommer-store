@@ -10,6 +10,7 @@ import { EContent, IBanner, IContentResponse } from '../../interfaces/content.in
 export class ImageCarouselComponent implements OnChanges {
   @Input() public content?: IContentResponse
   public bannerWidths: number[] = []
+  public width = 0
   public translate = ''
   public offsetX = 0
   public imageIndex = 0
@@ -19,6 +20,10 @@ export class ImageCarouselComponent implements OnChanges {
       this.bannerWidths = this.content.section[0].banners.map((banner) =>
         banner.largeBanner ? EContent.LARGE : EContent.SMALL
       )
+
+      if (this.width !== 0) {
+        this.width = this.bannerWidths.reduce((accumulator: number, width: number) => accumulator + width, 0)
+      }
     }
   }
 
