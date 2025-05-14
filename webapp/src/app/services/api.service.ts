@@ -49,7 +49,7 @@ export class ApiService {
   }
 
   products(options: ProductsOptions): Observable<IProductsResponse> {
-    const { lang, page, limit, categoryId, categories } = options
+    const { lang, page, limit, specificationIds, categoryId, categories, priceFrom, priceTo } = options
     return this.httpClient.get<IProductsResponse>(this.serverUrl + 'products', {
       headers: {
         'accept-language': lang,
@@ -59,6 +59,9 @@ export class ApiService {
         Limit: String(limit),
         ...(categoryId != null ? { CategoryId: String(categoryId) } : {}),
         ...(categories != null ? { Categories: String(categories) } : {}),
+        ...(specificationIds ? { SpecificationIds: specificationIds } : {}),
+        ...(priceFrom ? { MinPrice: priceFrom } : {}),
+        ...(priceTo ? { MaxPrice: priceTo } : {}),
       },
     })
   }
