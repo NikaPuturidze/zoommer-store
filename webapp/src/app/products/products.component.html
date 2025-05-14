@@ -1,21 +1,17 @@
 <div class="products-container">
-  @if (productsResponse) {
-    <div class="breadcrumb-container">
-      <div class="breadcrumb">
-        <div class="title">
-          <img src="https://zoommer.ge/icons/category-left-arr.svg" />
-          <h4>{{ productsResponse.categoryName }}</h4>
-        </div>
+  <div class="breadcrumb-container">
+    <div class="breadcrumb">
+      <div class="title">
+        <img src="https://zoommer.ge/icons/category-left-arr.svg" />
+        <h4>{{ productsResponse?.categoryName }}</h4>
       </div>
     </div>
+  </div>
 
-    <div class="products">
-      <div class="filters"></div>
-      <div class="catalog">
-        @for (product of productsResponse.products; track $index) {
-          <app-templ-product [currentLang]="currentLanguage" [product]="product"></app-templ-product>
-        }
-      </div>
-    </div>
-  }
+  <div class="products">
+    <app-filter (FiltersChanged)="onFiltersChanged($event)"></app-filter>
+    @if (productsOptions) {
+      <app-catalog [productsResponse]="productsResponse" [currentLang]="productsOptions.lang"></app-catalog>
+    }
+  </div>
 </div>

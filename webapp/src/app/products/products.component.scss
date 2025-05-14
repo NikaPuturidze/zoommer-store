@@ -45,18 +45,6 @@
       gap: 50px;
       margin-top: 30px;
       min-height: 100vh;
-
-      .catalog {
-        display: grid;
-        height: fit-content;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-
-        @media (width <= 1250px) {
-          grid-template-columns: repeat(3, 1fr);
-        }
-        padding-bottom: auto;
-      }
     }
   }
 }
