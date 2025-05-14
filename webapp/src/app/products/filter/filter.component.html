@@ -1,0 +1,94 @@
+@if (specifications) {
+  <aside class="filters">
+    <div class="clear">
+      <h4>{{ filter }}</h4>
+      <div (click)="clearFilters()" class="interact">
+        <img src="https://zoommer.ge/icons/clear.svg" />
+        <h4>{{ clear }}</h4>
+      </div>
+    </div>
+    <div class="slider">
+      <div class="slider-label" (click)="tooglePrice()">
+        <h4>{{ price }}</h4>
+        <img src="https://zoommer.ge/icons/accordion-arrow.svg" />
+      </div>
+
+      <div class="container" [style.maxHeight]="showPrice ? '142px' : 0" [class.active]="!showPrice">
+        <div class="slider-container">
+          @if (specifications) {
+            <ngx-slider
+              [(value)]="minValue"
+              [(highValue)]="maxValue"
+              [options]="options"
+              (userChange)="onUserChange($event.value, $event.highValue)"
+              (userChangeEnd)="onUserChangeEnd($event.value, $event.highValue)"
+            ></ngx-slider>
+          }
+        </div>
+
+        <div class="prices">
+          <div class="price-min">
+            <h4>MIN:</h4>
+            <input type="number" [(ngModel)]="minValue" (keydown)="preventText($event)" />
+            <div>₾</div>
+          </div>
+          <div class="price-max">
+            <h4>MAX:</h4>
+            <input type="number" [(ngModel)]="maxValue" (keydown)="preventText($event)" />
+            <div>₾</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="specifications">
+      @for (specification of specifications; track $index) {
+        <div class="container">
+          <div class="specification" (click)="specification.active = !specification.active">
+            <h4>
+              {{ specification.name }}
+            </h4>
+            <img src="https://zoommer.ge/icons/accordion-arrow.svg" />
+          </div>
+          <div
+            class="values"
+            [ngClass]="{ active: !specification.active }"
+            [style.maxHeight]="
+              specification.active
+                ? specification.showAll === false
+                  ? '196px'
+                  : specification.active
+                    ? getValuesHeight($index)
+                    : 0
+                : 0
+            "
+          >
+            @for (value of specification.values; track $index) {
+              @if (value.valueUrlFriendly != 'n-a') {
+                <div (click)="setQuery(specification.nameUrlFriendly, value.valueUrlFriendly)" class="value">
+                  <img
+                    [src]="
+                      getQuery(specification.nameUrlFriendly, value.valueUrlFriendly)
+                        ? 'https://zoommer.ge/icons/filter-checkbox-active.svg'
+                        : 'https://zoommer.ge/icons/filter-checkbox-disabled.svg'
+                    "
+                  />
+                  <h4>{{ value.value }}</h4>
+                </div>
+              }
+            }
+          </div>
+
+          @if (specification.valuesAmount > 5) {
+            <h4
+              [ngClass]="{ active: !specification.active }"
+              (click)="specification.showAll = !specification.showAll"
+              class="show"
+            >
+              {{ seeState(specification.showAll) }}
+            </h4>
+          }
+        </div>
+      }
+    </div>
+  </aside>
+}

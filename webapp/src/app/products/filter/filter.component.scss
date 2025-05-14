@@ -1,0 +1,343 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  .filters {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    .clear {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid $gray-primary;
+      padding-bottom: 22px;
+
+      h4 {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        @include medium;
+      }
+
+      .interact {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+
+        h4 {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 14px;
+          opacity: 0.6;
+          @include medium;
+        }
+      }
+    }
+
+    &::ng-deep {
+      .slider {
+        .slider-label {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          cursor: pointer;
+          padding: 15px 0px 10px;
+
+          h4 {
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            opacity: 0.8;
+            color: $black-main;
+            @include bold;
+          }
+        }
+
+        .container {
+          opacity: 1;
+          transition: all 0.3s ease;
+
+          &.active {
+            opacity: 0;
+            transform: translate(2px, 3px);
+            scale: 0.85;
+          }
+
+          .slider-container {
+            display: flex;
+            align-items: center;
+            padding-inline: 10px;
+            height: 35px;
+            position: relative;
+
+            .ngx-slider {
+              position: absolute;
+              bottom: 3px;
+              width: 330px;
+              .ngx-slider-combined {
+                visibility: hidden !important;
+                opacity: 0 !important;
+              }
+
+              .ngx-slider-limit {
+                visibility: hidden !important;
+              }
+
+              .ngx-slider-bar-wrapper {
+                .ngx-slider-bar {
+                  background-color: $orange-main !important;
+                  opacity: 0.38 !important;
+                }
+                .ngx-slider-selection {
+                  opacity: 1 !important;
+                  min-height: 4px;
+                  background-color: $orange-main !important;
+                }
+              }
+
+              .ngx-slider-selection-bar {
+                &::after {
+                  content: '';
+                  position: absolute;
+                  width: 8px;
+                  height: 8px;
+                  transform: translateX(-50%) rotate(45deg);
+                  background-color: #757575;
+                  z-index: 999;
+                  left: 0;
+                  top: -6px;
+                }
+
+                &::before {
+                  content: '';
+                  position: absolute;
+                  width: 8px;
+                  height: 8px;
+                  transform: translateX(50%) rotate(45deg);
+                  background-color: #757575;
+                  z-index: 999;
+                  right: 0;
+                  top: -6px;
+                }
+              }
+
+              .ngx-slider-bubble {
+                visibility: hidden;
+              }
+
+              .ngx-slider-pointer {
+                visibility: hidden !important;
+                cursor: pointer;
+                width: fit-content !important;
+                &::after {
+                  width: 20px;
+                  height: 20px;
+                  visibility: visible !important;
+                  border-radius: 50%;
+                  background-color: $orange-main;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  box-shadow:
+                    0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+                    0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+                    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+                }
+              }
+
+              .ngx-slider-pointer-min,
+              .ngx-slider-pointer-max {
+                --before-content: '';
+                &::before {
+                  content: var(--before-content);
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  visibility: visible !important;
+                  position: absolute;
+                  transform: translate(-50%, -50%);
+                  z-index: 3;
+                  padding: 5px 15px;
+                  background: #757575;
+                  color: $white-main;
+                  font-size: 17.5px;
+                  border-radius: 2px;
+                  top: -21.5px;
+                  font-family: 'Arial' !important;
+                  min-width: 32px;
+                  min-height: 35px;
+                  line-height: 25px;
+                  font-weight: 500;
+                }
+              }
+
+              .ngx-slider-pointer-min {
+                &::before {
+                  transform: translate(-51%, -50%);
+                }
+              }
+
+              .ngx-slider-model-high {
+                visibility: hidden !important;
+              }
+
+              .ngx-slider-model-value {
+                visibility: hidden !important;
+              }
+            }
+          }
+
+          .prices {
+            display: flex;
+            justify-content: space-between;
+            width: 350px;
+            margin-block: 45px 20px;
+
+            .price-min,
+            .price-max {
+              width: 47%;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              border: 1px solid $orange-main;
+              position: relative;
+              padding: 10px;
+              border-radius: 4px;
+
+              h4 {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                opacity: 0.6;
+                color: $black-main;
+                @include regular;
+              }
+
+              input {
+                border: none;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: transparent;
+                text-align: right;
+                padding-inline: 40px 25px;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 20px;
+                opacity: 0.8;
+                color: $black-main;
+                outline: none;
+                @include medium;
+
+                &[type='number']::-webkit-inner-spin-button,
+                &[type='number']::-webkit-outer-spin-button {
+                  -webkit-appearance: none;
+                  margin: 0;
+                }
+
+                &[type='number'] {
+                  -moz-appearance: textfield;
+                  appearance: none;
+                }
+              }
+
+              div {
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 20px;
+                opacity: 0.8;
+                color: $black-main;
+                @include medium;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .specifications {
+      display: flex;
+      flex-direction: column;
+      .container {
+        max-height: fit-content;
+
+        .specification {
+          display: flex;
+          justify-content: space-between;
+          padding: 15px 0px 10px;
+
+          h4 {
+            display: inline;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            opacity: 0.8;
+            color: $black-main;
+            @include bold;
+          }
+        }
+
+        .values {
+          display: flex;
+          flex-direction: column;
+          gap: 19px;
+          opacity: 1;
+          transition: all 0.3s ease;
+          overflow-y: hidden;
+
+          &.active {
+            opacity: 0;
+            transform: translate(2px, 3px);
+            scale: 0.9;
+          }
+
+          .value {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            img {
+              height: 24px;
+              width: 24px;
+            }
+
+            h4 {
+              display: inline;
+              font-weight: 350;
+              font-size: 14px;
+              line-height: 20px;
+              opacity: 0.6;
+              color: $black-main;
+              @include regular;
+            }
+          }
+        }
+
+        .show {
+          font-weight: 350;
+          font-size: 16px;
+          line-height: 20px;
+          color: $orange-main;
+          cursor: pointer;
+          @include regular;
+          margin-top: 19px;
+          transition: all 0.25s ease;
+
+          &.active {
+            height: 0;
+            margin-top: 0;
+            opacity: 0;
+            transform: translate(4px, 3px);
+            scale: 0.9;
+          }
+        }
+      }
+    }
+  }
+}
