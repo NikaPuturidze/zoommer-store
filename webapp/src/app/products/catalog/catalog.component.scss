@@ -1,0 +1,23 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  .catalog {
+    display: grid;
+    height: fit-content;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    width: 100%;
+
+    @media (width <= 1250px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    &.active {
+      grid-template-columns: 1fr !important;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
