@@ -1,3 +1,8 @@
+export enum EFilter {
+  GAP = 19,
+  VALUE_HEIGHT = 24,
+}
+
 export interface IFilterResponse {
   specifications: ISpecification[]
   minPrice: number
@@ -14,6 +19,9 @@ export interface ISpecification {
   name: string
   nameUrlFriendly: string
   values?: ISpecificationValue[]
+  active?: undefined | boolean
+  valuesAmount: number
+  showAll: boolean | null
 }
 
 export interface ISpecificationValue {

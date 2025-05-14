@@ -109,7 +109,15 @@ export interface IBaseParameters {
   lang: string
   page: number
   limit: number
+  specificationIds?: string
+  priceFrom?: number
+  priceTo?: number
 }
 
 export type ProductsOptions = IBaseParameters &
   ({ categoryId: number; categories?: never } | { categories: number; categoryId?: never })
+
+export interface ICategoryInfo {
+  catId: number
+  isSuper: boolean
+}
