@@ -10,7 +10,6 @@ import { EContent, IBanner, IContentResponse } from '../../interfaces/content.in
 export class ImageCarouselComponent implements OnChanges {
   @Input() public content?: IContentResponse
   public bannerWidths: number[] = []
-  public width = 0
   public translate = ''
   public offsetX = 0
   public imageIndex = 0
@@ -20,10 +19,6 @@ export class ImageCarouselComponent implements OnChanges {
       this.bannerWidths = this.content.section[0].banners.map((banner) =>
         banner.largeBanner ? EContent.LARGE : EContent.SMALL
       )
-
-      if (this.width !== 0) {
-        this.width = this.bannerWidths.reduce((accumulator: number, width: number) => accumulator + width, 0)
-      }
     }
   }
 
@@ -32,10 +27,10 @@ export class ImageCarouselComponent implements OnChanges {
   }
 
   public nextImage(): void {
-    if (this.imageIndex == this.bannerWidths.length - 1) {
-      this.offsetX = 0
-      this.imageIndex = 0
-    } else {
+    if (this.imageIndex === this.bannerWidths.length - 4) {
+      this.offsetX = -76 - EContent.GAP
+      this.imageIndex = this.bannerWidths.length - 1
+    } else if (this.imageIndex !== this.bannerWidths.length - 1) {
       this.offsetX -= this.bannerWidths[this.imageIndex] + EContent.GAP
       this.imageIndex++
     }
@@ -43,13 +38,10 @@ export class ImageCarouselComponent implements OnChanges {
   }
 
   public previousImage(): void {
-    if (this.imageIndex === 0) {
-      this.imageIndex = this.bannerWidths.length - 1
-
-      const arraySum = this.bannerWidths.reduce((accumulator, current) => accumulator + current, 0)
-      const totalGap = EContent.GAP * (this.bannerWidths.length - 1)
-      this.offsetX = arraySum + totalGap - this.bannerWidths[this.imageIndex]
-    } else {
+    if (this.imageIndex == this.bannerWidths.length - 1) {
+      this.offsetX += 76 + EContent.GAP
+      this.imageIndex = 0
+    } else if (this.imageIndex !== 0) {
       this.imageIndex--
       this.offsetX -= this.bannerWidths[this.imageIndex] + EContent.GAP
     }
