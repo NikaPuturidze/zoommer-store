@@ -271,6 +271,7 @@
           display: flex;
           justify-content: space-between;
           padding: 15px 0px 10px;
+          cursor: pointer;
 
           h4 {
             display: inline;
@@ -305,6 +306,7 @@
             img {
               height: 24px;
               width: 24px;
+              cursor: pointer;
             }
 
             h4 {
