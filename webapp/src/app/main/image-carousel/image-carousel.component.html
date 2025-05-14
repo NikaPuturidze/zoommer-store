@@ -7,12 +7,14 @@
     }
   </div>
 
-  <div class="arrows">
-    <div class="arrow">
-      <img (click)="previousImage()" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+  @if (bannerWidths.length > 3) {
+    <div class="arrows">
+      <div class="arrow">
+        <img (click)="previousImage()" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+      </div>
+      <div class="arrow">
+        <img (click)="nextImage()" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+      </div>
     </div>
-    <div class="arrow">
-      <img (click)="nextImage()" src="https://zoommer.ge/icons/slider-right-btn.svg" />
-    </div>
-  </div>
+  }
 }
