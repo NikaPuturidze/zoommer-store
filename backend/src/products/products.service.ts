@@ -7,8 +7,11 @@ export class ProductsService {
     lang: string,
     page: number,
     limit: number,
+    specificationIds: string,
     categoryId?: number,
-    categories?: number
+    categories?: number,
+    priceFrom?: number,
+    priceTo?: number
   ): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
 
@@ -17,6 +20,9 @@ export class ProductsService {
       limit: limit.toString(),
       ...(categoryId ? { categoryId: categoryId.toString() } : {}),
       ...(categories ? { categories: categories.toString() } : {}),
+      ...(specificationIds ? { specificationIds: specificationIds } : {}),
+      ...(priceFrom ? { MinPrice: priceFrom.toString() } : {}),
+      ...(priceTo ? { MaxPrice: priceTo.toString() } : {}),
     })
 
     try {

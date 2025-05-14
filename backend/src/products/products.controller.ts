@@ -11,8 +11,20 @@ export class ProductsController {
     @Query('Page') page: number,
     @Query('Limit') limit: number,
     @Query('CategoryId') categoryId: number,
-    @Query('Categories') categories: number
+    @Query('Categories') categories: number,
+    @Query('SpecificationIds') specificationIds: string,
+    @Query('MinPrice') priceFrom: number,
+    @Query('MaxPrice') priceTo: number
   ): Promise<unknown> {
-    return this.productsService.products(lang, page, limit, categoryId, categories)
+    return this.productsService.products(
+      lang,
+      page,
+      limit,
+      specificationIds,
+      categoryId,
+      categories,
+      priceFrom,
+      priceTo
+    )
   }
 }
