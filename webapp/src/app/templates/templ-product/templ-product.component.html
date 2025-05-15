@@ -3,7 +3,7 @@
     <div class="image">
       <img [src]="product.imageUrl" />
       @if (product.labelText) {
-        <div class="best">{{ product.labelText }}</div>
+        <div class="best" [style.display]="showGrid === 'true' ? 'static' : 'none'">{{ product.labelText }}</div>
       }
     </div>
     @if (showGrid === 'false') {
