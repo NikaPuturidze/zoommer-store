@@ -94,6 +94,7 @@ export class ProductsComponent implements OnChanges, OnInit {
         relativeTo: this.actR,
         queryParams: query,
         queryParamsHandling: 'merge',
+        replaceUrl: true,
       })
       .then(() => {
         const { nameAsc, priceAsc } = query
