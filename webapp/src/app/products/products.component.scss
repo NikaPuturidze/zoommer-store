@@ -36,6 +36,85 @@
             @include bold;
           }
         }
+
+        .sort {
+          display: flex;
+          align-items: center;
+          gap: 22px;
+          position: relative;
+          text-wrap: nowrap;
+
+          .type {
+            .current {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              min-width: 160px;
+              background: $gray-primary;
+              box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+              border-radius: 30px;
+              padding: 9px 20px;
+              border: none;
+              cursor: pointer;
+              min-height: 42px;
+
+              h4 {
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 14px;
+                margin-right: 5px;
+                color: $black-main;
+                @include medium;
+              }
+            }
+
+            .variants-container {
+              display: flex;
+              flex-direction: column;
+              position: absolute;
+              top: 110%;
+              width: 200px;
+              box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px;
+              border-radius: 12px;
+              gap: 19px;
+              z-index: 2;
+              max-height: 330px;
+              height: 120px;
+              overflow-x: scroll;
+              background: $white-main !important;
+              transition: all 0.3s ease;
+              opacity: 0;
+              transform: translateY(5px);
+
+              &.active {
+                opacity: 1;
+                transform: translateY(0);
+              }
+
+              .variants {
+                display: flex;
+                flex-direction: column;
+                padding: 15px;
+                gap: 10px;
+
+                h4 {
+                  cursor: pointer;
+                  font-weight: 500;
+                  font-size: 12px;
+                  line-height: 14px;
+                  color: $black-main;
+                  opacity: 0.6;
+                  @include medium;
+                  transition: all 0.1s ease;
+
+                  &:hover {
+                    opacity: 1;
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 
