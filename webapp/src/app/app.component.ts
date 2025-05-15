@@ -6,11 +6,10 @@ import { ITopicsResponse } from './interfaces/topics.interface'
 import { ApiService } from './services/api.service'
 import { LanguageService } from './services/language.service'
 import { RouterOutlet } from '@angular/router'
-import { ProductsComponent } from './products/products.component'
 
 @Component({
   selector: 'app-root',
-  imports: [NavigationComponent, HeaderComponent, FooterComponent, RouterOutlet, ProductsComponent],
+  imports: [NavigationComponent, HeaderComponent, FooterComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
