@@ -24,7 +24,7 @@ export class ProductsService {
       ...(specificationIds ? { specificationIds: specificationIds.toString() } : {}),
       ...(priceFrom ? { MinPrice: priceFrom.toString() } : {}),
       ...(priceTo ? { MaxPrice: priceTo.toString() } : {}),
-      ...(priceAsc ? { PriceAsc: priceAsc.toString() } : {}),
+      ...(priceAsc ? { PriceAsc: (!priceAsc).toString() } : {}),
       ...(nameAsc ? { NameAsc: nameAsc.toString() } : {}),
     })
 
