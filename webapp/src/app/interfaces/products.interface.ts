@@ -112,6 +112,8 @@ export interface IBaseParameters {
   specificationIds?: string
   priceFrom?: number
   priceTo?: number
+  priceAsc?: boolean
+  nameAsc?: boolean
 }
 
 export type ProductsOptions = IBaseParameters &

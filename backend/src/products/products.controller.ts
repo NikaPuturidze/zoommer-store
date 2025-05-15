@@ -14,7 +14,9 @@ export class ProductsController {
     @Query('Categories') categories: number,
     @Query('SpecificationIds') specificationIds: string,
     @Query('MinPrice') priceFrom: number,
-    @Query('MaxPrice') priceTo: number
+    @Query('MaxPrice') priceTo: number,
+    @Query('PriceAsc') priceAsc: boolean,
+    @Query('NameAsc') nameAsc: boolean
   ): Promise<unknown> {
     return this.productsService.products(
       lang,
@@ -24,7 +26,9 @@ export class ProductsController {
       categoryId,
       categories,
       priceFrom,
-      priceTo
+      priceTo,
+      priceAsc,
+      nameAsc
     )
   }
 }

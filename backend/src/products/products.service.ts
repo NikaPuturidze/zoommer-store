@@ -11,18 +11,21 @@ export class ProductsService {
     categoryId?: number,
     categories?: number,
     priceFrom?: number,
-    priceTo?: number
+    priceTo?: number,
+    priceAsc?: boolean,
+    nameAsc?: boolean
   ): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
-
     const parameters = new URLSearchParams({
       page: page.toString(),
       limit: limit.toString(),
       ...(categoryId ? { categoryId: categoryId.toString() } : {}),
       ...(categories ? { categories: categories.toString() } : {}),
-      ...(specificationIds ? { specificationIds: specificationIds } : {}),
+      ...(specificationIds ? { specificationIds: specificationIds.toString() } : {}),
       ...(priceFrom ? { MinPrice: priceFrom.toString() } : {}),
       ...(priceTo ? { MaxPrice: priceTo.toString() } : {}),
+      ...(priceAsc ? { PriceAsc: priceAsc.toString() } : {}),
+      ...(nameAsc ? { NameAsc: nameAsc.toString() } : {}),
     })
 
     try {
