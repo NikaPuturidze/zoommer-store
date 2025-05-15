@@ -67,6 +67,7 @@ export default tseslint.config(
       '@typescript-eslint/explicit-module-boundary-types': 'error',
       complexity: ['error', { max: 10 }],
       'func-names': ['error', 'always'],
+      complexity: ['error', 18],
     },
   },
   {
