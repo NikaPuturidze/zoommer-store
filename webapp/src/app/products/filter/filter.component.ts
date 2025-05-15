@@ -105,6 +105,7 @@ export class FilterComponent implements OnInit {
                       relativeTo: this.actR,
                       queryParams: { priceFrom: 0, priceTo: maxPrice },
                       queryParamsHandling: 'merge',
+                      replaceUrl: true,
                     })
                     .catch((error: unknown) => {
                       console.error(error)
@@ -178,6 +179,7 @@ export class FilterComponent implements OnInit {
         relativeTo: this.actR,
         queryParams: {},
         queryParamsHandling: 'replace',
+        replaceUrl: true,
       })
       .catch((error: unknown) => {
         console.error(error)
@@ -213,6 +215,7 @@ export class FilterComponent implements OnInit {
         relativeTo: this.actR,
         queryParams: { priceFrom: value, priceTo: highValue ?? 9999 },
         queryParamsHandling: 'merge',
+        replaceUrl: true,
       })
       .catch((error: unknown) => {
         console.error(error)
