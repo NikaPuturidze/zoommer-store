@@ -274,10 +274,8 @@
         max-height: 36px;
         overflow: hidden;
         @include medium;
-        display: -webkit-box;
-        line-clamp: 2;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+        max-width: 360px;
       }
     }
 
