@@ -5,6 +5,7 @@ import { EContent, IContentResponse } from '../interfaces/content.interface'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { SectionsComponent } from './sections/sections.component'
+import { LocalStorageService } from '../services/localstorage.service'
 
 @Component({
   selector: 'app-main',
@@ -26,7 +27,8 @@ export class MainComponent {
 
   constructor(
     private readonly apiService: ApiService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +36,8 @@ export class MainComponent {
       this.currentLang = language
       this.loadContent()
     })
+
+    this.localStorageService.set('showGrid', 'true')
   }
 
   @HostListener('window:resize')
