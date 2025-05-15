@@ -49,7 +49,8 @@ export class ApiService {
   }
 
   products(options: ProductsOptions): Observable<IProductsResponse> {
-    const { lang, page, limit, specificationIds, categoryId, categories, priceFrom, priceTo } = options
+    const { lang, page, limit, specificationIds, categoryId, categories, priceFrom, priceTo, priceAsc, nameAsc } =
+      options
     return this.httpClient.get<IProductsResponse>(this.serverUrl + 'products', {
       headers: {
         'accept-language': lang,
@@ -62,6 +63,8 @@ export class ApiService {
         ...(specificationIds ? { SpecificationIds: specificationIds } : {}),
         ...(priceFrom ? { MinPrice: priceFrom } : {}),
         ...(priceTo ? { MaxPrice: priceTo } : {}),
+        ...(priceAsc !== undefined && typeof priceAsc == 'boolean' ? { PriceAsc: String(priceAsc) } : {}),
+        ...(nameAsc !== undefined && typeof nameAsc == 'boolean' ? { NameAsc: String(nameAsc) } : {}),
       },
     })
   }
