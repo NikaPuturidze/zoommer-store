@@ -27,7 +27,7 @@ export class ImageCarouselComponent implements OnChanges {
   }
 
   public nextImage(): void {
-    if (this.imageIndex === this.bannerWidths.length - 4) {
+    if (this.imageIndex === this.bannerWidths.length - 4 && this.bannerWidths[this.imageIndex + 3] !== 895) {
       this.offsetX = -76 - EContent.GAP
       this.imageIndex = this.bannerWidths.length - 1
     } else if (this.imageIndex !== this.bannerWidths.length - 1) {
@@ -38,14 +38,14 @@ export class ImageCarouselComponent implements OnChanges {
   }
 
   public previousImage(): void {
-    if (this.imageIndex == this.bannerWidths.length - 1) {
+    if (this.imageIndex == this.bannerWidths.length - 1 && this.bannerWidths.at(-1) !== 895) {
       this.offsetX += 76 + EContent.GAP
       this.imageIndex = 0
     } else if (this.imageIndex !== 0) {
       this.imageIndex--
-      this.offsetX -= this.bannerWidths[this.imageIndex] + EContent.GAP
+      this.offsetX += this.bannerWidths[this.imageIndex] + EContent.GAP
     }
 
-    this.translate = `translateX(-${this.offsetX.toString()}px)`
+    this.translate = `translateX(${this.offsetX.toString()}px)`
   }
 }
