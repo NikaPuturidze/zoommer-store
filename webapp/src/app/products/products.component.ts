@@ -6,6 +6,7 @@ import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { startWith } from 'rxjs'
+import { LocalStorageService } from '../services/localstorage.service'
 
 @Component({
   selector: 'app-products',
@@ -25,12 +26,14 @@ export class ProductsComponent implements OnChanges, OnInit {
   public sortFallback = { en: 'Sort', ka: 'სორტირება' }
   public currentLang: 'en' | 'ka' = 'en'
   public sort? = {}
+  public showGrid?: string
 
   constructor(
     private readonly apiService: ApiService,
     private languageService: LanguageService,
     private router: Router,
-    private actR: ActivatedRoute
+    private actR: ActivatedRoute,
+    private localStorageService: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +41,14 @@ export class ProductsComponent implements OnChanges, OnInit {
       this.currentLang = language
       this.getSort()
     })
+
+    this.localStorageService.observe('showGrid').subscribe((value) => {
+      this.showGrid = value as string | undefined
+    })
+
+    if (this.showGrid !== 'true' && this.showGrid !== 'false') {
+      this.localStorageService.set('showGrid', 'false')
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -56,6 +67,16 @@ export class ProductsComponent implements OnChanges, OnInit {
 
   public toggleSort(): void {
     this.isSortOpen = !this.isSortOpen
+  }
+
+  public setGrid(): void {
+    this.localStorageService.set('showGrid', 'true')
+    this.showGrid = this.localStorageService.get('showGrid') as string | undefined
+  }
+
+  public setLine(): void {
+    this.localStorageService.set('showGrid', 'false')
+    this.showGrid = this.localStorageService.get('showGrid') as string | undefined
   }
 
   public switchSort(option: string): void {

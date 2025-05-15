@@ -1,5 +1,5 @@
 @if (productsResponse) {
-  <div class="catalog" [ngClass]="productsResponse.products.length < 1 ? 'active' : ''">
+  <div class="catalog" [class.active]="productsResponse.products.length < 1 || showGrid === 'true'">
     @for (product of productsResponse.products; track $index) {
       @if (currentLang) {
         <app-templ-product [currentLang]="lang" [product]="product"></app-templ-product>

@@ -44,6 +44,15 @@
           position: relative;
           text-wrap: nowrap;
 
+          .card-type-logo {
+            cursor: pointer;
+            g {
+              &.active {
+                stroke: $orange-main;
+              }
+            }
+          }
+
           .type {
             .current {
               display: flex;

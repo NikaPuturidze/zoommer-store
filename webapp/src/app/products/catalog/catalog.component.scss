@@ -4,7 +4,7 @@
   .catalog {
     display: grid;
     height: fit-content;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: 1fr !important;
     gap: 20px;
     width: 100%;
 
@@ -13,7 +13,7 @@
     }
 
     &.active {
-      grid-template-columns: 1fr !important;
+      grid-template-columns: repeat(4, 1fr) !important;
     }
 
     img {

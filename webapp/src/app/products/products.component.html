@@ -27,9 +27,17 @@
           height="20"
           fill="none"
           viewBox="0 0 24 24"
-          class="card-type-logo active"
+          class="card-type-logo"
+          (click)="setGrid()"
         >
-          <g stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" opacity="0.5">
+          <g
+            [class.active]="showGrid == 'true'"
+            stroke="#292D32"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            opacity="0.5"
+          >
             <path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7M12 2v20M2 12h20"></path>
           </g>
         </svg>
@@ -40,8 +48,16 @@
           fill="none"
           viewBox="0 0 24 24"
           class="card-type-logo"
+          (click)="setLine()"
         >
-          <g stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" opacity="0.5">
+          <g
+            [class.active]="showGrid == 'false'"
+            stroke="#292D32"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            opacity="0.5"
+          >
             <path d="M22 15V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7h6c5 0 7-2 7-7M2 12h20"></path>
           </g>
         </svg>
