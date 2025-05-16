@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { LanguageService } from '../services/language.service'
 import { ITopicsResponse } from '../interfaces/topics.interface'
-import { RouterModule } from '@angular/router'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-navigation',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
@@ -18,7 +18,10 @@ export class NavigationComponent implements OnInit {
   public currentLanguage = ''
   public isLanguageMenuOpen = false
 
-  constructor(private languageService: LanguageService) {}
+  constructor(
+    private languageService: LanguageService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.languageService.currentLanguage$.subscribe((language) => {
@@ -37,6 +40,12 @@ export class NavigationComponent implements OnInit {
     this.languageService.setLanguage(this.currentLang)
     this.updateLanguageState()
     this.isLanguageMenuOpen = false
+  }
+
+  public navigate(route: string[]): void {
+    this.router.navigate(route).catch((error: unknown) => {
+      console.error(error)
+    })
   }
 
   private updateLanguageState(): void {

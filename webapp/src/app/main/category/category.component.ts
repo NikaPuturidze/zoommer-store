@@ -3,11 +3,11 @@ import { ApiService } from '../../services/api.service'
 import { LanguageService } from '../../services/language.service'
 import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { CommonModule } from '@angular/common'
-import { RouterModule } from '@angular/router'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-category',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
 })
@@ -20,7 +20,8 @@ export class CategoryComponent implements OnInit {
 
   constructor(
     private readonly apiService: ApiService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -58,5 +59,11 @@ export class CategoryComponent implements OnInit {
 
   public formatUrl(url: string): string {
     return url?.split('https://zoommer.ge/')[1]
+  }
+
+  public navigate(route: string[]): void {
+    this.router.navigate(route).catch((error: unknown) => {
+      console.error(error)
+    })
   }
 }

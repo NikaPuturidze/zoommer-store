@@ -7,7 +7,7 @@
       </div>
       <div class="nav-other">
         @for (item of topics.showInTopMenu; track $index) {
-          <h4 [routerLink]="['/info/', item.urlName]">{{ item.title }}</h4>
+          <h4 (click)="navigate(['/info/', item.urlName])">{{ item.title }}</h4>
         }
         <h4>{{ currentBranch }}</h4>
         @if (currentFlag) {
