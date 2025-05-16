@@ -68,7 +68,7 @@
   <div class="products">
     <app-filter (FiltersChanged)="onFiltersChanged($event)"></app-filter>
     @if (productsOptions) {
-      <app-catalog [productsResponse]="productsResponse" [currentLang]="productsOptions.lang"></app-catalog>
+      <app-catalog [productsResponse]="productsResponse" [currentLang]="currentLang"></app-catalog>
     }
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { IProductsResponse, ProductsOptions } from '../interfaces/products.interface'
 import { CatalogComponent } from './catalog/catalog.component'
 import { FilterComponent } from './filter/filter.component'
@@ -14,7 +14,7 @@ import { LocalStorageService } from '../services/localstorage.service'
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
-export class ProductsComponent implements OnChanges, OnInit {
+export class ProductsComponent implements OnInit {
   public productsOptions!: ProductsOptions
   public productsResponse?: IProductsResponse
   public isSortOpen = false
@@ -49,10 +49,8 @@ export class ProductsComponent implements OnChanges, OnInit {
     if (this.showGrid !== 'true' && this.showGrid !== 'false') {
       this.localStorageService.set('showGrid', 'false')
     }
-  }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['productOptions'] && this.productsOptions) {
+    if (this.productsOptions) {
       this.onFiltersChanged(this.productsOptions)
     }
   }
@@ -60,8 +58,9 @@ export class ProductsComponent implements OnChanges, OnInit {
   public onFiltersChanged(options: ProductsOptions): void {
     this.productsOptions = options
     this.loadProduct({
-      ...options,
+      ...this.productsOptions,
       ...this.sort,
+      lang: this.currentLang,
     })
   }
 

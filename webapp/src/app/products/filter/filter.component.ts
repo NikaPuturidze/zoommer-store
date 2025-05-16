@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { EFilter, IFilterResponse, ISpecification } from '../../interfaces/filter.interface'
 import { LanguageService } from '../../services/language.service'
-import { debounceTime, switchMap } from 'rxjs'
+import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs'
 import { ICategoryInfo, ProductsOptions } from '../../interfaces/products.interface'
 import { ApiService } from '../../services/api.service'
 
@@ -43,10 +43,48 @@ export class FilterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
-      this.updateLanguageState()
-    })
+    this.languageService.currentLanguage$
+      .pipe(
+        filter(() => !!this.catInfo),
+        distinctUntilChanged()
+      )
+      .subscribe((lang) => {
+        this.currentLang = lang
+        this.updateLanguageState()
+        if (this.catInfo) {
+          this.loadFilters(this.catInfo.catId, (specs) => {
+            const queryParameters = this.actR.snapshot.queryParams
+
+            const filteredSpecifications = specs
+              .filter((spec) => !!this.queries && Object.keys(this.queries).includes(spec.nameUrlFriendly))
+              .map((spec) => ({
+                ...spec,
+                values: spec.values?.filter((item) =>
+                  this.queries[spec.nameUrlFriendly].includes(item.valueUrlFriendly)
+                ),
+              }))
+
+            const specificationIds = filteredSpecifications
+              .map((spec) => (spec.values ?? []).map((item) => item.id).join(','))
+              .join('_')
+
+            if (this.catInfo) {
+              this.productOptions = {
+                lang: this.currentLang,
+                page: this.page,
+                limit: this.limit,
+                ...(this.catInfo.isSuper ? { categories: this.catInfo.catId } : { categoryId: this.catInfo.catId }),
+                ...(specificationIds ? { specificationIds: specificationIds } : {}),
+                ...(queryParameters['priceFrom'] ? { priceFrom: queryParameters['priceFrom'] as number } : {}),
+                ...(queryParameters['priceTo'] ? { priceTo: queryParameters['priceTo'] as number } : {}),
+              }
+            }
+
+            // Emit once to re-fetch products with translated filters
+            this.FiltersChanged.emit(this.productOptions)
+          })
+        }
+      })
 
     this.actR.params.subscribe((parameters) => {
       this.determineProduct(parameters, (categoryInfo) => {
@@ -64,7 +102,7 @@ export class FilterComponent implements OnInit {
                 this.setSliderOptions(
                   (queryParameters['priceFrom'] as number) ?? 0,
                   (queryParameters['priceTo'] as number) ?? maxPrice,
-                  maxPrice
+                  maxPrice ?? 9999
                 )
 
                 setTimeout(() => {
@@ -121,7 +159,10 @@ export class FilterComponent implements OnInit {
     })
   }
 
-  private loadFilters(categoryId: number, callback: (specifications: ISpecification[], maxPric: number) => void): void {
+  private loadFilters(
+    categoryId: number,
+    callback: (specifications: ISpecification[], maxPrice?: number) => void
+  ): void {
     this.apiService.filter(this.currentLang, categoryId).subscribe({
       next: (data: IFilterResponse) => {
         data.specifications.forEach((spec) => (spec.active = true))
