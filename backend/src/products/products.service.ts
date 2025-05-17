@@ -1,6 +1,5 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
-import axios from 'axios'
-import { deafaultLanguage, supportedLanguages } from '../interfaces/constants'
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common'
+import { supportedLanguages, deafaultLanguage } from '../interfaces/constants'
 import * as https from 'https'
 
 @Injectable()
@@ -18,44 +17,61 @@ export class ProductsService {
     nameAsc?: boolean
   ): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
+    const hostname = process.env.ENDPOINT_HOSTNAME
+    const ip = process.env.ENDPOINT_HOST
 
-    const parameters: Record<string, string | number | boolean> = {
-      page,
-      limit,
+    const query = new URLSearchParams({
+      page: page.toString(),
+      limit: limit.toString(),
+      ...(categoryId ? { categoryId: categoryId.toString() } : {}),
+      ...(categories ? { categories: categories.toString() } : {}),
+      ...(specificationIds ? { specificationIds: specificationIds.toString() } : {}),
+      ...(priceFrom ? { MinPrice: priceFrom.toString() } : {}),
+      ...(priceTo ? { MaxPrice: priceTo.toString() } : {}),
+      ...(priceAsc ? { PriceAsc: (!priceAsc).toString() } : {}),
+      ...(nameAsc ? { NameAsc: nameAsc.toString() } : {}),
+    }).toString()
+
+    const path = `/v1/Products/v3?${query}`
+
+    const options: https.RequestOptions = {
+      host: ip,
+      port: 443,
+      path,
+      method: 'GET',
+      headers: {
+        Host: hostname,
+        'accept-language': selectedLang,
+      },
+      servername: hostname,
     }
 
-    if (categoryId !== undefined) parameters['categoryId'] = categoryId
-    if (categories !== undefined) parameters['categories'] = categories
-    if (specificationIds) parameters['specificationIds'] = specificationIds
-    if (priceFrom !== undefined) parameters['MinPrice'] = priceFrom
-    if (priceTo !== undefined) parameters['MaxPrice'] = priceTo
-    if (priceAsc !== undefined) parameters['PriceAsc'] = priceAsc
-    if (nameAsc !== undefined) parameters['NameAsc'] = nameAsc
+    return new Promise((resolve, reject) => {
+      const request = https.request(options, (response) => {
+        const data: Buffer[] = []
 
-    const httpsAgent = new https.Agent({ family: 4, keepAlive: true })
+        response.on('data', (chunk: Buffer) => {
+          data.push(chunk)
+        })
 
-    try {
-      const response = await axios.get('https://api.zoommer.ge/v1/Products/v3', {
-        httpsAgent,
-        headers: {
-          'accept-language': selectedLang,
-        },
-        params: parameters,
-        timeout: 5000,
+        response.on('end', () => {
+          try {
+            const json = Buffer.concat(data).toString('utf8')
+            const parsed: unknown = JSON.parse(json)
+            resolve(parsed)
+          } catch (error) {
+            const message = error instanceof Error ? error.message : 'Unknown error'
+            reject(new BadRequestException('Failed to parse response from Zoommer API: ' + message))
+          }
+        })
       })
 
-      return response.data
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          throw new BadRequestException(`Zoommer API responded with status ${error.response.status.toString()}`)
-        } else if (error.code === 'ECONNABORTED') {
-          throw new BadRequestException('Request timed out')
-        } else {
-          throw new BadRequestException('Network error or no response received')
-        }
-      }
-      throw new BadRequestException('Failed to fetch products')
-    }
+      request.on('error', (error) => {
+        console.error('Error fetching products:', error)
+        reject(new ConflictException('Failed to fetch products'))
+      })
+
+      request.end()
+    })
   }
 }

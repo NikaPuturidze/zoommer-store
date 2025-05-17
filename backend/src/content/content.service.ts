@@ -1,51 +1,53 @@
-import { BadRequestException, Injectable } from '@nestjs/common'
-import axios from 'axios'
+import { BadRequestException, ConflictException, Injectable } from '@nestjs/common'
 import { deafaultLanguage, supportedLanguages } from '../interfaces/constants'
 import * as https from 'https'
-
-const contentCache = new Map<string, { data: unknown; expiry: number }>()
 
 @Injectable()
 export class ContentService {
   async megaMenu(lang: string): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
-    const cacheKey = selectedLang
-    const cacheTTL = Number(process.env.CACHING_TIME) || 60
-    const now = Date.now()
 
-    const cached = contentCache.get(cacheKey)
-    if (cached && cached.expiry > now) {
-      return cached.data
+    const hostname = process.env.ENDPOINT_HOSTNAME
+    const ip = process.env.ENDPOINT_HOST
+
+    const options: https.RequestOptions = {
+      host: ip,
+      port: 443,
+      path: '/v1/Content/get-content-v2',
+      method: 'GET',
+      headers: {
+        Host: hostname,
+        'accept-language': selectedLang,
+      },
+      servername: hostname,
     }
 
-    const httpsAgent = new https.Agent({ family: 4, keepAlive: true })
+    return new Promise((resolve, reject) => {
+      const reqeust = https.request(options, (response) => {
+        const data: Buffer[] = []
 
-    try {
-      const response = await axios.get('https://api.zoommer.ge/v1/Content/get-content-v2', {
-        httpsAgent,
-        headers: {
-          'accept-language': selectedLang,
-        },
-        timeout: 5000,
+        response.on('data', (chunk: Buffer) => {
+          data.push(chunk)
+        })
+
+        response.on('end', () => {
+          try {
+            const json = Buffer.concat(data).toString('utf8')
+            const parsed: unknown = JSON.parse(json)
+            resolve(parsed)
+          } catch (error) {
+            const message = error instanceof Error ? error.message : 'Unknown error'
+            reject(new BadRequestException('Failed to parse response from Zoommer API: ' + message))
+          }
+        })
       })
 
-      contentCache.set(cacheKey, {
-        data: response.data,
-        expiry: now + cacheTTL,
+      reqeust.on('error', (error) => {
+        console.error('Error fetching topics:', error)
+        reject(new ConflictException('Unexcpected Error in backend'))
       })
 
-      return response.data
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          throw new BadRequestException(`Zoommer API responded with status ${error.response.status.toString()}`)
-        } else if (error.code === 'ECONNABORTED') {
-          throw new BadRequestException('Request timed out')
-        } else {
-          throw new BadRequestException('Network error or no response received')
-        }
-      }
-      throw new BadRequestException('Failed to fetch content')
-    }
+      reqeust.end()
+    })
   }
 }

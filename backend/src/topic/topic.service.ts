@@ -1,37 +1,56 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
-import axios from 'axios'
 import { supportedLanguages, deafaultLanguage } from '../interfaces/constants'
+import * as https from 'https'
 
 @Injectable()
 export class TopicService {
   async topic(lang: string, title: string): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
 
-    try {
-      const response = await axios.get('https://api.zoommer.ge/v1/Topics/get-topic', {
-        headers: {
-          'accept-language': selectedLang,
-        },
-        params: {
-          title,
-        },
-        timeout: 5000,
+    const hostname = process.env.ENDPOINT_HOSTNAME
+    const ip = process.env.ENDPOINT_HOST
+
+    const query = new URLSearchParams({ title }).toString()
+    const path = `/v1/Topics/get-topic?${query}`
+
+    const options: https.RequestOptions = {
+      host: ip,
+      port: 443,
+      path,
+      method: 'GET',
+      headers: {
+        Host: hostname,
+        'accept-language': selectedLang,
+      },
+      servername: hostname,
+    }
+
+    return new Promise((resolve, reject) => {
+      const request = https.request(options, (response) => {
+        const data: Buffer[] = []
+
+        response.on('data', (chunk: Buffer) => {
+          data.push(chunk)
+        })
+
+        response.on('end', () => {
+          try {
+            const json = Buffer.concat(data).toString('utf8')
+            const parsed: unknown = JSON.parse(json)
+            resolve(parsed)
+          } catch (error) {
+            const message = error instanceof Error ? error.message : 'Unknown error'
+            reject(new BadRequestException('Failed to parse response from Zoommer API: ' + message))
+          }
+        })
       })
 
-      return response.data
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          throw new BadRequestException(`Zoommer API responded with status ${error.response.status.toString()}`)
-        } else if (error.code === 'ECONNABORTED') {
-          throw new BadRequestException('Request timed out')
-        } else {
-          throw new BadRequestException('Network error or no response received')
-        }
-      }
+      request.on('error', (error) => {
+        console.error('Error fetching topic:', error)
+        reject(new BadRequestException('Failed to fetch topic'))
+      })
 
-      console.error('Error fetching topic:', error)
-      throw new BadRequestException('Failed to fetch topic')
-    }
+      request.end()
+    })
   }
 }
