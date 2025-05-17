@@ -6,10 +6,11 @@ import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { SectionsComponent } from './sections/sections.component'
 import { LocalStorageService } from '../services/localstorage.service'
+import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({
   selector: 'app-main',
-  imports: [CategoryComponent, ImageCarouselComponent, SectionsComponent],
+  imports: [CategoryComponent, ImageCarouselComponent, SectionsComponent, ContentLoaderModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })

@@ -3,33 +3,26 @@ import { Component, Input, OnInit } from '@angular/core'
 import { IProductsResponse } from '../../interfaces/products.interface'
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
 import { LocalStorageService } from '../../services/localstorage.service'
-import { Router } from '@angular/router'
+import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({
   selector: 'app-catalog',
-  imports: [CommonModule, TemplProductComponent],
+  imports: [CommonModule, TemplProductComponent, ContentLoaderModule],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.scss',
 })
 export class CatalogComponent implements OnInit {
   @Input() productsResponse?: IProductsResponse
   @Input() public currentLang?: 'ka' | 'en' = 'en'
+  @Input() isLoading?: boolean
   public showGrid?: string
+  public skeletonArray: number[] = Array(36) as number[]
 
-  constructor(
-    private localStorageService: LocalStorageService,
-    private router: Router
-  ) {}
+  constructor(private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     this.localStorageService.observe('showGrid').subscribe((value) => {
       this.showGrid = value as string | undefined
-    })
-  }
-
-  public navigate(route: string[]): void {
-    this.router.navigate(route).catch((error: unknown) => {
-      console.error(error)
     })
   }
 }

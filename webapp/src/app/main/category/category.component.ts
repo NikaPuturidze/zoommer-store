@@ -4,10 +4,11 @@ import { LanguageService } from '../../services/language.service'
 import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
+import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({
   selector: 'app-category',
-  imports: [CommonModule],
+  imports: [CommonModule, ContentLoaderModule],
   templateUrl: './category.component.html',
   styleUrl: './category.component.scss',
 })
@@ -26,6 +27,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.languageService.currentLanguage$.subscribe((language) => {
+      this.megaMenu = undefined
       this.currentLang = language
       this.loadMegaMenu()
     })

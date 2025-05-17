@@ -5,13 +5,14 @@ import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { EFilter, IFilterResponse, ISpecification } from '../../interfaces/filter.interface'
 import { LanguageService } from '../../services/language.service'
-import { debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs'
+import { debounceTime, delay, distinctUntilChanged, filter, switchMap } from 'rxjs'
 import { ICategoryInfo, ProductsOptions } from '../../interfaces/products.interface'
 import { ApiService } from '../../services/api.service'
+import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({
   selector: 'app-filter',
-  imports: [CommonModule, NgxSliderModule, FormsModule],
+  imports: [CommonModule, NgxSliderModule, FormsModule, ContentLoaderModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss',
 })
@@ -43,14 +44,20 @@ export class FilterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.currentLang = this.languageService.getCurrentLanguage() as 'ka' | 'en'
+    this.updateLanguageState()
+
     this.languageService.currentLanguage$
       .pipe(
         filter(() => !!this.catInfo),
         distinctUntilChanged()
       )
       .subscribe((lang) => {
+        this.filterResponse = undefined
+        this.specifications = undefined
         this.currentLang = lang
         this.updateLanguageState()
+
         if (this.catInfo) {
           this.loadFilters(this.catInfo.catId, (specs) => {
             const queryParameters = this.actR.snapshot.queryParams
@@ -80,7 +87,6 @@ export class FilterComponent implements OnInit {
               }
             }
 
-            // Emit once to re-fetch products with translated filters
             this.FiltersChanged.emit(this.productOptions)
           })
         }
@@ -163,25 +169,28 @@ export class FilterComponent implements OnInit {
     categoryId: number,
     callback: (specifications: ISpecification[], maxPrice?: number) => void
   ): void {
-    this.apiService.filter(this.currentLang, categoryId).subscribe({
-      next: (data: IFilterResponse) => {
-        data.specifications.forEach((spec) => (spec.active = true))
-        data.specifications.forEach((spec) => {
-          if (spec.values) {
-            spec.valuesAmount = spec.values?.length
-            if (spec.values?.length > 4) {
-              spec.showAll = false
+    this.apiService
+      .filter(this.currentLang, categoryId)
+      .pipe(delay(10))
+      .subscribe({
+        next: (data: IFilterResponse) => {
+          data.specifications.forEach((spec) => (spec.active = true))
+          data.specifications.forEach((spec) => {
+            if (spec.values) {
+              spec.valuesAmount = spec.values?.length
+              if (spec.values?.length > 4) {
+                spec.showAll = false
+              }
             }
-          }
-        })
-        this.filterResponse = data
-        this.specifications = data.specifications
-        callback(this.specifications, data.maxPrice)
-      },
-      error: (error) => {
-        console.error(error)
-      },
-    })
+          })
+          this.filterResponse = data
+          this.specifications = data.specifications
+          callback(this.specifications, data.maxPrice)
+        },
+        error: (error) => {
+          console.error(error)
+        },
+      })
   }
 
   private preCausePrice(minValue: number, maxValue: number): boolean {

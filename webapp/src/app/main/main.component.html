@@ -2,4 +2,14 @@
   <app-category [width]="carouselWidth"></app-category>
   <app-image-carousel [content]="content"></app-image-carousel>
 </section>
-<app-sections [content]="content" [currentLang]="currentLang"></app-sections>
+@if (content) {
+  <app-sections [content]="content" [currentLang]="currentLang"></app-sections>
+} @else {
+  <content-loader [viewBox]="'0 0 1170 2541'">
+    <svg:rect x="0" y="33" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
+    <svg:rect x="0" y="363" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
+    <svg:rect x="0" y="696" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
+    <svg:rect x="0" y="1029" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
+    <svg:rect x="0" y="1362" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
+  </content-loader>
+}

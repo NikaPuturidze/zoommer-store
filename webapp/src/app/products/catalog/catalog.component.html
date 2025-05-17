@@ -1,14 +1,30 @@
-@if (productsResponse) {
+@if (!isLoading && productsResponse) {
   <div class="catalog" [class.active]="productsResponse.products.length < 1 || showGrid === 'true'">
     @for (product of productsResponse.products; track $index) {
-      @if (currentLang) {
-        <app-templ-product [currentLang]="currentLang" [product]="product"></app-templ-product>
+      @if (currentLang && product.route) {
+        <app-templ-product
+          [currentLang]="currentLang"
+          [product]="product"
+          [route]="[product.route]"
+        ></app-templ-product>
       }
     }
     @if (productsResponse.products.length < 1) {
       <img
         src="https://static.vecteezy.com/system/resources/previews/007/104/553/original/search-no-result-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg"
       />
+    }
+  </div>
+} @else {
+  <div class="skeleton">
+    @for (item of skeletonArray; track $index) {
+      <content-loader class="product-skelet" [viewBox]="'0 0 160 303'">
+        <svg:rect x="0" y="0" rx="4" ry="4" width="160" height="170" fill="currentColor" />
+        <svg:rect x="0" y="187.67" rx="4" ry="4" width="96" height="20" fill="currentColor" />
+        <svg:rect x="0" y="225.34" rx="4" ry="4" width="160" height="20" fill="currentColor" />
+        <svg:rect x="0" y="263" rx="4" ry="4" width="40" height="40" fill="currentColor" />
+        <svg:rect x="50" y="263" rx="4" ry="4" width="110" height="40" fill="currentColor" />
+      </content-loader>
     }
   </div>
 }

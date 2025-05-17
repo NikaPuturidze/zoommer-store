@@ -7,10 +7,11 @@ import { LanguageService } from '../services/language.service'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { startWith } from 'rxjs'
 import { LocalStorageService } from '../services/localstorage.service'
+import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({
   selector: 'app-products',
-  imports: [CatalogComponent, FilterComponent],
+  imports: [CatalogComponent, FilterComponent, ContentLoaderModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
@@ -27,6 +28,7 @@ export class ProductsComponent implements OnInit {
   public currentLang: 'en' | 'ka' = 'en'
   public sort? = {}
   public showGrid?: string
+  public isLoading = false
 
   constructor(
     private readonly apiService: ApiService,
@@ -39,6 +41,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit(): void {
     this.languageService.currentLanguage$.subscribe((language) => {
       this.currentLang = language
+      this.productsResponse = undefined
       this.getSort()
     })
 
@@ -130,12 +133,15 @@ export class ProductsComponent implements OnInit {
   }
 
   private loadProduct(options: ProductsOptions): void {
+    this.isLoading = true
     this.apiService.products(options).subscribe({
       next: (data) => {
         this.productsResponse = data
+        this.isLoading = false
       },
       error: (error) => {
         console.error(error)
+        this.isLoading = false
       },
     })
   }

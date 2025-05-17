@@ -20,4 +20,27 @@
       width: 100%;
     }
   }
+
+  ::ng-deep {
+    .skeleton {
+      display: grid;
+      height: fit-content;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 20px;
+      width: 100%;
+
+      @media (width <= 1250px) {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+
+      .product-skelet {
+        display: flex;
+        justify-content: center;
+        height: 303px;
+        width: 160px;
+        position: relative;
+        left: 5px;
+      }
+    }
+  }
 }

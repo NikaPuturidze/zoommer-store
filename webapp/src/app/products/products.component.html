@@ -1,74 +1,89 @@
 <div class="products-container">
   <div class="breadcrumb-container">
     <div class="breadcrumb">
-      <div class="title">
-        <img src="https://zoommer.ge/icons/category-left-arr.svg" />
-        <h4>{{ productsResponse?.categoryName }}</h4>
-      </div>
-      <div class="sort">
-        <div class="type" (click)="toggleSort()">
-          <div class="current">
-            <h4>{{ currentSort }}</h4>
-            <div class="icon">
-              <img src="https://zoommer.ge/icons/selector-down-arr.svg" />
-            </div>
-          </div>
-          <div class="variants-container" [class.active]="isSortOpen">
-            <div class="variants">
-              @for (option of sortLabels[currentLang]; track $index) {
-                <h4 class="option" (click)="switchSort(option)">{{ option }}</h4>
-              }
-            </div>
-          </div>
+      @if (productsResponse) {
+        <div class="title">
+          <img src="https://zoommer.ge/icons/category-left-arr.svg" />
+          <h4>{{ productsResponse.categoryName }}</h4>
         </div>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          fill="none"
-          viewBox="0 0 24 24"
-          class="card-type-logo"
-          (click)="setGrid()"
-        >
-          <g
-            [class.active]="showGrid == 'true'"
-            stroke="#292D32"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            opacity="0.5"
+        <div class="sort">
+          <div class="type" (click)="toggleSort()">
+            <div class="current">
+              <h4>{{ currentSort }}</h4>
+              <div class="icon">
+                <img src="https://zoommer.ge/icons/selector-down-arr.svg" />
+              </div>
+            </div>
+            <div class="variants-container" [class.active]="isSortOpen">
+              <div class="variants">
+                @for (option of sortLabels[currentLang]; track $index) {
+                  <h4 class="option" (click)="switchSort(option)">{{ option }}</h4>
+                }
+              </div>
+            </div>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="card-type-logo"
+            (click)="setGrid()"
           >
-            <path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7M12 2v20M2 12h20"></path>
-          </g>
-        </svg>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          fill="none"
-          viewBox="0 0 24 24"
-          class="card-type-logo"
-          (click)="setLine()"
-        >
-          <g
-            [class.active]="showGrid == 'false'"
-            stroke="#292D32"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            opacity="0.5"
+            <g
+              [class.active]="showGrid == 'true'"
+              stroke="#292D32"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              opacity="0.5"
+            >
+              <path d="M9 22h6c5 0 7-2 7-7V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7M12 2v20M2 12h20"></path>
+            </g>
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            fill="none"
+            viewBox="0 0 24 24"
+            class="card-type-logo"
+            (click)="setLine()"
           >
-            <path d="M22 15V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7h6c5 0 7-2 7-7M2 12h20"></path>
-          </g>
-        </svg>
-      </div>
+            <g
+              [class.active]="showGrid == 'false'"
+              stroke="#292D32"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              opacity="0.5"
+            >
+              <path d="M22 15V9c0-5-2-7-7-7H9C4 2 2 4 2 9v6c0 5 2 7 7 7h6c5 0 7-2 7-7M2 12h20"></path>
+            </g>
+          </svg>
+        </div>
+      } @else {
+        <div style="width: 120px">
+          <content-loader class="product-skelet" [viewBox]="'0 0 120 40'">
+            <svg:rect x="0" y="0" rx="4" ry="4" width="120" height="40" fill="currentColor" />
+          </content-loader>
+        </div>
+        <div style="width: 220px">
+          <content-loader class="product-skelet" [viewBox]="'0 0 220 40'">
+            <svg:rect x="0" y="0" rx="4" ry="4" width="220" height="40" fill="currentColor" />
+          </content-loader>
+        </div>
+      }
     </div>
   </div>
 
   <div class="products">
     <app-filter (FiltersChanged)="onFiltersChanged($event)"></app-filter>
-    @if (productsOptions) {
-      <app-catalog [productsResponse]="productsResponse" [currentLang]="currentLang"></app-catalog>
-    }
+    <app-catalog
+      [isLoading]="isLoading"
+      [productsResponse]="productsResponse"
+      [currentLang]="currentLang"
+    ></app-catalog>
   </div>
 </div>

@@ -1,9 +1,10 @@
 import { Component, Input, OnChanges } from '@angular/core'
 import { EContent, IBanner, IContentResponse } from '../../interfaces/content.interface'
+import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({
   selector: 'app-image-carousel',
-  imports: [],
+  imports: [ContentLoaderModule],
   templateUrl: './image-carousel.component.html',
   styleUrl: './image-carousel.component.scss',
 })
