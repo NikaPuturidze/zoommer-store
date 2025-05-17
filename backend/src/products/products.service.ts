@@ -1,5 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
-import { supportedLanguages, deafaultLanguage } from '../interfaces/constants'
+import axios from 'axios'
+import { deafaultLanguage, supportedLanguages } from '../interfaces/constants'
+import * as https from 'https'
 
 @Injectable()
 export class ProductsService {
@@ -16,33 +18,43 @@ export class ProductsService {
     nameAsc?: boolean
   ): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
-    const parameters = new URLSearchParams({
-      page: page.toString(),
-      limit: limit.toString(),
-      ...(categoryId ? { categoryId: categoryId.toString() } : {}),
-      ...(categories ? { categories: categories.toString() } : {}),
-      ...(specificationIds ? { specificationIds: specificationIds.toString() } : {}),
-      ...(priceFrom ? { MinPrice: priceFrom.toString() } : {}),
-      ...(priceTo ? { MaxPrice: priceTo.toString() } : {}),
-      ...(priceAsc ? { PriceAsc: (!priceAsc).toString() } : {}),
-      ...(nameAsc ? { NameAsc: nameAsc.toString() } : {}),
-    })
+
+    const parameters: Record<string, string | number | boolean> = {
+      page,
+      limit,
+    }
+
+    if (categoryId !== undefined) parameters['categoryId'] = categoryId
+    if (categories !== undefined) parameters['categories'] = categories
+    if (specificationIds) parameters['specificationIds'] = specificationIds
+    if (priceFrom !== undefined) parameters['MinPrice'] = priceFrom
+    if (priceTo !== undefined) parameters['MaxPrice'] = priceTo
+    if (priceAsc !== undefined) parameters['PriceAsc'] = priceAsc
+    if (nameAsc !== undefined) parameters['NameAsc'] = nameAsc
+
+    const httpsAgent = new https.Agent({ family: 4, keepAlive: true })
 
     try {
-      const response = await fetch(`https://api.zoommer.ge/v1/Products/v3?${parameters.toString()}`, {
-        method: 'GET',
+      const response = await axios.get('https://api.zoommer.ge/v1/Products/v3', {
+        httpsAgent,
         headers: {
           'accept-language': selectedLang,
         },
+        params: parameters,
+        timeout: 5000,
       })
 
-      if (!response.ok) {
-        throw new Error(`Zoommer API responded with status ${response.status.toString()}`)
+      return response.data
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          throw new BadRequestException(`Zoommer API responded with status ${error.response.status.toString()}`)
+        } else if (error.code === 'ECONNABORTED') {
+          throw new BadRequestException('Request timed out')
+        } else {
+          throw new BadRequestException('Network error or no response received')
+        }
       }
-
-      return await response.json()
-    } catch (error) {
-      console.error('Error fetching products:', error)
       throw new BadRequestException('Failed to fetch products')
     }
   }
