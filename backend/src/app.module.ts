@@ -6,6 +6,7 @@ import { ContentModule } from './content/content.module'
 import { TopicModule } from './topic/topic.module'
 import { ProductsModule } from './products/products.module'
 import { FilterModule } from './filter/filter.module'
+import { DetailsModule } from './details/details.module'
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { FilterModule } from './filter/filter.module'
     TopicModule,
     ProductsModule,
     FilterModule,
+    DetailsModule,
   ],
   controllers: [],
   providers: [],
