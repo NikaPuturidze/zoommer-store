@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core'
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { ITopicsResponse } from '../interfaces/topics.interface'
 import { LanguageService } from '../services/language.service'
 
@@ -15,11 +15,13 @@ export class FooterComponent implements OnChanges {
 
   constructor(private languageService: LanguageService) {}
 
-  ngOnChanges(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
-      this.updateLanguageState()
-    })
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['topics']?.currentValue) {
+      this.languageService.currentLanguage$.subscribe((language) => {
+        this.currentLang = language
+        this.updateLanguageState()
+      })
+    }
   }
 
   private updateLanguageState(): void {
