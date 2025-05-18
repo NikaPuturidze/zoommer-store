@@ -79,6 +79,16 @@ export class DetailsService {
                       seeLess: 'See Less',
                       seeMore: 'See More',
                     },
+                    buy: {
+                      display: 1,
+                      atBranches: 'მარაგი ფილიალებში',
+                      insurance: 'ფასის დაზღვევა',
+                      control: 'ფასის კონტროლი',
+                      reservation: 'ფასის დაჯავშნა',
+                      buy: 'ყიდვა',
+                      compare: 'შედარება',
+                      add: 'დამატება',
+                    },
                   }
                 : {
                     bundles: {
@@ -121,6 +131,16 @@ export class DetailsService {
                       sun: 'კვირა',
                       seeLess: 'აკეცვა',
                       seeMore: 'მეტის ნახვა',
+                    },
+                    buy: {
+                      display: 2,
+                      atBranches: 'Available at branches',
+                      insurance: 'Price insurance',
+                      control: 'Price Control',
+                      reservation: 'Price reservation',
+                      buy: 'Buy',
+                      compare: 'Compare',
+                      add: 'Add',
                     },
                   }
 

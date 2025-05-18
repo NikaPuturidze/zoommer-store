@@ -260,4 +260,14 @@ export interface ITranslations {
     seeLess: string
     seeMore: string
   }
+  buy: {
+    display: number
+    atBranches: string
+    insurance: string
+    control: string
+    reservation: string
+    buy: string
+    compare: string
+    add: string
+  }
 }
