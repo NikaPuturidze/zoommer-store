@@ -1,7 +1,7 @@
 <div class="details">
   <div class="details-container">
     <app-overview [currentLang]="currentLang" [product]="product"></app-overview>
-    <app-bundles [currentLang]="currentLang" [product]="product"></app-bundles>
+    <app-bundles [translations]="productResponse?.translations" [product]="product"></app-bundles>
     <app-additional-info
       [currentLang]="currentLang"
       [product]="product"
