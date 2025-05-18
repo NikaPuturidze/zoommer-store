@@ -29,13 +29,13 @@ export class DetailsComponent {
     this.languageService.currentLanguage$.subscribe((language) => {
       this.currentLang = language
       this.actR.params.subscribe((parameters) => {
-        this.loadDetails(language, this.getProductId(parameters))
+        this.loadDetails(this.getProductId(parameters))
       })
     })
   }
 
-  private loadDetails(lang: string, productId: number): void {
-    this.apiService.details(lang, productId).subscribe({
+  private loadDetails(productId: number): void {
+    this.apiService.details(this.currentLang, productId).subscribe({
       next: (data: IProductResponse) => {
         this.productResponse = data
         this.product = data.product
