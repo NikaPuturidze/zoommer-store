@@ -1,0 +1,15 @@
+<div class="details">
+  <div class="details-container">
+    <app-overview [currentLang]="currentLang" [product]="product"></app-overview>
+    <app-bundles [currentLang]="currentLang" [product]="product"></app-bundles>
+    <app-additional-info
+      [currentLang]="currentLang"
+      [product]="product"
+      [productResponse]="productResponse"
+      [translations]="productResponse?.translations"
+    ></app-additional-info>
+  </div>
+  <div class="aside">
+    <app-buy [translations]="productResponse?.translations" [product]="product"></app-buy>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { IMegaMenu } from '../interfaces/mega-menu.interface'
 import { ITopicResponse } from '../interfaces/topic.interface'
 import { IProductsResponse, ProductsOptions } from '../interfaces/products.interface'
 import { IFilterResponse } from '../interfaces/filter.interface'
+import { IProductResponse } from '../interfaces/product.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -76,6 +77,17 @@ export class ApiService {
       },
       params: {
         catId,
+      },
+    })
+  }
+
+  details(lang: string, productId: number): Observable<IProductResponse> {
+    return this.httpClient.get<IProductResponse>(this.serverUrl + 'details', {
+      headers: {
+        'accept-language': lang,
+      },
+      params: {
+        productId,
       },
     })
   }

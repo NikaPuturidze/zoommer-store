@@ -1,0 +1,176 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  aside {
+    max-width: 400px;
+    border-radius: 12px;
+    position: relative;
+
+    .aside-wrapper {
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 2px 10px;
+      gap: 2px;
+      position: sticky;
+      top: 0;
+
+      .price {
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: $gray-primary;
+
+        .price-m {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+
+          .bf {
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 24px;
+            color: $orange-main;
+            @include bold;
+          }
+
+          .af {
+            position: relative;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 19px;
+            color: rgba($black-main, 0.7);
+            @include medium;
+
+            &:after {
+              content: '';
+              height: 1px;
+              width: 100%;
+              background: $orange-main;
+              position: absolute;
+              top: 40%;
+              left: 0px;
+              display: inline-block;
+            }
+          }
+        }
+
+        p {
+          height: 15px;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 14px;
+          color: $black-main;
+          @include regular;
+
+          span {
+            font-weight: 700;
+            color: $orange-main;
+            @include bold;
+          }
+        }
+      }
+
+      .utils {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 20px;
+        gap: 20px;
+        background: $gray-primary;
+
+        div {
+          width: calc(50% - 10px);
+          cursor: pointer;
+          display: flex;
+          align-items: start;
+          gap: 6px;
+          padding: 6px 0px 6px 10px;
+          border-radius: 10px;
+          border: 1px solid transparent;
+          background: $white-main;
+
+          @media (width < 1200px) {
+            width: 100%;
+          }
+
+          img {
+            width: 18px;
+            height: 18px;
+          }
+
+          h5 {
+            font-weight: 350;
+            font-size: 12px;
+            line-height: 20px;
+            color: $blue-secondary;
+            opacity: 0.9;
+            @include regular;
+          }
+        }
+      }
+
+      .buy {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+        background: $gray-primary;
+
+        button {
+          background: $orange-main;
+          color: $white-main;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 19px;
+          letter-spacing: 0.45px;
+          border: none;
+          padding: 16px;
+          border-radius: 12px;
+          width: 100%;
+          @include bold;
+        }
+
+        div {
+          display: flex;
+          width: 100%;
+          gap: 20px;
+
+          button {
+            display: flex;
+            padding-block: 15px;
+            color: $black-main;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+
+            h4 {
+              font-weight: 600;
+              font-size: 14px;
+              line-height: 20px;
+              color: $black-main;
+              opacity: 0.8;
+            }
+
+            &:first-child {
+              background: $white-main;
+              img {
+                min-width: 20px;
+                min-height: 20px;
+              }
+            }
+
+            &:last-child {
+              background: $orange-tertiary;
+              img {
+                min-width: 14px;
+                min-height: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

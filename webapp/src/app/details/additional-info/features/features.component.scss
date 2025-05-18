@@ -1,0 +1,175 @@
+@use '../../../../styles.scss' as *;
+
+:host {
+  .specifications {
+    width: 100%;
+    margin-top: 30px;
+    border-top: 2px solid $gray-primary;
+    padding-top: 20px;
+    position: relative;
+
+    .specifications-title {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+
+      h4 {
+        opacity: 0.8;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: $black-main;
+        @include bold;
+      }
+
+      img {
+        transition: margin-bottom 0.3s ease;
+      }
+    }
+
+    .active {
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: 45.8px !important;
+        left: 0px;
+        background: linear-gradient(rgba(255, 255, 255, 0) 0%, $white-main, $white-main 100%) 0% 0% no-repeat
+          padding-box padding-box transparent;
+        height: 100px !important;
+        width: 100%;
+        z-index: 99;
+      }
+    }
+
+    .spec-wrapper {
+      overflow-y: hidden;
+
+      .specification-list {
+        pointer-events: auto;
+        min-height: 442px;
+        transition: max-height 1s ease-out;
+
+        .specification {
+          transition:
+            max-height 0.4s ease,
+            margin-bottom 0.3s ease-out;
+          overflow: hidden;
+
+          &:last-child {
+            margin-bottom: 0 !important;
+          }
+
+          .spec-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+
+            h4 {
+              font-weight: 600;
+              font-size: 16px;
+              line-height: 20px;
+              color: rgba($black-main, 0.8);
+              @include bold;
+            }
+          }
+
+          .table-wrapper {
+            transition: height 0.3s ease-out;
+
+            .table {
+              margin: 20px 0 15px;
+              width: 100%;
+              height: 100%;
+
+              .table-body {
+                .table-row {
+                  .spec-name {
+                    vertical-align: top;
+                    width: 35%;
+
+                    h4 {
+                      font-weight: 350;
+                      font-size: 14px;
+                      line-height: 20px;
+                      color: rgba($black-main, 0.6);
+                      @include regular;
+                    }
+                  }
+
+                  .spec-meaning {
+                    padding-bottom: 10px;
+
+                    h4 {
+                      font-weight: 500;
+                      font-size: 14px;
+                      line-height: 24px;
+                      color: rgba($black-main, 0.7);
+                      width: 70%;
+                      @include medium;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        &:after {
+          content: '';
+          position: absolute;
+          bottom: 0px;
+          left: 0px;
+          background: linear-gradient(rgba(255, 255, 255, 0) 0%, $white-main, $white-main 100%) 0% 0% no-repeat
+            padding-box padding-box transparent;
+          height: 0;
+          width: 100%;
+        }
+      }
+
+      .see-more-wrapper {
+        background-color: $white-main;
+        position: relative;
+        z-index: 9;
+
+        &.active {
+          &:before {
+            content: '';
+            position: absolute;
+            bottom: 46px;
+            left: 0px;
+            background: linear-gradient(rgba(255, 255, 255, 0) 0%, $white-main 55%, $white-main 100%) 0% 0% no-repeat
+              padding-box padding-box transparent;
+            height: 100px;
+            width: 100%;
+            z-index: 9;
+          }
+        }
+
+        .see-more {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid $orange-main;
+          background: $gray-primary;
+          transform: none;
+          border-radius: 60px;
+          padding-block: 12px;
+          gap: 8px;
+          overflow: hidden;
+          pointer-events: auto;
+          opacity: 1;
+          cursor: pointer;
+
+          h4 {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 20px;
+            color: $orange-main;
+            @include bold;
+          }
+        }
+      }
+    }
+  }
+}

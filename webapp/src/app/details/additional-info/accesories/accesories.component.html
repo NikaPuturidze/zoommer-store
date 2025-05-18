@@ -1,0 +1,29 @@
+@if (accesories) {
+  <section class="section-slider-one">
+    <div class="slider-one">
+      <div class="section-one-container" [style.transform]="'translateX(' + offsetX + 'px)'">
+        @for (accesory of accesories; track $index) {
+          <app-templ-product
+            [route]="[accesory.route]"
+            [imageUrl]="accesory.productUrl"
+            [productPrice]="accesory.productPrice"
+            [productSalePrice]="accesory.productSalePrice"
+            [productName]="accesory.productName"
+            [labelText]="accesory.labelText"
+            [currentLang]="currentLang"
+          ></app-templ-product>
+        }
+      </div>
+    </div>
+    @if (accesories.length > 3) {
+      <div class="arrows">
+        <div class="arrow">
+          <img (click)="previousImage()" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+        </div>
+        <div class="arrow">
+          <img (click)="nextImage()" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+        </div>
+      </div>
+    }
+  </section>
+}

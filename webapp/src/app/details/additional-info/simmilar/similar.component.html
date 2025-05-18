@@ -1,0 +1,30 @@
+@if (similarProductsList) {
+  <section class="section-slider-one">
+    <div class="slider-one">
+      <h4 class="title">{{ translations?.similar?.title }}</h4>
+      <div class="section-one-container" [style.transform]="'translateX(' + offsetX + 'px)'">
+        @for (similar of similarProductsList; track $index) {
+          <app-templ-product
+            [route]="[similar.route]"
+            [imageUrl]="similar.imageUrls[0]"
+            [productPrice]="similar.price"
+            [productSalePrice]="similar.previousPrice ? similar.previousPrice : 0"
+            [productName]="similar.productName"
+            [labelText]="similar.labelText ? similar.labelText : ''"
+            [currentLang]="currentLang"
+          ></app-templ-product>
+        }
+      </div>
+    </div>
+    @if (similarProductsList.length > 3) {
+      <div class="arrows">
+        <div class="arrow">
+          <img (click)="previousImage()" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+        </div>
+        <div class="arrow">
+          <img (click)="nextImage()" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+        </div>
+      </div>
+    }
+  </section>
+}

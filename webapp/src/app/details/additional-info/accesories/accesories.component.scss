@@ -1,0 +1,57 @@
+@use '../../../../styles.scss' as *;
+
+:host {
+  app-templ-product {
+    width: 160px;
+  }
+
+  .section-slider-one {
+    margin-top: 30px;
+    position: relative;
+
+    .slider-one {
+      display: flex;
+      height: 303px;
+      overflow-x: hidden;
+      position: relative;
+
+      .section-one-container {
+        display: flex;
+        transition: all 0.6s ease;
+        gap: 20px;
+      }
+    }
+
+    .arrows {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      transform: translate(-50%, -50%);
+
+      .arrow {
+        display: flex;
+        justify-content: center;
+        height: 36px;
+        width: 36px;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 6px;
+        border-radius: 50%;
+
+        &:first-child {
+          position: relative;
+          right: 15px;
+          margin-right: 0%;
+        }
+
+        &:last-child {
+          position: relative;
+          right: -15px;
+          margin-right: 0%;
+        }
+      }
+    }
+  }
+}

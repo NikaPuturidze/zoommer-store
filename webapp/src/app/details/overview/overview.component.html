@@ -1,0 +1,144 @@
+<div class="overview">
+  @if (product) {
+    <div class="breadcrumbs-barcode-row">
+      <div class="breadcrumbs">
+        <h4>მთავარი</h4>
+        <img src="https://zoommer.ge/icons/right-path.svg" />
+
+        @for (path of product.breadcrumbs; track $index) {
+          <h4>{{ path.name }}</h4>
+          <img src="https://zoommer.ge/icons/right-path.svg" />
+        }
+      </div>
+      <div class="barcode">
+        <img src="https://zoommer.ge/icons/share-line.svg" />
+        <h4>#{{ product.barCode }}</h4>
+      </div>
+    </div>
+    <div class="product-itself">
+      <div class="visual">
+        <div class="product-name">
+          <h4>{{ product.name }}</h4>
+        </div>
+        <div class="image-slider">
+          <div class="heart">
+            <img src="https://zoommer.ge/icons/product-details-heart.svg" />
+          </div>
+          <div class="slider-wrapper">
+            <div class="images" [style.transform]="'translateX(' + product.translateX + '%)'">
+              @for (imgPath of product.images; track $index) {
+                <div>
+                  <img [src]="imgPath" width="400" height="230" />
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+        <!-- @if (true) {
+          <div class="slider-popup">
+            <div class="popup">
+              <img class="ext" src="assets/product-details/mobile-modal-close.svg" />
+              <img class="left-arr" src="assets/product-details/right-path-orange.svg" />
+              <img class="left-right" src="assets/product-details/right-path-orange.svg" />
+              <div class="main-p-slider">
+                <div class="slider-wrapper">
+                  <div class="images">
+                    @for (imgPath of product.images; track $index) {
+                      <div>
+                        <img [src]="imgPath" />
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+              <div class="bottom-p-slider">
+                @for (imgPath of product.images; track $index) {
+                  <div class="image">
+                    <img [src]="imgPath" />
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        } -->
+        <div class="all-image-slider">
+          @if (product.currentImage != 0) {
+            <img (click)="previousImg()" class="left-arr" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+          }
+          @if (product.currentImage != product.images.length - 1) {
+            <img (click)="nextImg()" class="right-arr" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+          }
+          @for (imgPath of product.images; track $index) {
+            <div
+              class="img-container"
+              [style.border]="product.currentImage == $index ? '1px solid #ec5e2a' : 'none'"
+              (click)="moveToSpecific($index)"
+            >
+              <div class="img">
+                <img [src]="imgPath" />
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="specifications">
+        <div class="main-specifications">
+          @for (mainSpec of product.mainSpecification; track $index) {
+            <div>
+              <h4 class="specification-name">{{ mainSpec.specificationName }}</h4>
+              <h4 class="specification-meaning">{{ mainSpec.specificationMeaning }}</h4>
+            </div>
+          }
+        </div>
+        <div class="key-specifications">
+          @for (spec of product.keySpecification; track $index) {
+            @if (spec.isColor) {
+              <div class="color">
+                <div class="current-color">
+                  <h4>
+                    {{ spec.specificationName }}: <span>{{ spec.specificationMeaning }}</span>
+                  </h4>
+                </div>
+                <div class="colors">
+                  @for (color of spec.specificationMeaningsList; track $index) {
+                    <div (click)="navigate([color.route])" [style.backgroundColor]="color.value">
+                      @if (color.isSelected) {
+                        <img src="	https://zoommer.ge/icons/color-elipse.svg" />
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          }
+
+          @for (spec of product.keySpecification; track $index) {
+            @if (!spec.isColor) {
+              <div class="key-spec">
+                <div class="current-spec">
+                  <h4>
+                    {{ spec.specificationName }}: <span>{{ spec.specificationMeaning }}</span>
+                  </h4>
+                </div>
+                <div class="specs">
+                  @for (memory of spec.specificationMeaningsList; track $index) {
+                    <div
+                      (click)="navigate([memory.route])"
+                      [style.background]="memory.isSelected ? '#ec5e2a' : 'transparent'"
+                      [style.border]="memory.isSelected ? '1px solid #ec5e2a' : '1px solid #000'"
+                      [style.opacity]="memory.isSelected ? '1' : '0.5'"
+                    >
+                      <h4 [style.color]="memory.isSelected ? '#fff' : '#000'">
+                        {{ memory.value }}
+                      </h4>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>

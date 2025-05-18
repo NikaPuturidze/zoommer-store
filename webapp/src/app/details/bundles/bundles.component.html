@@ -1,0 +1,63 @@
+@if (product) {
+  <div class="bundles">
+    <div class="bundles-row">
+      <h4>ერთად იაფია</h4>
+      <div class="add-item">
+        <img src="https://zoommer.ge/icons/add-item.svg" />
+        <h5>დაამატე ნივთი</h5>
+      </div>
+    </div>
+    <div class="bundle-products">
+      <div class="b-product">
+        <img class="b-product-image" [src]="product.imageUrl" />
+        <div class="b-product-info">
+          <h4>{{ product.name }}</h4>
+          <div class="b-product-price">
+            <h4>{{ product.price }} ₾</h4>
+          </div>
+        </div>
+      </div>
+
+      @for (bundle of product.bundles; track $index) {
+        <div class="bundle-product">
+          <a class="image-wrapper">
+            <img class="bundle-image" [src]="bundle.productUrl" />
+          </a>
+          <div class="bundle-info">
+            <a class="bundle-name">
+              <h4>{{ bundle.productName }}</h4>
+            </a>
+            <div class="bundle-price">
+              <h4>{{ bundle.productSalePrice }} ₾</h4>
+              @if (bundle.productPrice) {
+                <h5 class="previous-price">{{ bundle.productPrice }} ₾</h5>
+              }
+            </div>
+          </div>
+          <div class="bundle-icons">
+            <img src="https://zoommer.ge/icons/remove-grey.svg" />
+            <img src="https://zoommer.ge/icons/edit-grey.svg" />
+          </div>
+        </div>
+      }
+
+      <div class="bundle-buy">
+        <div class="bundle-price-sum">
+          <h4 class="total">ჯამური ფასი ({{ product.bundles.length }})</h4>
+          <div class="bundle-total-price">
+            <h3 class="btp-sale">{{ bundleTotalSalePrice?.toFixed(1) }} ₾</h3>
+            <h4 class="btp-total">{{ bundleTotalPrice?.toFixed(0) }} ₾</h4>
+          </div>
+        </div>
+        <div class="bundle-buy-btns">
+          <div class="cart">
+            <img src="https://zoommer.ge/icons/cart-small.svg" />
+          </div>
+          <div class="bundle-buy-btn">
+            <h4 class="bbb-text">ყიდვა</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

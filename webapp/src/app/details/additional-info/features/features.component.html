@@ -1,0 +1,56 @@
+@if (translations && features) {
+  <div class="specifications">
+    <div class="specifications-title">
+      <h4>{{ translations.features.title }}</h4>
+    </div>
+    <div class="spec-wrapper">
+      <div class="specification-list" [style.maxHeight]="isSeeMore ? '2500px' : '442px'">
+        @for (specifications of features; track $index) {
+          <div
+            class="specification"
+            (click)="toggleIsActive($index)"
+            (transitionend)="onTransitionEnd($event, $index)"
+            [style.marginBottom.px]="marginBottomMap[$index] || 10"
+            [style.maxHeight.px]="specifications.isActive ? 550 : 40"
+          >
+            <div class="spec-title">
+              <h4>{{ specifications.groupName }}</h4>
+              <img
+                src="https://zoommer.ge/icons/arrow-up-black.svg"
+                [style.transform]="specifications.isActive ? 'rotate(180deg)' : 'rotate(0deg)'"
+              />
+            </div>
+
+            <div class="table-wrapper">
+              <table class="table">
+                @for (specifiation of specifications.specifications; track $index) {
+                  <tbody class="table-body">
+                    <tr class="table-row">
+                      <td class="spec-name">
+                        <h4>{{ specifiation.specificationName }}:</h4>
+                      </td>
+                      <td class="spec-meaning">
+                        <h4>{{ specifiation.specificationMeaning }}</h4>
+                      </td>
+                    </tr>
+                  </tbody>
+                }
+              </table>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="see-more-wrapper" (click)="toggleSeeMore()" [class.active]="!isSeeMore">
+        <div appScaleOnClick class="see-more">
+          @if (isSeeMore) {
+            <h4>{{ translations.features.seeLess }}</h4>
+            <img [style.transform]="'rotate(180deg)'" src="https://zoommer.ge/icons/arrow-down-orange.svg" />
+          } @else {
+            <h4>{{ translations.features.seeMore }}</h4>
+            <img src="https://zoommer.ge/icons/arrow-down-orange.svg" />
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}

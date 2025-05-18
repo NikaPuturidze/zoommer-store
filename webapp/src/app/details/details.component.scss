@@ -1,0 +1,22 @@
+@use '../../styles.scss' as *;
+
+:host {
+  .details {
+    display: grid;
+    grid-template-columns: 716px 400px;
+    justify-content: space-between;
+    column-gap: 55px;
+    background: $white-main;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    padding-top: 30px;
+
+    .details-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

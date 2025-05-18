@@ -1,0 +1,149 @@
+@use '../../../../styles.scss' as *;
+
+:host {
+  .availability {
+    padding-bottom: 30px;
+    border-bottom: 2px solid $gray-primary;
+
+    .availability-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h4 {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: rgba($black-main, 0.8);
+        @include bold;
+      }
+
+      .availability-type {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+
+        .type {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          cursor: pointer;
+
+          h4 {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            color: rgba($black-main, 0.8);
+            @include bold;
+          }
+        }
+      }
+    }
+
+    .availability-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+
+      .store {
+        background: $gray-primary;
+        border-radius: 8px;
+        padding: 10px 20px;
+        min-height: 102px;
+        display: flex;
+        justify-content: space-between;
+
+        .address {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+
+          h4 {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            color: rgba($black-main, 0.8);
+            @include medium;
+          }
+
+          p {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14px;
+            color: rgba($black-main, 0.8);
+            max-width: 335px;
+            @include regular;
+          }
+
+          h4:last-child {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 17px;
+            color: $green-main;
+            @include bold;
+          }
+        }
+
+        .times {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          text-align: right;
+
+          h4 {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            color: $orange-main;
+            margin-top: 8px;
+            @include medium;
+          }
+
+          h5 {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 14px;
+            color: rgba($black-main, 0.8);
+            @include medium;
+          }
+
+          h5:last-child {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 14px;
+            color: rgba($black-main, 0.8);
+            margin-bottom: 10px;
+            @include medium;
+          }
+        }
+      }
+    }
+
+    .see-more-a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid $orange-main;
+      background: $white-main;
+      border-radius: 60px;
+      padding-block: 12px;
+      margin-top: 20px;
+      gap: 8px;
+      overflow: hidden;
+      pointer-events: auto;
+      opacity: 1;
+      cursor: pointer;
+
+      h4 {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        color: $orange-main;
+        @include bold;
+      }
+    }
+  }
+}
