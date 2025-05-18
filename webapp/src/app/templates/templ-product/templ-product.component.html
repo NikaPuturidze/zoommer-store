@@ -1,5 +1,5 @@
 @if (product) {
-  <div [class]="showGrid === 'true' ? 'product' : 'product-grid'">
+  <div (click)="navigate(route)" [class]="showGrid === 'true' ? 'product' : 'product-grid'">
     <div class="image">
       <img [src]="product.imageUrl" />
       @if (product.labelText) {
@@ -32,10 +32,10 @@
         </div>
         <div class="buy">
           <div class="compare">
-            <img src="https://zoommer.ge/icons/compare-card.svg" />
+            <img loading="lazy" src="https://zoommer.ge/icons/compare-card.svg" />
           </div>
           <div class="add">
-            <img src="https://zoommer.ge/icons/cart-button.svg" />
+            <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
             @if (currentLang === 'ka') {
               <h4>დამატება</h4>
             } @else {
@@ -66,6 +66,90 @@
           }
         }
         <a>{{ product.name }}</a>
+      </div>
+      <div class="buy">
+        <div class="compare">
+          <img src="https://zoommer.ge/icons/compare-card.svg" />
+        </div>
+        <div class="add">
+          <img src="https://zoommer.ge/icons/cart-button.svg" />
+          @if (currentLang === 'ka') {
+            <h4>დამატება</h4>
+          } @else {
+            <h4>Add</h4>
+          }
+        </div>
+      </div>
+    }
+  </div>
+} @else {
+  <div (click)="navigate(route)" class="product">
+    <div class="image">
+      <img [src]="imageUrl" />
+      @if (labelText) {
+        <div class="best">{{ labelText }}</div>
+      }
+    </div>
+    @if (showGrid === 'false') {
+      <div class="unity">
+        <div class="description">
+          <div class="price">
+            <h4 [style.color]="productSalePrice ? '#ec5e2a' : '#000'">{{ productPrice }} ₾</h4>
+            @if (productSalePrice) {
+              <span>{{ productSalePrice }} ₾</span>
+            }
+          </div>
+          @if (productPrice && productPrice > 0) {
+            @if (currentLang === 'ka') {
+              <p>
+                თვეში:
+                <span>{{ roundPrice(productPrice / 36) }} ₾</span>
+                -დან
+              </p>
+            } @else {
+              <p>
+                Per month: from <span>{{ roundPrice(productPrice / 36) }} ₾</span>
+              </p>
+            }
+          }
+          <a>{{ productName }}</a>
+        </div>
+        <div class="buy">
+          <div class="compare">
+            <img loading="lazy" src="https://zoommer.ge/icons/compare-card.svg" />
+          </div>
+          <div class="add">
+            <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
+            @if (currentLang === 'ka') {
+              <h4>დამატება</h4>
+            } @else {
+              <h4>Add</h4>
+            }
+          </div>
+        </div>
+      </div>
+    } @else {
+      <div class="description">
+        <div class="price">
+          <h4 [style.color]="productSalePrice ? '#ec5e2a' : '#000'">{{ productPrice }} ₾</h4>
+          @if (productSalePrice) {
+            <span>{{ productSalePrice }} ₾</span>
+          }
+        </div>
+        @if (productPrice && productPrice > 0) {
+          @if (currentLang === 'ka') {
+            <p>
+              თვეში:
+              <span>{{ roundPrice(productPrice / 36) }} ₾</span>
+              -დან
+            </p>
+          } @else {
+            <p>
+              Per month: from <span>{{ roundPrice(productPrice / 36) }} ₾</span>
+            </p>
+          }
+        }
+        <a>{{ productName }}</a>
       </div>
       <div class="buy">
         <div class="compare">
