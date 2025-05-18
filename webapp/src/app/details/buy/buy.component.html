@@ -8,11 +8,11 @@
             <h4 class="af">{{ product.previousPrice }} ₾</h4>
           }
         </div>
-        @if (translations?.buy?.display === 1) {
+        @if (translations?.buy?.display == 1) {
           <p>
             თვეში: <span>{{ (product.price / 36).toFixed(1) }} ₾</span> -დან
           </p>
-        } @else if (translations?.buy?.display === 2) {
+        } @else {
           <p>
             Per month: from <span>{{ (product.price / 36).toFixed(1) }} ₾</span>
           </p>
