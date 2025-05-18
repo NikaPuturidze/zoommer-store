@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { IProduct } from '../../interfaces/product.interface'
+import { IProduct, ITranslations } from '../../interfaces/product.interface'
 import { Router } from '@angular/router'
 
 @Component({
@@ -9,6 +9,7 @@ import { Router } from '@angular/router'
   styleUrl: './overview.component.scss',
 })
 export class OverviewComponent {
+  @Input() translations?: ITranslations
   @Input() public product?: IProduct
   @Input() currentLang?: 'en' | 'ka'
 

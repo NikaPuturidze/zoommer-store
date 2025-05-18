@@ -2,7 +2,7 @@
   @if (product) {
     <div class="breadcrumbs-barcode-row">
       <div class="breadcrumbs">
-        <h4>მთავარი</h4>
+        <h4>{{ translations?.main }}</h4>
         <img src="https://zoommer.ge/icons/right-path.svg" />
 
         @for (path of product.breadcrumbs; track $index) {

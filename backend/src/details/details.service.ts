@@ -38,6 +38,7 @@ export class DetailsService {
             const translations =
               lang === 'en'
                 ? {
+                    main: 'Main',
                     bundles: {
                       title: 'Together is cheaper',
                       addItem: 'Add item',
@@ -91,6 +92,7 @@ export class DetailsService {
                     },
                   }
                 : {
+                    main: 'მთავარი',
                     bundles: {
                       title: 'ერთად იაფია',
                       addItem: 'დაამატე ნივთი',

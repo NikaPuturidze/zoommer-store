@@ -219,6 +219,7 @@ export interface IBreadcrumb {
 }
 
 export interface ITranslations {
+  main: string
   bundles: {
     title: string
     addItem: string
