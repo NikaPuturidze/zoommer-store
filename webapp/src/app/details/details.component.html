@@ -1,10 +1,39 @@
 <div class="details">
   <div class="details-container">
-    <app-overview
-      [translations]="productResponse?.translations"
-      [currentLang]="currentLang"
-      [product]="product"
-    ></app-overview>
+    @if (productResponse) {
+      <app-overview
+        [translations]="productResponse.translations"
+        [currentLang]="currentLang"
+        [product]="product"
+      ></app-overview>
+    } @else {
+      <content-loader [viewBox]="'0 0 726 491.5'" [style.width.px]="726" [style.height.auto]="true">
+        <svg:rect x="0" y="22" rx="12" ry="12" width="510" height="40" fill="currentColor" />
+        <svg:rect x="0" y="94" rx="12" ry="12" width="300" height="30" fill="currentColor" />
+        <svg:rect x="0" y="144" rx="12" ry="12" width="400" height="240" fill="currentColor" />
+
+        <svg:rect x="0" y="406" rx="4" ry="4" width="80" height="50" fill="currentColor" />
+        <svg:rect x="106.667" y="406" rx="4" ry="4" width="80" height="50" fill="currentColor" />
+        <svg:rect x="213.334" y="406" rx="4" ry="4" width="80" height="50" fill="currentColor" />
+        <svg:rect x="320" y="406" rx="4" ry="4" width="80" height="50" fill="currentColor" />
+
+        <svg:rect x="430" y="94" rx="4" ry="4" width="150" height="20" fill="currentColor" />
+        <svg:rect x="430" y="138" rx="4" ry="4" width="100" height="20" fill="currentColor" />
+        <svg:rect x="430" y="182" rx="4" ry="4" width="120" height="20" fill="currentColor" />
+        <svg:rect x="430" y="226" rx="4" ry="4" width="80" height="20" fill="currentColor" />
+
+        <svg:rect x="646" y="94" rx="4" ry="4" width="80" height="20" fill="currentColor" />
+        <svg:rect x="646" y="138" rx="4" ry="4" width="80" height="20" fill="currentColor" />
+        <svg:rect x="646" y="182" rx="4" ry="4" width="80" height="20" fill="currentColor" />
+        <svg:rect x="646" y="226" rx="4" ry="4" width="80" height="20" fill="currentColor" />
+
+        <svg:rect x="430" y="287" rx="4" ry="4" width="150" height="30" fill="currentColor" />
+        <svg:rect x="430" y="357" rx="4" ry="4" width="237.8" height="30" fill="currentColor" />
+        <svg:rect x="430" y="426" rx="4" ry="4" width="207.2" height="30" fill="currentColor" />
+
+        <svg:rect x="0" y="486" rx="4" ry="4" width="716" height="2" fill="currentColor" />
+      </content-loader>
+    }
     <app-bundles [translations]="productResponse?.translations" [product]="product"></app-bundles>
     <app-additional-info
       [currentLang]="currentLang"

@@ -1,5 +1,5 @@
-<aside>
-  @if (product) {
+@if (product) {
+  <aside>
     <div class="aside-wrapper">
       <div class="price">
         <div class="price-m">
@@ -119,5 +119,9 @@
         </div>
       </div>
     </div>
-  }
-</aside>
+  </aside>
+} @else {
+  <content-loader [viewBox]="'0 0 400 362'" [style.width.px]="400" [style.height.auto]="true">
+    <svg:rect x="0" y="22" rx="12" ry="12" width="400" height="340" fill="currentColor" />
+  </content-loader>
+}

@@ -7,10 +7,11 @@ import { ActivatedRoute, Params } from '@angular/router'
 import { IProduct, IProductResponse } from '../interfaces/product.interface'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
+import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({
   selector: 'app-details',
-  imports: [OverviewComponent, AdditionalInfoComponent, BuyComponent, BundlesComponent],
+  imports: [OverviewComponent, AdditionalInfoComponent, BuyComponent, BundlesComponent, ContentLoaderModule],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
 })
@@ -27,6 +28,8 @@ export class DetailsComponent {
 
   ngOnInit(): void {
     this.languageService.currentLanguage$.subscribe((language) => {
+      this.productResponse = undefined
+      this.product = undefined
       this.currentLang = language
       this.actR.params.subscribe((parameters) => {
         this.loadDetails(this.getProductId(parameters))
