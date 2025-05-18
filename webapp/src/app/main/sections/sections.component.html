@@ -8,7 +8,11 @@
             <div class="slider-one">
               <div class="section-one-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
                 @for (product of section.products; track $index) {
-                  <app-templ-product [product]="product" [currentLang]="currentLang"></app-templ-product>
+                  <app-templ-product
+                    [route]="[product.route]"
+                    [product]="product"
+                    [currentLang]="currentLang"
+                  ></app-templ-product>
                 }
               </div>
             </div>
