@@ -22,7 +22,7 @@
   </div>
   @if (availabilityInStores && inStockBranches) {
     @if (availabilityType) {
-      <div class="availability-content" [style.maxHeight.px]="showMore ? 102 * (availabilityInStores.length + 1) : 330">
+      <div class="availability-content" [style.maxHeight.px]="showMore ? 102 * (availabilityInStores.length + 2) : 330">
         @for (store of availabilityInStores; track $index) {
           <div class="store">
             <div class="address">
@@ -39,7 +39,7 @@
         }
       </div>
     } @else {
-      <div class="availability-content" [style.maxHeight.px]="showMore ? 102 * (inStockBranches.length + 1) : 330">
+      <div class="availability-content" [style.maxHeight.px]="showMore ? 102 * (inStockBranches.length + 2) : 330">
         @for (store of inStockBranches; track $index) {
           <div class="store">
             <div class="address">
