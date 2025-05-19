@@ -39,6 +39,9 @@ export class DetailsService {
               lang === 'en'
                 ? {
                     main: 'Main',
+                    gift: {
+                      title: 'The product comes with a gift',
+                    },
                     bundles: {
                       title: 'Together is cheaper',
                       addItem: 'Add item',
@@ -48,6 +51,7 @@ export class DetailsService {
                     additionalInfo: {
                       title: ['Accessories', 'Same', 'Features', 'Branches'],
                     },
+
                     similar: {
                       title: 'Similar products',
                     },
@@ -93,6 +97,9 @@ export class DetailsService {
                   }
                 : {
                     main: 'მთავარი',
+                    gift: {
+                      title: 'პროდუქტს მოყვება საჩუქარი',
+                    },
                     bundles: {
                       title: 'ერთად იაფია',
                       addItem: 'დაამატე ნივთი',

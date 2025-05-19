@@ -75,8 +75,8 @@ export interface IProduct {
   route: string
   isNightPromotion: boolean
   breadcrumbs: IBreadcrumb[]
-  gifts: unknown
-  giftType: unknown
+  gifts: IGift[]
+  giftType: string
   imageAlt: unknown
   labelText: unknown
   labelColor: unknown
@@ -218,8 +218,19 @@ export interface IBreadcrumb {
   imageUrl: string
 }
 
+export interface IGift {
+  imageUrl: string
+  name: string
+  previousPrice: number | null
+  price: number
+  productId: number
+}
+
 export interface ITranslations {
   main: string
+  gift: {
+    title: string
+  }
   bundles: {
     title: string
     addItem: string

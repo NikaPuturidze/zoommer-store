@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { IProduct } from '../../interfaces/product.interface'
+import { IProduct, ITranslations } from '../../interfaces/product.interface'
 
 @Component({
   selector: 'app-discount',
@@ -9,4 +9,5 @@ import { IProduct } from '../../interfaces/product.interface'
 })
 export class DiscountComponent {
   @Input() product?: IProduct
+  @Input() translations?: ITranslations
 }
