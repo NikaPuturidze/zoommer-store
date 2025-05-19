@@ -1,69 +1,76 @@
-<div class="availability">
-  <div class="availability-top-row">
-    <h4>{{ translations?.branches?.title }}</h4>
-    <div class="availability-type">
-      <div class="type" (click)="availabilityType = false">
-        @if (!availabilityType) {
-          <img src="https://zoommer.ge/icons/gift-checked.svg" />
-        } @else {
-          <img src="https://zoommer.ge/icons/rectangle-orange.svg" />
-        }
-        <h4>{{ translations?.branches?.inStock }}</h4>
-      </div>
-      <div class="type" (click)="availabilityType = true">
-        @if (availabilityType) {
-          <img src="https://zoommer.ge/icons/gift-checked.svg" />
-        } @else {
-          <img src="https://zoommer.ge/icons/rectangle-orange.svg" />
-        }
-        <h4>{{ translations?.branches?.soon }}</h4>
+@if (availabilityInStores) {
+  <div class="availability">
+    <div class="availability-top-row">
+      <h4>{{ translations?.branches?.title }}</h4>
+      <div class="availability-type">
+        <div class="type" (click)="availabilityType = false">
+          @if (!availabilityType) {
+            <img src="https://zoommer.ge/icons/gift-checked.svg" />
+          } @else {
+            <img src="https://zoommer.ge/icons/rectangle-orange.svg" />
+          }
+          <h4>{{ translations?.branches?.inStock }}</h4>
+        </div>
+        <div class="type" (click)="availabilityType = true">
+          @if (availabilityType) {
+            <img src="https://zoommer.ge/icons/gift-checked.svg" />
+          } @else {
+            <img src="https://zoommer.ge/icons/rectangle-orange.svg" />
+          }
+          <h4>{{ translations?.branches?.soon }}</h4>
+        </div>
       </div>
     </div>
-  </div>
-  @if (availabilityInStores && inStockBranches) {
-    @if (availabilityType) {
-      <div class="availability-content" [style.maxHeight.px]="showMore ? 102 * (availabilityInStores.length + 2) : 330">
-        @for (store of availabilityInStores; track $index) {
-          <div class="store">
-            <div class="address">
-              <h4>{{ store.branchName }}</h4>
-              <p>{{ store.city }} - {{ store.address }}</p>
-              <h4>{{ store.inStock ? translations?.branches?.inStock : translations?.branches?.notInStock }}</h4>
+    @if (availabilityInStores && inStockBranches) {
+      @if (availabilityType) {
+        <div
+          class="availability-content"
+          [style.maxHeight.px]="showMore ? 102 * (availabilityInStores.length + 2) : 330"
+        >
+          @for (store of availabilityInStores; track $index) {
+            <div class="store">
+              <div class="address">
+                <h4>{{ store.branchName }}</h4>
+                <p>{{ store.city }} - {{ store.address }}</p>
+                <h4>{{ store.inStock ? translations?.branches?.inStock : translations?.branches?.notInStock }}</h4>
+              </div>
+              <div class="times">
+                <h4>{{ store.phoneNumber }}</h4>
+                <h5>{{ translations?.branches?.monSat }}: {{ store.workingHoursMonToSat }}</h5>
+                <h5>{{ translations?.branches?.sun }}: {{ store.workingHoursSun }}</h5>
+              </div>
             </div>
-            <div class="times">
-              <h4>{{ store.phoneNumber }}</h4>
-              <h5>{{ translations?.branches?.monSat }}: {{ store.workingHoursMonToSat }}</h5>
-              <h5>{{ translations?.branches?.sun }}: {{ store.workingHoursSun }}</h5>
+          }
+        </div>
+      } @else {
+        <div class="availability-content" [style.maxHeight.px]="showMore ? 102 * (inStockBranches.length + 2) : 330">
+          @for (store of inStockBranches; track $index) {
+            <div class="store">
+              <div class="address">
+                <h4>{{ store.branchName }}</h4>
+                <p>{{ store.city }} - {{ store.address }}</p>
+                <h4>{{ store.inStock ? translations?.branches?.inStock : translations?.branches?.notInStock }}</h4>
+              </div>
+              <div class="times">
+                <h4>{{ store.phoneNumber }}</h4>
+                <h5>{{ translations?.branches?.monSat }}: {{ store.workingHoursMonToSat }}</h5>
+                <h5>{{ translations?.branches?.sun }}: {{ store.workingHoursSun }}</h5>
+              </div>
             </div>
-          </div>
-        }
-      </div>
-    } @else {
-      <div class="availability-content" [style.maxHeight.px]="showMore ? 102 * (inStockBranches.length + 2) : 330">
-        @for (store of inStockBranches; track $index) {
-          <div class="store">
-            <div class="address">
-              <h4>{{ store.branchName }}</h4>
-              <p>{{ store.city }} - {{ store.address }}</p>
-              <h4>{{ store.inStock ? translations?.branches?.inStock : translations?.branches?.notInStock }}</h4>
-            </div>
-            <div class="times">
-              <h4>{{ store.phoneNumber }}</h4>
-              <h5>{{ translations?.branches?.monSat }}: {{ store.workingHoursMonToSat }}</h5>
-              <h5>{{ translations?.branches?.sun }}: {{ store.workingHoursSun }}</h5>
-            </div>
-          </div>
+          }
+        </div>
+      }
+    }
+    @if (availabilityInStores.length > 3) {
+      <div appScaleOnClick class="see-more-a" (click)="showMore = !showMore">
+        @if (showMore) {
+          <h4>{{ translations?.branches?.seeLess }}</h4>
+          <img [style.transform]="'rotate(180deg)'" src="https://zoommer.ge/icons/arrow-down-orange.svg" />
+        } @else {
+          <h4>{{ translations?.branches?.seeMore }}</h4>
+          <img src="https://zoommer.ge/icons/arrow-down-orange.svg" />
         }
       </div>
     }
-  }
-  <div appScaleOnClick class="see-more-a" (click)="showMore = !showMore">
-    @if (showMore) {
-      <h4>{{ translations?.branches?.seeLess }}</h4>
-      <img [style.transform]="'rotate(180deg)'" src="https://zoommer.ge/icons/arrow-down-orange.svg" />
-    } @else {
-      <h4>{{ translations?.branches?.seeMore }}</h4>
-      <img src="https://zoommer.ge/icons/arrow-down-orange.svg" />
-    }
   </div>
-</div>
+}
