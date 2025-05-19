@@ -8,10 +8,18 @@ import { IProduct, IProductResponse } from '../interfaces/product.interface'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
+import { DiscountComponent } from './discount/discount.component'
 
 @Component({
   selector: 'app-details',
-  imports: [OverviewComponent, AdditionalInfoComponent, BuyComponent, BundlesComponent, ContentLoaderModule],
+  imports: [
+    OverviewComponent,
+    AdditionalInfoComponent,
+    BuyComponent,
+    BundlesComponent,
+    ContentLoaderModule,
+    DiscountComponent,
+  ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
 })

@@ -34,6 +34,7 @@
         <svg:rect x="0" y="486" rx="4" ry="4" width="716" height="2" fill="currentColor" />
       </content-loader>
     }
+    <app-discount [product]="product"></app-discount>
     <app-bundles [translations]="productResponse?.translations" [product]="product"></app-bundles>
     <app-additional-info
       [currentLang]="currentLang"

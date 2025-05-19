@@ -1,0 +1,74 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  .discount {
+    width: 100%;
+    margin-top: 27px;
+    border-bottom: 1px solid $gray-primary;
+    padding-bottom: 30px;
+
+    .discount-type {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      h4 {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+        color: $black-main;
+        @include bold;
+      }
+    }
+
+    .card-container {
+      margin-top: 24px;
+      .card {
+        width: 100%;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .card-content {
+          position: relative;
+          width: 348px;
+          height: 69px;
+          padding: 12px;
+          background-color: #f7f7f7;
+          border: 1px solid $white-main;
+          border-radius: 12px;
+          cursor: pointer;
+          display: flex;
+          gap: 8px;
+
+          img {
+            width: 45px;
+            height: 45px;
+          }
+
+          .text {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            h4 {
+              font-weight: 500;
+              font-size: 12px;
+              line-height: 14px;
+              color: rgba($black-main, 0.8);
+              @include medium;
+
+              &:last-child {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+                color: rgba($black-main, 0.6);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
