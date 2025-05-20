@@ -1,6 +1,8 @@
 <section>
-  <div class="title">
-    <h1>{{ topic?.title }}</h1>
-  </div>
-  <div [class]="'content-' + topic?.id" class="content" [innerHTML]="content"></div>
+  @if (topic) {
+    <div class="title">
+      <h1>{{ topic.title }}</h1>
+    </div>
+    <div [class]="'content-' + topic.id" class="content" [innerHTML]="content"></div>
+  }
 </section>
