@@ -38,7 +38,7 @@
           >
             @for (banner of section.banners; track $index) {
               <div class="banner-container">
-                <img class="banner" [src]="banner.webImageUrl" />
+                <img class="banner" [src]="banner.webImageUrl" (click)="navigate(banner.route)" />
               </div>
 
               @if (section.isScroll) {
@@ -64,6 +64,7 @@
               <div class="slider-two-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
                 @for (item of section.banners; track $index) {
                   <img
+                    (click)="navigate(item.route)"
                     [src]="item.webImageUrl"
                     [style.width]="item.webDimensions?.widthInPixels + 'px'"
                     [style.height]="item.webDimensions?.heightInPixels + 'px'"

@@ -2,6 +2,7 @@ import { Component, Input, OnChanges } from '@angular/core'
 import { EContent, IContentResponse } from '../../interfaces/content.interface'
 import { CommonModule } from '@angular/common'
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-sections',
@@ -13,6 +14,8 @@ export class SectionsComponent implements OnChanges {
   @Input() content?: IContentResponse
   @Input() currentLang: 'en' | 'ka' = 'en'
   public sectionArray: number[] = []
+
+  constructor(private router: Router) {}
 
   ngOnChanges(): void {
     this.sectionArray = new Array(this.content?.section.length).fill(0) as number[]
@@ -60,5 +63,47 @@ export class SectionsComponent implements OnChanges {
         this.sectionArray[index] -= EContent.SLIDER_TWO_OFFSET
       }
     }
+  }
+
+  public formatUrl(url: string): { path: string; queryParams: Record<string, string> } {
+    const withoutDomain = url.replace(/^https?:\/\/zoommer\.ge\//, '')
+    const [basePath] = withoutDomain.split('?')
+
+    const decodedPath = decodeURIComponent(basePath)
+    if (!decodedPath.includes(';')) {
+      return {
+        path: '/' + decodedPath,
+        queryParams: {},
+      }
+    }
+
+    const segments = decodedPath.split('/')
+    const lastSegment = segments[segments.length - 1] || ''
+    const parentPath = segments.slice(0, -1).join('/')
+
+    const tokens = lastSegment.split(';').filter((token) => token.length > 0)
+
+    let categoryId = ''
+    const queryParameters: Record<string, string> = {}
+
+    for (const token of tokens) {
+      if (token.startsWith('-c')) {
+        categoryId = token.substring(2)
+      } else if (token.includes('=')) {
+        const [key, value] = token.split('=')
+        queryParameters[key] = value
+      }
+    }
+
+    const path = `/${parentPath}${categoryId ? '-c' + categoryId : ''}`
+
+    return { path, queryParams: queryParameters }
+  }
+
+  public navigate(route: string): void {
+    const { path, queryParams } = this.formatUrl(route)
+    this.router.navigate([path], { queryParams }).catch((error: unknown) => {
+      console.error(error)
+    })
   }
 }
