@@ -1,6 +1,6 @@
 <div class="sections">
   @if (content) {
-    @for (section of content.section; let secIndex = $index; track section.id) {
+    @for (section of content.section; let secIndex = $index; track $index) {
       @if (section.orderNumber > -1) {
         @if (section.sectionType === 5 || section.sectionType === 1) {
           <section class="section-slider-one">
