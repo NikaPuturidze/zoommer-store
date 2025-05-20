@@ -21,7 +21,7 @@ export class BundlesComponent implements OnChanges {
 
   public calculatePrices(product: IProduct): void {
     this.bundleTotalPrice =
-      product.bundles.reduce((accumulator, product) => accumulator + product.productPrice, 0) + product.price
+      product.bundles.reduce((sum, item) => sum + (item.productPrice ?? item.productSalePrice), 0) + product.price
 
     this.bundleTotalSalePrice =
       product.bundles.reduce((accumulator, product) => accumulator + product.productSalePrice, 0) + product.price
