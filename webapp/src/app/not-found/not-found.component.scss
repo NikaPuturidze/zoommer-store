@@ -1,0 +1,43 @@
+@use '../../styles.scss' as *;
+
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+  min-height: 100vh;
+
+  .not-found-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 15px;
+    margin: 0px auto;
+    gap: 40px;
+
+    img {
+      width: 70%;
+      border-radius: 12px;
+    }
+
+    button {
+      width: 300px;
+      background: $orange-main;
+      height: 49px;
+      outline: none;
+      border: none;
+      border-radius: 12px;
+      color: $white-main;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 17px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      @include regular;
+    }
+  }
+}
