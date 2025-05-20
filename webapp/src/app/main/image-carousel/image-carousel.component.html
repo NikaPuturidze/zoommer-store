@@ -2,7 +2,11 @@
   <div class="carousel-container" [style.transform]="translate">
     @for (banner of content.section[0].banners; track $index) {
       <div class="img-container" [style.maxWidth]="setImageDimension(banner)">
-        <img [class]="banner.largeBanner ? 'image-large' : 'image-small'" [src]="banner.webImageUrl" />
+        <img
+          [class]="banner.largeBanner ? 'image-large' : 'image-small'"
+          [src]="banner.webImageUrl"
+          (click)="navigate(banner.route)"
+        />
       </div>
     }
   </div>
