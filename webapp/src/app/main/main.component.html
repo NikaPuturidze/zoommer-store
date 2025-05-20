@@ -1,7 +1,18 @@
 <section class="primary-section">
-  <app-category [width]="carouselWidth"></app-category>
-  <app-image-carousel [content]="content"></app-image-carousel>
+  <app-category [width]="carouselWidth" [style.display]="content ? 'flex' : 'none'"></app-category>
+  <app-image-carousel [content]="content" [style.display]="content ? 'flex' : 'none'"></app-image-carousel>
+
+  @if (!content) {
+    <content-loader class="skeleton-category" [viewBox]="'0 0 246 342'">
+      <svg:rect x="0" y="0" rx="10" ry="10" width="246" height="342" fill="currentColor" />
+    </content-loader>
+
+    <content-loader class="skeleton-carousel" [viewBox]="'0 0 894 342'">
+      <svg:rect x="0" y="0" rx="10" ry="10" width="894" height="342" fill="currentColor" />
+    </content-loader>
+  }
 </section>
+
 @if (content) {
   <app-sections [content]="content" [currentLang]="currentLang"></app-sections>
 } @else {
