@@ -6,7 +6,7 @@
           <h4>{{ optionsArray[0] }}</h4>
         </div>
         @for (first of topics?.firstFooter; track $index) {
-          <p class="option-text">{{ first.title }}</p>
+          <p class="option-text" (click)="navigate(['info/', first.urlName])">{{ first.title }}</p>
         }
       </div>
       <div class="option-wrapper">
@@ -14,7 +14,7 @@
           <h4>{{ optionsArray[1] }}</h4>
         </div>
         @for (second of topics?.secondFooter; track $index) {
-          <p class="option-text">{{ second.title }}</p>
+          <p class="option-text" (click)="navigate(['info/', second.urlName])">{{ second.title }}</p>
         }
       </div>
       <div class="option-wrapper">

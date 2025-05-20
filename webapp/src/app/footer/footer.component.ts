@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { ITopicsResponse } from '../interfaces/topics.interface'
 import { LanguageService } from '../services/language.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-footer',
@@ -13,7 +14,10 @@ export class FooterComponent implements OnChanges {
   public currentLang: 'en' | 'ka' = 'en'
   public optionsArray: string[] = []
 
-  constructor(private languageService: LanguageService) {}
+  constructor(
+    private languageService: LanguageService,
+    private router: Router
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['topics']?.currentValue) {
@@ -30,5 +34,11 @@ export class FooterComponent implements OnChanges {
     } else {
       this.optionsArray = ['Navigation', 'Payments', 'Follow Us', 'Contact', 'Branches', 'Corporate Sales']
     }
+  }
+
+  public navigate(route: string[]): void {
+    this.router.navigate(route).catch((error: unknown) => {
+      console.error(error)
+    })
   }
 }
