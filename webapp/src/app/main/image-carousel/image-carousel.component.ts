@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core'
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { EContent, IBanner, IContentResponse } from '../../interfaces/content.interface'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 
@@ -15,8 +15,8 @@ export class ImageCarouselComponent implements OnChanges {
   public offsetX = 0
   public imageIndex = 0
 
-  ngOnChanges(): void {
-    if (this.content?.section?.[0]?.banners) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['content'].currentValue && this.content?.section?.[0]?.banners) {
       this.bannerWidths = this.content.section[0].banners.map((banner) =>
         banner.largeBanner ? EContent.LARGE : EContent.SMALL
       )
