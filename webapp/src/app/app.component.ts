@@ -5,7 +5,7 @@ import { FooterComponent } from './footer/footer.component'
 import { ITopicsResponse } from './interfaces/topics.interface'
 import { ApiService } from './services/api.service'
 import { LanguageService } from './services/language.service'
-import { RouterOutlet } from '@angular/router'
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router'
 
 @Component({
   selector: 'app-root',
@@ -19,13 +19,20 @@ export class AppComponent {
 
   constructor(
     private readonly apiService: ApiService,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.languageService.currentLanguage$.subscribe((language) => {
       this.currentLang = language
       this.loadTopics()
+    })
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        window.scrollTo(0, 0)
+      }
     })
   }
 
