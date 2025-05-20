@@ -1,6 +1,6 @@
 <section class="primary-section">
-  <app-category [width]="carouselWidth" [style.display]="content ? 'flex' : 'none'"></app-category>
-  <app-image-carousel [content]="content" [style.display]="content ? 'flex' : 'none'"></app-image-carousel>
+  <app-category [width]="carouselWidth" [style.display]="content ? 'block' : 'none'"></app-category>
+  <app-image-carousel [content]="content" [style.display]="content ? 'block' : 'none'"></app-image-carousel>
 
   @if (!content) {
     <content-loader class="skeleton-category" [viewBox]="'0 0 246 342'">
