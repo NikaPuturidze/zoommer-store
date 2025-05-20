@@ -3,7 +3,7 @@ import { OverviewComponent } from './overview/overview.component'
 import { AdditionalInfoComponent } from './additional-info/additional-info.component'
 import { BuyComponent } from './buy/buy.component'
 import { BundlesComponent } from './bundles/bundles.component'
-import { ActivatedRoute, Params } from '@angular/router'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 import { IProduct, IProductResponse } from '../interfaces/product.interface'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
@@ -30,6 +30,7 @@ export class DetailsComponent {
 
   constructor(
     private readonly apiService: ApiService,
+    private router: Router,
     private languageService: LanguageService,
     private actR: ActivatedRoute
   ) {}
@@ -48,6 +49,12 @@ export class DetailsComponent {
   private loadDetails(productId: number): void {
     this.apiService.details(this.currentLang, productId).subscribe({
       next: (data: IProductResponse) => {
+        if (data.httpStatusCode !== 200) {
+          this.router.navigate(['/page/not-found/404/']).catch((error: unknown) => {
+            console.error(error)
+          })
+          return
+        }
         this.productResponse = data
         this.product = data.product
         data.product.specificationGroup.forEach((specification) => {

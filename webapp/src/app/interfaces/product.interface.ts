@@ -2,6 +2,7 @@ export interface IProductResponse {
   product: IProduct
   availabilityInStores: IAvailabilityInStores[]
   translations: ITranslations
+  httpStatusCode: number
 }
 
 export interface IAvailabilityInStores {

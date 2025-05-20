@@ -174,6 +174,12 @@ export class FilterComponent implements OnInit {
       .pipe(delay(10))
       .subscribe({
         next: (data: IFilterResponse) => {
+          if ((data.maxPrice === 0 && data.minPrice === 0) || data.errors.length > 0) {
+            this.router.navigate(['/page/not-found/404/']).catch((error: unknown) => {
+              console.error(error)
+            })
+            return
+          }
           data.specifications.forEach((spec) => (spec.active = true))
           data.specifications.forEach((spec) => {
             if (spec.values) {
