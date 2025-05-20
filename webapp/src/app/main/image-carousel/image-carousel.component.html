@@ -8,13 +8,11 @@
   </div>
 
   @if (bannerWidths.length * 220 >= 660) {
-    <div class="arrows">
-      <div class="arrow">
-        <img (click)="previousImage()" src="https://zoommer.ge/icons/slider-left-btn.svg" />
-      </div>
-      <div class="arrow">
-        <img (click)="nextImage()" src="https://zoommer.ge/icons/slider-right-btn.svg" />
-      </div>
+    <div class="arrow-left">
+      <img (click)="previousImage()" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+    </div>
+    <div class="arrow-right">
+      <img (click)="nextImage()" src="https://zoommer.ge/icons/slider-right-btn.svg" />
     </div>
   }
 }
