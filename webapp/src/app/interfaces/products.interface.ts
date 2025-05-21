@@ -123,3 +123,7 @@ export interface ICategoryInfo {
   catId: number
   isSuper: boolean
 }
+
+export enum EProducts {
+  PRODUCT_PER_PAGE = 28,
+}

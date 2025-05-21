@@ -16,6 +16,7 @@
       flex-direction: column;
       padding-bottom: 34px;
       border-bottom: 2px solid $gray-primary;
+
       .breadcrumb {
         display: flex;
         justify-content: space-between;
@@ -25,8 +26,9 @@
         .title {
           display: flex;
           gap: 22px;
-          width: 100%;
+          width: fit-content;
           align-self: flex-end;
+          cursor: pointer;
 
           h4 {
             font-weight: 700;

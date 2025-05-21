@@ -15,6 +15,13 @@
       />
     }
   </div>
+  @if (isMore) {
+    <div class="see-more-content" (click)="nextPage()">
+      <button class="next">
+        <h4>See More</h4>
+      </button>
+    </div>
+  }
 } @else {
   <div class="skeleton">
     @for (item of skeletonArray; track $index) {

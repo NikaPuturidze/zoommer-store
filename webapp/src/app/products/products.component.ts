@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core'
-import { IProductsResponse, ProductsOptions } from '../interfaces/products.interface'
+import { EProducts, IProductsResponse, ProductsOptions } from '../interfaces/products.interface'
 import { CatalogComponent } from './catalog/catalog.component'
 import { FilterComponent } from './filter/filter.component'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
-import { ActivatedRoute, Params, Router } from '@angular/router'
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router'
 import { startWith } from 'rxjs'
 import { LocalStorageService } from '../services/localstorage.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({
   selector: 'app-products',
-  imports: [CatalogComponent, FilterComponent, ContentLoaderModule],
+  imports: [CatalogComponent, FilterComponent, ContentLoaderModule, RouterModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
@@ -29,6 +29,8 @@ export class ProductsComponent implements OnInit {
   public sort? = {}
   public showGrid?: string
   public isLoading = false
+  public isMore?: boolean
+  public page?: number
 
   constructor(
     private readonly apiService: ApiService,
@@ -58,11 +60,20 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  public onPageSet(nextPage: number): void {
+    this.page = nextPage
+    this.loadProduct({ ...this.productsOptions, ...this.sort, page: nextPage, lang: this.currentLang })
+  }
   public onFiltersChanged(options: ProductsOptions): void {
     this.productsOptions = options
+    this.isLoading = true
+    this.productsResponse = undefined
+    this.page = 1
+    this.isMore = false
     this.loadProduct({
       ...this.productsOptions,
       ...this.sort,
+      page: 1,
       lang: this.currentLang,
     })
   }
@@ -133,13 +144,23 @@ export class ProductsComponent implements OnInit {
   }
 
   private loadProduct(options: ProductsOptions): void {
-    this.isLoading = true
     this.apiService.products(options).subscribe({
-      next: (data) => {
-        this.productsResponse = data
+      next: (data: IProductsResponse) => {
+        this.isMore = data.productsCount > options.page * EProducts.PRODUCT_PER_PAGE
+        this.page = options.page
+
+        if (options.page === 1) {
+          this.productsResponse = data
+        } else {
+          this.productsResponse = {
+            ...data,
+            products: [...(this.productsResponse?.products ?? []), ...data.products],
+          }
+        }
+
         this.isLoading = false
       },
-      error: (error) => {
+      error: (error: unknown) => {
         console.error(error)
         this.isLoading = false
       },

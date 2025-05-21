@@ -43,4 +43,40 @@
       }
     }
   }
+
+  .see-more-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding-top: 40px;
+
+    .next {
+      width: 200px;
+      height: 40px;
+      background: $gray-primary;
+      border-radius: 4px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      overflow: hidden;
+      pointer-events: auto;
+      opacity: 1;
+      cursor: pointer;
+      border: none;
+
+      h4 {
+        position: relative;
+        color: $black-main;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 20px;
+        opacity: 0.8;
+        z-index: 1;
+        @include bold;
+      }
+    }
+  }
 }
