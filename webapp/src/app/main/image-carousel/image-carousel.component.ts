@@ -31,10 +31,7 @@ export class ImageCarouselComponent implements OnChanges {
   }
 
   public nextImage(): void {
-    if (this.imageIndex === this.bannerWidths.length - 4 && this.bannerWidths[this.imageIndex + 3] !== 895) {
-      this.offsetX = -76 - EContent.GAP
-      this.imageIndex = this.bannerWidths.length - 1
-    } else if (this.imageIndex !== this.bannerWidths.length - 1) {
+    if (this.imageIndex !== this.bannerWidths.length - 1) {
       this.offsetX -= this.bannerWidths[this.imageIndex + 1] + EContent.GAP
       this.imageIndex++
     }
