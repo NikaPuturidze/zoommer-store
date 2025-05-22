@@ -17,6 +17,7 @@ export class CatalogComponent implements OnInit {
   @Input() public currentLang?: 'ka' | 'en' = 'en'
   @Input() isLoading?: boolean
   @Input() isMore?: boolean
+  @Input() showLoader?: boolean
   @Input() page? = 1
   public showGrid?: string
   public skeletonArray: number[] = Array(28) as number[]

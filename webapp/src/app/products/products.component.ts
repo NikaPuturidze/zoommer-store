@@ -30,6 +30,7 @@ export class ProductsComponent implements OnInit {
   public showGrid?: string
   public isLoading = false
   public isMore?: boolean
+  public showLoader?: boolean = false
   public page?: number
 
   constructor(
@@ -61,9 +62,13 @@ export class ProductsComponent implements OnInit {
   }
 
   public onPageSet(nextPage: number): void {
+    this.showLoader = true
     this.page = nextPage
-    this.loadProduct({ ...this.productsOptions, ...this.sort, page: nextPage, lang: this.currentLang })
+    this.loadProduct({ ...this.productsOptions, ...this.sort, page: nextPage, lang: this.currentLang }, () => {
+      this.showLoader = false
+    })
   }
+
   public onFiltersChanged(options: ProductsOptions): void {
     this.productsOptions = options
     this.isLoading = true
@@ -143,7 +148,7 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  private loadProduct(options: ProductsOptions): void {
+  private loadProduct(options: ProductsOptions, callback?: () => void): void {
     this.apiService.products(options).subscribe({
       next: (data: IProductsResponse) => {
         this.isMore = data.productsCount > options.page * EProducts.PRODUCT_PER_PAGE
@@ -159,6 +164,7 @@ export class ProductsComponent implements OnInit {
         }
 
         this.isLoading = false
+        if (callback) callback()
       },
       error: (error: unknown) => {
         console.error(error)

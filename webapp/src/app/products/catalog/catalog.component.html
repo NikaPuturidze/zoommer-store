@@ -15,13 +15,24 @@
       />
     }
   </div>
-  @if (isMore) {
-    <div class="see-more-content" (click)="nextPage()">
-      <button class="next">
+  <div
+    class="see-more-content"
+    (click)="nextPage()"
+    [style.opacity]="isMore ? 1 : 0"
+    [style.pointeEvents]="isMore ? 1 : 0"
+  >
+    <button class="next">
+      @if (!showLoader) {
         <h4>See More</h4>
-      </button>
-    </div>
-  }
+      } @else {
+        <div class="loader">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+      }
+    </button>
+  </div>
 } @else {
   <div class="skeleton">
     @for (item of skeletonArray; track $index) {
