@@ -1,7 +1,7 @@
 <div class="about">
   @if (translations?.warranty?.certificate) {
     <div class="about-t">
-      <h4>{{ translations?.warranty?.warranty?.title }}</h4>
+      <h4 class="outh">{{ translations?.warranty?.warranty?.title }}</h4>
       <div (click)="toggleWarranty()" class="warranty-btn about-b">
         <h4>{{ translations?.warranty?.warranty?.button }}</h4>
       </div>
@@ -9,7 +9,7 @@
   }
   @if (translations?.warranty?.manual) {
     <div class="about-t">
-      <h4>{{ translations?.warranty?.manual?.title }}</h4>
+      <h4 class="outh">{{ translations?.warranty?.manual?.title }}</h4>
       <div (click)="openExternalLink(manualsFileUrl)" class="manual-btn about-b">
         <h4>{{ translations?.warranty?.manual?.button }}</h4>
       </div>
@@ -17,7 +17,7 @@
   }
   @if (translations?.warranty?.certificate) {
     <div class="about-t">
-      <h4>{{ translations?.warranty?.certificate?.title }}</h4>
+      <h4 class="outh">{{ translations?.warranty?.certificate?.title }}</h4>
       <div (click)="openExternalLink(certificateFileUrl)" class="certificatie-btn about-b">
         <h4>{{ translations?.warranty?.certificate?.button }}</h4>
       </div>

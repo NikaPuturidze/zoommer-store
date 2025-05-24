@@ -38,6 +38,10 @@
         height: 100px !important;
         width: 100%;
         z-index: 99;
+
+        @media (width <= 1024px) {
+          height: 55px !important;
+        }
       }
     }
 
@@ -48,6 +52,10 @@
         pointer-events: auto;
         min-height: 442px;
         transition: max-height 1s ease-out;
+
+        @media (width <= 1024px) {
+          min-height: 200px;
+        }
 
         .specification {
           transition:
@@ -71,6 +79,12 @@
               line-height: 20px;
               color: rgba($black-main, 0.8);
               @include bold;
+
+              @media (width <= 1024px) {
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 20px;
+              }
             }
           }
 
@@ -81,6 +95,10 @@
               margin: 20px 0 15px;
               width: 100%;
               height: 100%;
+
+              @media (width <= 1024px) {
+                margin: 20px 0 10px;
+              }
 
               .table-body {
                 .table-row {
@@ -94,6 +112,12 @@
                       line-height: 20px;
                       color: rgba($black-main, 0.6);
                       @include regular;
+
+                      @media (width <= 1024px) {
+                        font-weight: 350;
+                        font-size: 12px;
+                        line-height: 20px;
+                      }
                     }
                   }
 
@@ -107,6 +131,13 @@
                       color: rgba($black-main, 0.7);
                       width: 70%;
                       @include medium;
+
+                      @media (width <= 1024px) {
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 20px;
+                        width: 100%;
+                      }
                     }
                   }
                 }
@@ -136,13 +167,17 @@
           &:before {
             content: '';
             position: absolute;
-            bottom: 46px;
+            bottom: 45.8px !important;
             left: 0px;
             background: linear-gradient(rgba(255, 255, 255, 0) 0%, $white-main 55%, $white-main 100%) 0% 0% no-repeat
               padding-box padding-box transparent;
             height: 100px;
             width: 100%;
             z-index: 9;
+
+            @media (width <= 1024px) {
+              display: none;
+            }
           }
         }
 
@@ -161,12 +196,26 @@
           opacity: 1;
           cursor: pointer;
 
+          @media (width <= 1024px) {
+            background-color: $white-main;
+            border: none;
+            border-radius: 0;
+            justify-content: space-between;
+            padding-block: 20px;
+          }
+
           h4 {
             font-weight: 600;
             font-size: 16px;
             line-height: 20px;
             color: $orange-main;
             @include bold;
+
+            @media (width <= 1024px) {
+              font-weight: 600;
+              font-size: 14px;
+              line-height: 20px;
+            }
           }
         }
       }

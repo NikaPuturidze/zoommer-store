@@ -28,25 +28,16 @@
         @if (section.sectionType === 3 && !section.isScroll) {
           <section
             [ngClass]="{
-              'section-banner-one': section.bannerTemplateRowNumber === 1,
-              'section-banner-two': section.bannerTemplateRowNumber === 2,
-              'section-banner-three': section.colorValue != '#ffffff',
+              'section-banner-one': section.bannerTemplateRowNumber === 1 && section.colorValue === '#000000',
+              'section-banner-three': section.bannerTemplateRowNumber === 2 && section.colorValue === '#000000',
+              'section-banner-two': section.colorValue != '#000000',
             }"
-            [style.backgroundColor]="section.colorValue != '#ffffff' ? section.colorValue : null"
+            [style.backgroundColor]="section.colorValue != '#000000' ? section.colorValue : null"
           >
             @for (banner of section.banners; track $index) {
               <div class="banner-container">
                 <img class="banner" [src]="banner.webImageUrl" (click)="navigate(banner.route)" />
               </div>
-
-              @if (section.isScroll) {
-                <div class="arrow-left">
-                  <img (click)="previousImage(secIndex)" src="https://zoommer.ge/icons/slider-left-btn.svg" />
-                </div>
-                <div class="arrow-right">
-                  <img (click)="nextImage(secIndex)" src="https://zoommer.ge/icons/slider-right-btn.svg" />
-                </div>
-              }
             }
           </section>
         }
@@ -54,16 +45,14 @@
         @if (section.sectionType === 3 && section.isScroll) {
           <section
             class="section-slider-two"
-            [style.backgroundColor]="section.colorValue != '#ffffff' ? section.colorValue : null"
+            [style.backgroundColor]="section.colorValue != '#000000' ? section.colorValue : null"
           >
             <div class="slider-two">
               <div class="slider-two-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
                 @for (item of section.banners; track $index) {
                   <img
                     (click)="navigate(item.route)"
-                    [src]="item.webImageUrl"
-                    [style.width]="item.webDimensions?.widthInPixels + 'px'"
-                    [style.height]="item.webDimensions?.heightInPixels + 'px'"
+                    [src]="viewportWidth <= 1024 ? item.mobileImageUrl : item.webImageUrl"
                   />
                 }
               </div>

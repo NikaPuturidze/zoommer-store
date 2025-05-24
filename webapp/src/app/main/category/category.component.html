@@ -1,7 +1,7 @@
 @if (megaMenu) {
   <div
     class="mega-menu-container"
-    [style.height]="getHeightBefore(currentCategory)"
+    [style.height]="getHeight(currentCategory)"
     (mouseleave)="resetCurrentCategory()"
     [ngClass]="isInCategory ? 'inCategory' : 'notInCategory'"
   >
@@ -19,14 +19,14 @@
       }
     </div>
     <div class="category-items" [ngClass]="isInCategory ? 'inCategory' : 'notInCategory'">
-      @if (megaMenu) {
+      @if (megaMenu[currentCategory]) {
         <div
           class="container"
           [ngClass]="isInCategory ? 'inCategory' : 'notInCategory'"
-          [style.height]="getHeightBefore(currentCategory)"
-          [style.width]="width"
+          [style.height]="getHeight(currentCategory)"
+          [style.width.px]="width || 894"
         >
-          @for (category of megaMenu[currentCategory]?.childItems; track $index) {
+          @for (category of megaMenu[currentCategory].childItems; track $index) {
             <div class="content-wrapper">
               @if (category.url) {
                 <h5 (click)="navigate(['/', formatUrl(category.url)])" class="title">
@@ -46,7 +46,7 @@
             </div>
           }
 
-          <img class="thumb" [src]="megaMenu[currentCategory]?.imageUrl" loading="lazy" />
+          <img class="thumb" [src]="megaMenu[currentCategory].imageUrl" loading="lazy" />
         </div>
       }
     </div>

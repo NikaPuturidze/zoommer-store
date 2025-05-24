@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { IProduct, ITranslations } from '../../interfaces/product.interface'
 import { Router } from '@angular/router'
+import { ViewportService } from '../../services/viewport.service'
 
 @Component({
   selector: 'app-overview',
@@ -8,12 +9,22 @@ import { Router } from '@angular/router'
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })
-export class OverviewComponent {
+export class OverviewComponent implements OnInit {
   @Input() translations?: ITranslations
   @Input() public product?: IProduct
   @Input() currentLang?: 'en' | 'ka'
+  public viewportWidth
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private viewport: ViewportService
+  ) {}
+
+  ngOnInit(): void {
+    this.viewport.Viewport$.subscribe((value) => {
+      this.viewportWidth = value.width
+    })
+  }
 
   public nextImg(): void {
     if (this.product && this.product.currentImage < this.product.images.length - 1) {

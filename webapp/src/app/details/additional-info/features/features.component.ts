@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { ISpecificationGroup, ITranslations } from 'webapp/src/app/interfaces/product.interface'
+import { ViewportService } from 'webapp/src/app/services/viewport.service'
 
 @Component({
   selector: 'app-features',
@@ -7,13 +8,22 @@ import { ISpecificationGroup, ITranslations } from 'webapp/src/app/interfaces/pr
   templateUrl: './features.component.html',
   styleUrl: './features.component.scss',
 })
-export class FeaturesComponent {
+export class FeaturesComponent implements OnInit {
   @Input() features?: ISpecificationGroup[]
   @Input() translations?: ITranslations
   public isSeeMore = false
   public isActive = true
   public currentMarginBottom = 10
   public marginBottomMap: Record<number, number> = {}
+  public viewportWidth
+
+  constructor(private viewport: ViewportService) {}
+
+  ngOnInit(): void {
+    this.viewport.Viewport$.subscribe((values) => {
+      this.viewportWidth = values.width
+    })
+  }
 
   public toggleSeeMore(): void {
     this.isSeeMore = !this.isSeeMore

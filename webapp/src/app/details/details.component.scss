@@ -2,8 +2,7 @@
 
 :host {
   .details {
-    display: grid;
-    grid-template-columns: 716px 400px;
+    display: flex;
     justify-content: space-between;
     column-gap: 55px;
     background: $white-main;
@@ -13,11 +12,39 @@
     padding: 0 15px;
     padding-top: 30px;
 
+    @media (width <= 1152px) {
+      column-gap: 25px;
+    }
+
+    @media (width <= 1024px) {
+      padding: 0 20px;
+      margin-top: 16px;
+    }
+
     .details-container {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      width: 716px;
+
+      @media (width <= 1152px) {
+        width: 630px;
+      }
+
+      @media (width <= 1024px) {
+        width: 100%;
+      }
     }
+
+    .aside {
+      max-width: 400px;
+      min-width: 320px;
+
+      @media (width <= 1024px) {
+        display: none;
+      }
+    }
+
     animation: load 0.5s ease forwards;
   }
 }

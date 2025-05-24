@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core'
 import { EContent, IBanner, IContentResponse } from '../../interfaces/content.interface'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { Router } from '@angular/router'
+import { ViewportService } from '../../services/viewport.service'
 
 @Component({
   selector: 'app-image-carousel',
@@ -9,14 +10,20 @@ import { Router } from '@angular/router'
   templateUrl: './image-carousel.component.html',
   styleUrl: './image-carousel.component.scss',
 })
-export class ImageCarouselComponent implements OnChanges {
+export class ImageCarouselComponent implements OnChanges, AfterViewInit {
   @Input() public content?: IContentResponse
   public bannerWidths: number[] = []
   public translate = ''
   public offsetX = 0
   public imageIndex = 0
+  public viewportWidth
+  private prevWidth: number | null = null
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private viewport: ViewportService,
+    private hostReference: ElementRef<HTMLElement>
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['content'].currentValue && this.content?.section?.[0]?.banners) {
@@ -24,6 +31,27 @@ export class ImageCarouselComponent implements OnChanges {
         banner.largeBanner ? EContent.LARGE : EContent.SMALL
       )
     }
+  }
+
+  @ViewChild('carouselContainer', { static: false }) carouselContainer?: ElementRef<HTMLDivElement>
+
+  ngAfterViewInit(): void {
+    this.viewport.Viewport$.subscribe(({ width }) => {
+      if (this.prevWidth !== null) {
+        const crossedToSmall = this.prevWidth > 1024 && width <= 1024
+        const crossedToLarge = this.prevWidth <= 1024 && width > 1024
+
+        if (crossedToSmall || crossedToLarge) {
+          this.offsetX = 0
+          this.translate = 'translateX(0px)'
+
+          this.hostReference.nativeElement.scrollLeft = 0
+        }
+      }
+
+      this.prevWidth = width
+      this.viewportWidth = width
+    })
   }
 
   public setImageDimension(image: IBanner): string {

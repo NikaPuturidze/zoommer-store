@@ -4,6 +4,22 @@
   position: relative;
   width: 100%;
 
+  @media (width <= 1024px) {
+    height: 135px;
+    overflow: scroll;
+    scrollbar-width: none;
+    padding-inline: 20px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .arrow-left,
+    .arrow-right {
+      display: none;
+    }
+  }
+
   .carousel-container {
     width: 895px;
     display: flex;
@@ -12,10 +28,21 @@
     align-items: flex-start;
     transition: all 0.3s ease;
 
+    @media (width <= 1024px) {
+      height: auto;
+      width: auto;
+      gap: 11px;
+    }
+
     .img-container {
       height: 340px;
       width: 100%;
       flex-shrink: 0;
+
+      @media (width <= 1024px) {
+        height: 135px;
+        width: 291px;
+      }
 
       img {
         height: 100%;
@@ -58,5 +85,12 @@
     top: 50%;
     right: 0;
     margin-right: 1%;
+  }
+
+  @media (width <= 1024px) {
+    .arrow-left,
+    .arrow-right {
+      display: none;
+    }
   }
 }

@@ -66,20 +66,50 @@
       } @else {
         <div style="width: 120px">
           <content-loader class="product-skelet" [viewBox]="'0 0 120 40'">
-            <svg:rect x="0" y="0" rx="4" ry="4" width="120" height="40" fill="currentColor" />
+            <svg:rect x="0" y="0" rx="4" ry="4" width="120" height="20" fill="currentColor" />
           </content-loader>
         </div>
         <div style="width: 220px">
           <content-loader class="product-skelet" [viewBox]="'0 0 220 40'">
-            <svg:rect x="0" y="0" rx="4" ry="4" width="220" height="40" fill="currentColor" />
+            <svg:rect x="0" y="0" rx="4" ry="4" width="220" height="20" fill="currentColor" />
           </content-loader>
         </div>
       }
     </div>
   </div>
 
+  <div class="sort-after">
+    <div class="type" (click)="toggleSort()">
+      <div class="current">
+        <h4>{{ currentSort }}</h4>
+        <div class="icon">
+          <img src="https://zoommer.ge/icons/selector-down-arr.svg" />
+        </div>
+      </div>
+      <div class="variants-container" [class.active]="isSortOpen">
+        <div class="variants">
+          @for (option of sortLabels[currentLang]; track $index) {
+            <h4 class="option" (click)="switchSort(option)">{{ option }}</h4>
+          }
+        </div>
+      </div>
+    </div>
+    <div class="type">
+      <div class="current-r" (click)="openFilters()">
+        <img src="https://zoommer.ge/icons/filter.svg" />
+        <h4>{{ filter }}</h4>
+      </div>
+    </div>
+  </div>
+
   <div class="products">
-    <app-filter (FiltersChanged)="onFiltersChanged($event)"></app-filter>
+    <div [class]="filterOpen ? 'portal' : 'out'"></div>
+    <app-filter
+      (click)="filterOpen = false"
+      (FiltersChanged)="onFiltersChanged($event)"
+      [class]="filterOpen ? 'open' : 'closed'"
+      [filterOpen]="filterOpen"
+    ></app-filter>
     <app-catalog
       [page]="page"
       [isMore]="isMore"

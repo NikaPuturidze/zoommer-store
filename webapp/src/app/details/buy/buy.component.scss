@@ -1,6 +1,8 @@
 @use '../../../styles.scss' as *;
 
 :host {
+  position: sticky;
+  top: 98px;
   aside {
     max-width: 400px;
     border-radius: 12px;

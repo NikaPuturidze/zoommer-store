@@ -16,12 +16,22 @@
         line-height: 20px;
         color: rgba($black-main, 0.8);
         @include bold;
+
+        @media (width <= 1024px) {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 20px;
+        }
       }
 
       .availability-type {
         display: flex;
         align-items: center;
         gap: 30px;
+
+        @media (width <= 1024px) {
+          display: none;
+        }
 
         .type {
           display: flex;
@@ -92,6 +102,10 @@
           flex-direction: column;
           justify-content: space-between;
           text-align: right;
+
+          @media (width <= 1024px) {
+            display: none;
+          }
 
           h4 {
             font-weight: 500;

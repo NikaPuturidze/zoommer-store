@@ -11,17 +11,30 @@
     margin-top: 30px;
     min-height: 100vh;
 
+    @media (width <= 1024px) {
+      margin-top: 12px;
+      padding: 0 20px;
+    }
+
     .breadcrumb-container {
       display: flex;
       flex-direction: column;
       padding-bottom: 34px;
       border-bottom: 2px solid $gray-primary;
 
+      @media (width <= 1024px) {
+        padding-bottom: 16px;
+      }
+
       .breadcrumb {
         display: flex;
         justify-content: space-between;
         height: 42px;
         width: 100%;
+
+        @media (width <= 1024px) {
+          height: 22px;
+        }
 
         .title {
           display: flex;
@@ -30,12 +43,20 @@
           align-self: flex-end;
           cursor: pointer;
 
+          @media (width <= 1024px) {
+            margin-bottom: 1px;
+          }
+
           h4 {
             font-weight: 700;
             font-size: 16px;
             line-height: 19px;
             color: $black-main;
             @include bold;
+
+            @media (width <= 1024px) {
+              font-size: 14px;
+            }
           }
         }
 
@@ -56,6 +77,9 @@
           }
 
           .type {
+            @media (width <= 1024px) {
+              display: none;
+            }
             .current {
               display: flex;
               align-items: center;
@@ -129,12 +153,154 @@
       }
     }
 
+    .sort-after {
+      display: none;
+      gap: 20px;
+      border-bottom: 1px solid $gray-primary;
+      padding-bottom: 10px;
+
+      @media (width <= 1024px) {
+        display: flex;
+      }
+
+      .type {
+        margin-top: 10px;
+        width: 100%;
+        position: relative;
+
+        .current {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          min-width: 160px;
+          background: $gray-primary;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+          border-radius: 30px;
+          padding: 9px 20px;
+          border: none;
+          cursor: pointer;
+          min-height: 42px;
+
+          h4 {
+            font-weight: 500;
+            font-size: 11px;
+            line-height: 14px;
+            margin-right: 5px;
+            color: $black-main;
+            @include medium;
+          }
+        }
+
+        .current-r {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          min-width: 160px;
+          background: $gray-primary;
+          box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 4px;
+          border-radius: 30px;
+          padding: 9px 20px;
+          border: none;
+          cursor: pointer;
+          min-height: 42px;
+          gap: 10px;
+
+          h4 {
+            font-weight: 500;
+            font-size: 11px;
+            line-height: 14px;
+            margin-right: 5px;
+            color: $black-main;
+            @include medium;
+          }
+        }
+
+        .variants-container {
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          top: 110%;
+          width: 200px;
+          box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 10px;
+          border-radius: 12px;
+          gap: 19px;
+          z-index: 2;
+          max-height: 330px;
+          height: 120px;
+          overflow-x: scroll;
+          background: $white-main !important;
+          transition: all 0.3s ease;
+          opacity: 0;
+          transform: translateY(5px);
+
+          &.active {
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          .variants {
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            gap: 10px;
+            z-index: 999999 !important;
+            position: relative;
+            background-color: $white-main;
+
+            h4 {
+              cursor: pointer;
+              font-weight: 500;
+              font-size: 12px;
+              line-height: 14px;
+              color: $black-main;
+              opacity: 0.6;
+              @include medium;
+              transition: all 0.1s ease;
+
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+
     .products {
       display: grid;
       grid-template-columns: 350px 1fr;
       gap: 50px;
       margin-top: 30px;
       min-height: 100vh;
+      background: rgba($black-main, 0);
+
+      @media (width <= 1024px) {
+        grid-template-columns: 1fr;
+        gap: 0;
+
+        .portal {
+          position: fixed;
+          inset: 0;
+          width: 100vw;
+          height: 100vh;
+          z-index: 99999;
+          background: $black-main;
+          opacity: 0.8;
+          transition: opacity 0.3s ease;
+        }
+
+        .out {
+          background: $black-main;
+          opacity: 0;
+        }
+      }
+
+      @media (width > 1024px) {
+        .portal,
+        .out {
+          display: none;
+        }
+      }
     }
   }
 }

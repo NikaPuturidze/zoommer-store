@@ -1,6 +1,6 @@
 import { NgxSliderModule, Options } from '@angular-slider/ngx-slider'
 import { CommonModule } from '@angular/common'
-import { Component, EventEmitter, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { EFilter, IFilterResponse, ISpecification } from '../../interfaces/filter.interface'
@@ -9,6 +9,7 @@ import { debounceTime, delay, distinctUntilChanged, filter, switchMap } from 'rx
 import { ICategoryInfo, ProductsOptions } from '../../interfaces/products.interface'
 import { ApiService } from '../../services/api.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
+import { ViewportService } from '../../services/viewport.service'
 
 @Component({
   selector: 'app-filter',
@@ -30,6 +31,7 @@ export class FilterComponent implements OnInit {
   public maxValue!: number
   public options!: Options
   public showPrice = true
+  @Input() filterOpen?
   private queries: Record<string, string[]> = {}
   private page = 1
   private limit = 28
@@ -40,12 +42,19 @@ export class FilterComponent implements OnInit {
     private readonly apiService: ApiService,
     private languageService: LanguageService,
     private actR: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private viewport: ViewportService
   ) {}
+
+  @HostBinding('class.mobile') isMobile = false
 
   ngOnInit(): void {
     this.currentLang = this.languageService.getCurrentLanguage() as 'ka' | 'en'
     this.updateLanguageState()
+
+    this.viewport.Viewport$.subscribe((values) => {
+      this.isMobile = values.width < 1024
+    })
 
     this.languageService.currentLanguage$
       .pipe(

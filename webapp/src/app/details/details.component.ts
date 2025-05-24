@@ -9,6 +9,7 @@ import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { DiscountComponent } from './discount/discount.component'
+import { ViewportService } from '../services/viewport.service'
 
 @Component({
   selector: 'app-details',
@@ -27,12 +28,14 @@ export class DetailsComponent {
   public productResponse?: IProductResponse
   public product?: IProduct
   public currentLang: 'ka' | 'en' = 'en'
+  public viewportWidth
 
   constructor(
     private readonly apiService: ApiService,
     private router: Router,
     private languageService: LanguageService,
-    private actR: ActivatedRoute
+    private actR: ActivatedRoute,
+    private viewport: ViewportService
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +46,10 @@ export class DetailsComponent {
       this.actR.params.subscribe((parameters) => {
         this.loadDetails(this.getProductId(parameters))
       })
+    })
+
+    this.viewport.Viewport$.subscribe((value) => {
+      this.viewportWidth = value.width
     })
   }
 

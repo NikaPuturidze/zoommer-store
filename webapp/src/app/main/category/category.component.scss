@@ -20,6 +20,10 @@
     &.inCategory {
       width: 100%;
       border-top-right-radius: 0px;
+
+      transition:
+        height 0.2s ease,
+        width 0.2s ease;
     }
 
     &.notInCategory {

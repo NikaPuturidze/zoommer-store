@@ -1,8 +1,9 @@
-import { Component, Input, OnChanges } from '@angular/core'
+import { Component, Input, OnChanges, OnInit } from '@angular/core'
 import { EContent, IContentResponse } from '../../interfaces/content.interface'
 import { CommonModule } from '@angular/common'
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
 import { Router } from '@angular/router'
+import { ViewportService } from '../../services/viewport.service'
 
 @Component({
   selector: 'app-sections',
@@ -10,15 +11,25 @@ import { Router } from '@angular/router'
   templateUrl: './sections.component.html',
   styleUrl: './sections.component.scss',
 })
-export class SectionsComponent implements OnChanges {
+export class SectionsComponent implements OnChanges, OnInit {
   @Input() content?: IContentResponse
   @Input() currentLang: 'en' | 'ka' = 'en'
   public sectionArray: number[] = []
+  public viewportWidth
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private viewport: ViewportService
+  ) {}
 
   ngOnChanges(): void {
     this.sectionArray = new Array(this.content?.section.length).fill(0) as number[]
+  }
+
+  ngOnInit(): void {
+    this.viewport.Viewport$.subscribe((values) => {
+      this.viewportWidth = values.width
+    })
   }
 
   public getOffset(index: number): number {

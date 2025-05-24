@@ -6,21 +6,25 @@ import { ITopicsResponse } from './interfaces/topics.interface'
 import { ApiService } from './services/api.service'
 import { LanguageService } from './services/language.service'
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router'
+import { ViewportService } from './services/viewport.service'
+import { BurgerComponent } from './burger/burger.component'
 
 @Component({
   selector: 'app-root',
-  imports: [NavigationComponent, HeaderComponent, FooterComponent, RouterOutlet],
+  imports: [NavigationComponent, HeaderComponent, FooterComponent, RouterOutlet, BurgerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   @Input() topics?: ITopicsResponse
   public currentLang: 'en' | 'ka' = 'en'
+  public viewportWidth
 
   constructor(
     private readonly apiService: ApiService,
     private languageService: LanguageService,
-    private router: Router
+    private router: Router,
+    private viewport: ViewportService
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +37,10 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0)
       }
+    })
+
+    this.viewport.Viewport$.subscribe((values) => {
+      this.viewportWidth = values.width
     })
   }
 

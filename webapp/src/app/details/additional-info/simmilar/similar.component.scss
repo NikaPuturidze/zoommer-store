@@ -8,6 +8,15 @@
     padding-top: 30px;
     position: relative;
 
+    @media (width <= 1152px) {
+      width: 100%;
+    }
+
+    @media (width <= 1024px) {
+      border-top: none;
+      margin-top: 0;
+    }
+
     .title {
       opacity: 0.8;
       font-weight: 600;
@@ -25,6 +34,10 @@
       position: relative;
       gap: 30px;
 
+      @media (width <= 1024px) {
+        gap: 10px;
+      }
+
       .section-one-container {
         display: flex;
         transition: all 0.6s ease;
@@ -40,6 +53,10 @@
       justify-content: space-between;
       width: 100%;
       transform: translate(-50%, -50%);
+
+      @media (width <= 1024px) {
+        display: none;
+      }
 
       .arrow {
         display: flex;

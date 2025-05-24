@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { EProducts, IProductsResponse, ProductsOptions } from '../interfaces/products.interface'
 import { CatalogComponent } from './catalog/catalog.component'
 import { FilterComponent } from './filter/filter.component'
@@ -20,6 +20,7 @@ export class ProductsComponent implements OnInit {
   public productsResponse?: IProductsResponse
   public isSortOpen = false
   public currentSort?: string
+  public filter?: string
   public sortLabels = {
     en: ['Price: High to Low', 'Price: Low to High', 'Name: A-Z', 'Name: Z-A'],
     ka: ['ფასი: კლებადობით', 'ფასი: ზრდადობით', 'დასახელება: A-Z', 'დასახელება: Z-A'],
@@ -32,6 +33,7 @@ export class ProductsComponent implements OnInit {
   public isMore?: boolean
   public showLoader?: boolean = false
   public page?: number
+  @Input() filterOpen = false
 
   constructor(
     private readonly apiService: ApiService,
@@ -46,6 +48,7 @@ export class ProductsComponent implements OnInit {
       this.currentLang = language
       this.productsResponse = undefined
       this.getSort()
+      this.filter = language === 'en' ? 'filter' : 'ფილტრი'
     })
 
     this.localStorageService.observe('showGrid').subscribe((value) => {
@@ -59,6 +62,10 @@ export class ProductsComponent implements OnInit {
     if (this.productsOptions) {
       this.onFiltersChanged(this.productsOptions)
     }
+  }
+
+  public openFilters(): void {
+    this.filterOpen = true
   }
 
   public onPageSet(nextPage: number): void {

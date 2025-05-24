@@ -1,26 +1,63 @@
 <section class="primary-section">
-  <app-category [width]="carouselWidth" [style.display]="content ? 'block' : 'none'"></app-category>
+  @if (viewportWidth >= 1024) {
+    <app-category [width]="carouselWidth - 30" [style.display]="content ? 'block' : 'none'"></app-category>
+  }
   <app-image-carousel [content]="content" [style.display]="content ? 'block' : 'none'"></app-image-carousel>
 
   @if (!content) {
-    <content-loader class="skeleton-category" [viewBox]="'0 0 246 342'">
-      <svg:rect x="0" y="0" rx="10" ry="10" width="246" height="342" fill="currentColor" />
-    </content-loader>
+    <div class="skeleton-p-cont" [style.paddingLeft.px]="viewportWidth > 1024 ? 0 : 15">
+      @if (viewportWidth > 1024) {
+        <content-loader class="skeleton-category" [viewBox]="'0 0 246 342'">
+          <svg:rect x="0" y="0" rx="10" ry="10" width="246" height="342" fill="currentColor" />
+        </content-loader>
 
-    <content-loader class="skeleton-carousel" [viewBox]="'0 0 894 342'">
-      <svg:rect x="0" y="0" rx="10" ry="10" width="894" height="342" fill="currentColor" />
-    </content-loader>
+        <content-loader class="skeleton-carousel" [viewBox]="'0 0 894 342'">
+          <svg:rect x="0" y="0" rx="10" ry="10" width="894" height="342" fill="currentColor" />
+        </content-loader>
+      } @else {
+        <content-loader class="skeleton-row" [viewBox]="'0 0 1499 135'">
+          <svg:rect x="0" y="0" rx="10" ry="10" width="291" height="135" fill="currentColor" />
+          <svg:rect x="302" y="0" rx="10" ry="10" width="291" height="135" fill="currentColor" />
+          <svg:rect x="604" y="0" rx="10" ry="10" width="291" height="135" fill="currentColor" />
+          <svg:rect x="906" y="0" rx="10" ry="10" width="291" height="135" fill="currentColor" />
+          <svg:rect x="1208" y="0" rx="10" ry="10" width="291" height="135" fill="currentColor" />
+        </content-loader>
+      }
+    </div>
   }
 </section>
 
 @if (content) {
   <app-sections [content]="content" [currentLang]="currentLang"></app-sections>
 } @else {
-  <content-loader [viewBox]="'0 0 1170 2541'">
-    <svg:rect x="0" y="33" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
-    <svg:rect x="0" y="363" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
-    <svg:rect x="0" y="696" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
-    <svg:rect x="0" y="1029" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
-    <svg:rect x="0" y="1362" rx="10" ry="10" width="1170" height="303" fill="currentColor" />
-  </content-loader>
+  <div class="skeleton-container">
+    @for (item of [1, 2, 3]; track $index) {
+      <div
+        class="skeleton"
+        [style.paddingInline.px]="viewportWidth > 1024 ? 0 : 15"
+        [style.gap.px]="viewportWidth > 1024 ? 42 : 20"
+        [style.maxWidth.px]="1200"
+      >
+        @for (item of [1, 2, 3, 4, 5, 6, 7, 8]; track $index) {
+          @if (viewportWidth > 1024) {
+            <content-loader class="skeleton-product" [viewBox]="'0 0 160 303'">
+              <svg:rect x="0" y="0" rx="4" ry="4" width="160" height="170" fill="currentColor" />
+              <svg:rect x="0" y="187.67" rx="4" ry="4" width="96" height="20" fill="currentColor" />
+              <svg:rect x="0" y="225.34" rx="4" ry="4" width="160" height="20" fill="currentColor" />
+              <svg:rect x="0" y="263" rx="4" ry="4" width="40" height="40" fill="currentColor" />
+              <svg:rect x="50" y="263" rx="4" ry="4" width="110" height="40" fill="currentColor" />
+            </content-loader>
+          } @else {
+            <content-loader class="skeleton-product-s" [viewBox]="'0 0 140 283'">
+              <svg:rect x="0" y="0" rx="4" ry="4" width="140" height="159" fill="currentColor" />
+              <svg:rect x="0" y="175" rx="4" ry="4" width="84" height="19" fill="currentColor" />
+              <svg:rect x="0" y="210" rx="4" ry="4" width="140" height="19" fill="currentColor" />
+              <svg:rect x="0" y="245" rx="4" ry="4" width="35" height="37" fill="currentColor" />
+              <svg:rect x="45" y="245" rx="4" ry="4" width="95" height="37" fill="currentColor" />
+            </content-loader>
+          }
+        }
+      </div>
+    }
+  </div>
 }

@@ -9,13 +9,26 @@
       margin-bottom: 17px;
       height: 28.5px;
 
+      @media (width <= 1024px) {
+        margin-bottom: 14px;
+      }
+
       .breadcrumbs {
         display: flex;
         align-items: center;
 
+        @media (width <= 1024px) {
+          gap: 8px;
+        }
+
         &:nth-child(n + 1) {
           img {
             margin-inline: 16px;
+
+            @media (width <= 1024px) {
+              margin-inline: 0;
+              gap: 8px;
+            }
           }
         }
 
@@ -25,6 +38,11 @@
 
           &:last-child {
             display: none;
+          }
+
+          @media (width <= 1024px) {
+            height: 12px;
+            margin-top: 1px;
           }
         }
 
@@ -50,6 +68,10 @@
           align-self: flex-start;
           min-height: 24px;
           min-width: 24px;
+
+          @media (width <= 1024px) {
+            display: none;
+          }
         }
 
         h4 {
@@ -69,11 +91,24 @@
       padding: 20px 0 38px;
       gap: 20px;
 
+      @media (width <= 1024px) {
+        flex-direction: column;
+        padding: 20px 0 0;
+        border-bottom: none;
+      }
+
       .visual {
         display: flex;
         flex-direction: column;
         min-width: 400px;
         gap: 20px;
+        padding-bottom: 37px;
+        border-bottom: 1px solid $gray-primary;
+
+        @media (width <= 1024px) {
+          position: relative;
+          min-width: 0;
+        }
 
         @keyframes slide {
           0% {
@@ -119,7 +154,6 @@
             border-radius: 20px;
             position: relative;
             min-width: 658px;
-            max-width: 658px;
             overflow-x: hidden;
             animation: slide 0.3s ease-in-out;
 
@@ -141,6 +175,10 @@
               right: 24px;
               transform: translateY(-50%);
               cursor: pointer;
+
+              @media (width <= 1024px) {
+                display: none;
+              }
             }
 
             .left-arr {
@@ -157,6 +195,10 @@
               width: 550px;
               margin-inline: auto;
 
+              @media (width <= 1024px) {
+                width: 100%;
+              }
+
               .slider-wrapper {
                 position: relative;
                 height: 520.28px;
@@ -172,16 +214,28 @@
                   top: 0;
                   transition: all 0.3s ease;
 
-                  div {
+                  @media (width <= 1024px) {
+                    width: 100% !important;
+                  }
+
+                  .plc {
                     display: flex;
                     justify-content: center;
                     min-width: 550px;
 
+                    @media (width <= 1024px) {
+                      width: 100% !important;
+                    }
+
                     img {
-                      height: 500px;
+                      height: 230px;
                       object-fit: contain;
                       margin-bottom: 16px;
                       border-radius: 12px;
+
+                      @media (width <= 1024px) {
+                        width: 280px !important;
+                      }
                     }
                   }
                 }
@@ -216,12 +270,26 @@
 
         .product-name {
           width: 100%;
-          font-weight: 700;
-          font-size: 14px;
-          line-height: 17px;
-          color: rgba($black-main, 0.8);
           margin-bottom: 3px;
-          @include bold;
+
+          @media (width <= 1024px) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            img {
+              margin-top: 2px;
+            }
+          }
+
+          h4 {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 17px;
+            color: rgba($black-main, 0.8);
+            @include bold;
+            max-width: 210px;
+          }
         }
 
         .image-slider {
@@ -229,12 +297,21 @@
           position: relative;
           margin-inline: auto;
 
+          @media (width <= 1024px) {
+            position: static;
+            width: 300px !important;
+          }
+
           .heart {
             cursor: pointer;
             position: absolute;
             right: 10px;
             top: 7.7px;
             z-index: 2;
+
+            @media (width <= 1024px) {
+              top: 64px;
+            }
 
             img {
               width: 20px;
@@ -247,6 +324,10 @@
             width: 100%;
             overflow-x: hidden;
 
+            @media (width <= 1024px) {
+              width: 300px !important;
+            }
+
             .images {
               width: 400px;
               display: flex;
@@ -256,11 +337,20 @@
               top: 0;
               transition: all 0.3s ease;
 
+              @media (width <= 1024px) {
+                width: 300px !important;
+                overflow-x: hidden;
+              }
+
               div {
                 display: flex;
                 justify-content: center;
                 min-width: 300px;
                 margin-inline: 50px;
+
+                @media (width <= 1024px) {
+                  margin-inline: 0;
+                }
 
                 img {
                   object-fit: contain;
@@ -279,6 +369,10 @@
           margin-top: 7px;
           z-index: 9;
 
+          @media (width <= 1024px) {
+            display: none;
+          }
+
           .left-arr {
             width: 32px;
             position: absolute;
@@ -291,6 +385,10 @@
             align-items: center;
             border-radius: 50%;
             box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 8px;
+
+            @media (width <= 1024px) {
+              display: none;
+            }
           }
 
           .right-arr {
@@ -305,6 +403,10 @@
             align-items: center;
             border-radius: 50%;
             box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 6px;
+
+            @media (width <= 1024px) {
+              display: none;
+            }
           }
 
           .img-container {
@@ -339,15 +441,60 @@
         }
       }
 
+      .utils {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+
+        div {
+          width: 47%;
+          cursor: pointer;
+          display: flex;
+          align-items: start;
+          gap: 6px;
+          padding: 6px 0px 6px 6px;
+          border-radius: 10px;
+          border: 1px solid transparent;
+          background: $gray-primary;
+
+          @media (width <= 420px) {
+            width: 100%;
+          }
+
+          img {
+            width: 18px;
+            height: 18px;
+          }
+
+          h5 {
+            font-weight: 350;
+            font-size: 12px;
+            line-height: 20px;
+            color: $blue-secondary;
+            opacity: 0.9;
+            @include regular;
+          }
+        }
+      }
+
       .specifications {
         display: flex;
         flex-direction: column;
         width: 100%;
 
+        @media (width <= 1024px) {
+          flex-direction: column-reverse;
+        }
+
         .main-specifications {
           display: flex;
           flex-direction: column;
           gap: 20px;
+
+          @media (width <= 1024px) {
+            margin-top: 20px;
+          }
 
           div {
             display: flex;
@@ -376,12 +523,16 @@
         .key-specifications {
           margin-top: 30px;
 
+          @media (width <= 1024px) {
+            margin-top: 0;
+          }
+
           .color {
             display: flex;
             flex-direction: column;
             gap: 12px;
 
-            @media (min-width: 1023px) {
+            @media (width <= 1024px) {
               max-width: 210px;
             }
 
