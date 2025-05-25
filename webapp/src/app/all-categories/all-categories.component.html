@@ -1,11 +1,11 @@
-<section>
-  @if (allCategories) {
+@if (allCategories) {
+  <section>
     <div class="title">
       <h1>{{ currentLang === 'ka' ? 'ყველა კატეგორია' : 'All Categories' }}</h1>
     </div>
     <div class="container">
       @for (category of allCategories; track $index) {
-        <div class="parent">
+        <div class="parent" [style.animationDelay.s]="$index * 0.1">
           <h4 class="parent-h4" (click)="navigateTo(['/', category.url])">{{ category.name }}</h4>
           @for (child of category.childCategories; track $index) {
             <p (click)="navigateTo(['/', child.url])">{{ child.name }}</p>
@@ -13,5 +13,5 @@
         </div>
       }
     </div>
-  }
-</section>
+  </section>
+}

@@ -2,6 +2,7 @@
 
 :host {
   flex-grow: 1;
+  min-height: 110vh;
 
   section {
     display: flex;
@@ -11,6 +12,7 @@
     margin: 0 auto;
     padding: 0 15px;
     margin-top: 30px;
+    animation: slide 300ms ease-out forwards;
 
     .title {
       width: 100%;
@@ -38,6 +40,8 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        opacity: 0;
+        animation: fadeIn 300ms ease-out forwards;
 
         .parent-h4 {
           font-size: 18px;
@@ -58,5 +62,25 @@
         }
       }
     }
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateY(30px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
