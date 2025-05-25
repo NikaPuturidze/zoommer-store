@@ -1,0 +1,62 @@
+@use '../../styles.scss' as *;
+
+:host {
+  flex-grow: 1;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    margin-top: 30px;
+
+    .title {
+      width: 100%;
+      padding-bottom: 24px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid $gray-primary;
+
+      h1 {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: $black-main;
+        @include medium;
+      }
+    }
+
+    .container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(4, calc(25% - 15px));
+      gap: 30px;
+      min-height: 110vh;
+
+      .parent {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        .parent-h4 {
+          font-size: 18px;
+          font-weight: 600;
+          color: rgb(10, 50, 81);
+          transition: 0.2s ease-in-out;
+          cursor: pointer;
+          margin-bottom: 10px;
+          @include bold;
+        }
+
+        p {
+          font-size: 14px;
+          color: rgb(10, 50, 81);
+          transition: 0.2s ease-in-out;
+          cursor: pointer;
+          @include regular;
+        }
+      }
+    }
+  }
+}

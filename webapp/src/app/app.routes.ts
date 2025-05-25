@@ -4,6 +4,7 @@ import { MainComponent } from './main/main.component'
 import { ProductsComponent } from './products/products.component'
 import { DetailsComponent } from './details/details.component'
 import { NotFoundComponent } from './not-found/not-found.component'
+import { AllCategoriesComponent } from './all-categories/all-categories.component'
 
 export const routes: Routes = [
   {
@@ -14,6 +15,10 @@ export const routes: Routes = [
   {
     path: 'info/:topic',
     component: InfoComponent,
+  },
+  {
+    path: 'all-category',
+    component: AllCategoriesComponent,
   },
   {
     path: ':products',
