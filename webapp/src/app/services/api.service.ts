@@ -8,6 +8,7 @@ import { ITopicResponse } from '../interfaces/topic.interface'
 import { IProductsResponse, ProductsOptions } from '../interfaces/products.interface'
 import { IFilterResponse } from '../interfaces/filter.interface'
 import { IProductResponse } from '../interfaces/product.interface'
+import { IAllCategory } from '../interfaces/all-categories.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -88,6 +89,14 @@ export class ApiService {
       },
       params: {
         productId,
+      },
+    })
+  }
+
+  allCategories(lang: string): Observable<IAllCategory[]> {
+    return this.httpClient.get<IAllCategory[]>(this.serverUrl + 'all-categories', {
+      headers: {
+        'accept-language': lang,
       },
     })
   }
