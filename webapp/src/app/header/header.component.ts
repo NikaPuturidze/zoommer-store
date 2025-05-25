@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { LanguageService } from '../services/language.service'
-import { RouterModule } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { BurgerService } from '../services/burger.service'
 import { ApiService } from '../services/api.service'
@@ -25,7 +25,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private languageService: LanguageService,
     private burgerService: BurgerService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -69,5 +70,11 @@ export class HeaderComponent implements OnInit {
     this.languageService.setLanguage(this.currentLang)
     this.updateLanguageState()
     this.isLanguageMenuOpen = false
+  }
+
+  public navigateTo(route: string[]): void {
+    this.router.navigate(route).catch((error: unknown) => {
+      console.error(error)
+    })
   }
 }
