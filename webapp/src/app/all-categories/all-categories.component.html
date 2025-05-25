@@ -1,8 +1,8 @@
-@if (allCategories) {
-  <section>
-    <div class="title">
-      <h1>{{ currentLang === 'ka' ? 'ყველა კატეგორია' : 'All Categories' }}</h1>
-    </div>
+<section>
+  <div class="title">
+    <h1>{{ currentLang === 'ka' ? 'ყველა კატეგორია' : 'All Categories' }}</h1>
+  </div>
+  @if (allCategories) {
     <div class="container">
       @for (category of allCategories; track $index) {
         <div class="parent" [style.animationDelay.s]="$index * 0.1">
@@ -13,5 +13,5 @@
         </div>
       }
     </div>
-  </section>
-}
+  }
+</section>
