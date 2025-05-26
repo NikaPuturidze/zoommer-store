@@ -1,0 +1,19 @@
+<section>
+  <div class="title">
+    <h1>{{ currentLang === 'ka' ? 'აქციები' : 'Promotions' }}</h1>
+  </div>
+  @if (promotion) {
+    <div class="container">
+      @for (item of promotion.pageProps.promotions; track $index) {
+        <div class="parent">
+          <div class="subtitle">
+            <p>{{ item.name }}</p>
+          </div>
+          <div class="content" (click)="navigateTo([item.route])">
+            <img [src]="viewportWidth > 1024 ? item.desktopImageUrl : item.mobileImageUrl" />
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>

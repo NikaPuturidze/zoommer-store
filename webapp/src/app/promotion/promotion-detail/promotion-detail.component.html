@@ -1,0 +1,50 @@
+<section>
+  @if (promotionDetail) {
+    <img [src]="promotionDetail.item.desktopImageUrl" />
+    <div class="container">
+      <div class="content">
+        <div class="title">
+          <p>{{ promotionDetail.item.name }}</p>
+        </div>
+        <div class="categories" #product [style.justifyContent]="justifyContent">
+          <h4 [class]="categoryIds.length < 1 ? 'active' : 'inActive'" (click)="categoryIds = []">
+            {{ this.currentLang === 'ka' ? 'ყველა' : 'All' }}
+          </h4>
+          @for (category of promotionDetail.categories; track $index) {
+            <h4
+              [class]="categoryIds.includes(category.id) ? 'active' : 'inActive'"
+              (click)="toggleCategoryId(category.id)"
+              [style.animationDelay.s]="$index * 0.02"
+            >
+              {{ category.name }}
+            </h4>
+          }
+        </div>
+        <div class="products">
+          @for (product of promotionDetail.items; track $index) {
+            <app-templ-product
+              [imageUrl]="product.imageUrl"
+              [labelText]="product.labelText"
+              [productName]="product.name"
+              [productPrice]="product.price"
+              [productSalePrice]="product.previousPrice ?? 0"
+              [route]="[product.route]"
+              [currentLang]="currentLang"
+            ></app-templ-product>
+          }
+        </div>
+        <button class="next" (click)="nextPage()">
+          @if (!showLoader) {
+            <h4>{{ currentLang === 'en' ? 'See More' : 'მეტის ნახვა' }}</h4>
+          } @else {
+            <div class="loader">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          }
+        </button>
+      </div>
+    </div>
+  }
+</section>

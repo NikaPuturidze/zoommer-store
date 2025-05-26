@@ -1,0 +1,211 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  flex-grow: 1;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    margin-top: 30px;
+
+    @media (width <= 1024px) {
+      padding: 0;
+      margin-top: 0;
+    }
+
+    img {
+      border-radius: 15px;
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+
+      @media (width <= 1024px) {
+        margin-left: -20px;
+        margin-bottom: 1px;
+        margin-top: -8px;
+        border-radius: 0px;
+        height: auto;
+        width: calc(100% + 40px);
+      }
+    }
+
+    .container {
+      width: 100%;
+      min-height: calc(-400px + 110vh);
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
+      border-radius: 20px;
+      margin-top: 45px;
+
+      @media (width <= 1024px) {
+        box-shadow: none;
+      }
+
+      .content {
+        padding: 25px;
+
+        @media (width <= 1024px) {
+          padding: 0px;
+        }
+
+        .title {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          @media (width <= 1024px) {
+            justify-content: center;
+          }
+
+          p {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            color: $black-main;
+            @include medium;
+          }
+        }
+
+        .categories {
+          margin-top: 30px;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: start;
+          gap: 15px;
+          cursor: pointer;
+          overflow: hidden;
+
+          @media (width <= 1024px) {
+            justify-content: center;
+            gap: 8px;
+            padding: 3px;
+            margin-inline: 3px;
+            max-height: 200px;
+            overflow-y: auto;
+          }
+
+          h4 {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 14px;
+            padding: 8px 15px;
+            border-radius: 12px;
+            transition: 0.1s;
+            cursor: pointer;
+            @include regular;
+            opacity: 0;
+            animation: fadeIn 100ms ease-out forwards;
+
+            @media (width <= 1024px) {
+              font-size: 10px;
+              padding: 6px 13px;
+            }
+
+            &.active {
+              color: $white-main !important;
+              background-color: $orange-main !important;
+            }
+
+            &.inActive {
+              color: $black-main !important;
+              background-color: $gray-primary !important;
+            }
+          }
+        }
+
+        .products {
+          margin-top: 40px;
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: start;
+          gap: 20px;
+
+          @media (width <= 1024px) {
+            justify-content: space-between;
+            padding: 0px 30px;
+          }
+        }
+
+        .next {
+          margin-top: 30px;
+          width: 200px;
+          height: 40px;
+          background: $gray-primary;
+          border-radius: 4px;
+          padding: 10px 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          justify-self: center;
+          gap: 8px;
+          overflow: hidden;
+          pointer-events: auto;
+          opacity: 1;
+          cursor: pointer;
+          border: none;
+
+          h4 {
+            position: relative;
+            color: $black-main;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 20px;
+            opacity: 0.8;
+            z-index: 1;
+            @include bold;
+          }
+
+          .loader {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+
+            .dot {
+              width: 6px;
+              height: 6px;
+              border-radius: 50%;
+              background-color: $orange-main;
+              opacity: 0.3;
+              animation: pulse 1.4s infinite ease-in-out;
+
+              &:nth-child(2) {
+                animation-delay: 0.2s;
+              }
+
+              &:nth-child(3) {
+                animation-delay: 0.4s;
+              }
+            }
+          }
+
+          @keyframes pulse {
+            0%,
+            80%,
+            100% {
+              opacity: 0.3;
+            }
+            40% {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

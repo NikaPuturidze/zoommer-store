@@ -1,0 +1,110 @@
+@use '../../styles.scss' as *;
+
+:host {
+  flex-grow: 1;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+    margin-top: 30px;
+    animation: slide 300ms ease-out forwards;
+
+    @media (width <= 1024px) {
+      padding: 0 20px;
+      margin-top: 13px;
+    }
+
+    .title {
+      width: 100%;
+      padding-bottom: 24px;
+      margin-bottom: 30px;
+      border-bottom: 2px solid $gray-primary;
+
+      @media (width <= 1024px) {
+        display: none;
+      }
+
+      h1 {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 29px;
+        color: $black-main;
+        @include bold;
+      }
+    }
+
+    .container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      animation: slide 300ms ease-out forwards;
+
+      @media (width <= 1024px) {
+        gap: 57px;
+      }
+
+      .parent {
+        width: 100%;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        @media (width <= 1024px) {
+          gap: 10px;
+        }
+
+        .subtitle {
+          display: flex;
+          justify-content: space-between;
+
+          p {
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 17px;
+            color: $black-main;
+            @include medium;
+          }
+        }
+
+        .content {
+          position: relative;
+          width: 100%;
+          height: 180px;
+          border-radius: 12px;
+          overflow: hidden;
+
+          @media (width <= 1024px) {
+            height: 100px;
+          }
+
+          img {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            inset: 0;
+            color: transparent;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes slide {
+  from {
+    transform: translateY(30px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
