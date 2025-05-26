@@ -8,6 +8,8 @@ import { ProductsModule } from './products/products.module'
 import { FilterModule } from './filter/filter.module'
 import { DetailsModule } from './details/details.module'
 import { AllCategoriesModule } from './all-categories/all-categories.module'
+import { PromotionModule } from './promotion/promotion.module'
+import { PromotionDetailModule } from './promotion-detail/promotion-detail.module'
 
 @Module({
   imports: [
@@ -22,6 +24,8 @@ import { AllCategoriesModule } from './all-categories/all-categories.module'
     FilterModule,
     DetailsModule,
     AllCategoriesModule,
+    PromotionModule,
+    PromotionDetailModule,
   ],
   controllers: [],
   providers: [],
