@@ -9,6 +9,8 @@ import { IProductsResponse, ProductsOptions } from '../interfaces/products.inter
 import { IFilterResponse } from '../interfaces/filter.interface'
 import { IProductResponse } from '../interfaces/product.interface'
 import { IAllCategory } from '../interfaces/all-categories.interface'
+import { IPromotion } from '../interfaces/promotion.interface'
+import { IPromotionDetailsResponse } from '../interfaces/promotion-details.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -97,6 +99,34 @@ export class ApiService {
     return this.httpClient.get<IAllCategory[]>(this.serverUrl + 'all-categories', {
       headers: {
         'accept-language': lang,
+      },
+    })
+  }
+
+  promotion(lang: string): Observable<IPromotion> {
+    return this.httpClient.get<IPromotion>(this.serverUrl + 'promotion', {
+      headers: {
+        'accept-language': lang,
+      },
+    })
+  }
+
+  promotionDetail(
+    lang: string,
+    page: number,
+    limit: number,
+    promotionId: number,
+    categoryIds?: number[]
+  ): Observable<IPromotionDetailsResponse> {
+    return this.httpClient.get<IPromotionDetailsResponse>(this.serverUrl + 'promotion-detail', {
+      headers: {
+        'accept-language': lang,
+      },
+      params: {
+        Page: String(page),
+        Limit: String(limit),
+        PromotionId: String(promotionId),
+        ...(categoryIds ? { CategoryIds: categoryIds.join(',') } : {}),
       },
     })
   }
