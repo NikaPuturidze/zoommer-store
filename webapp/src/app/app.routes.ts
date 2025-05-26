@@ -5,6 +5,8 @@ import { ProductsComponent } from './products/products.component'
 import { DetailsComponent } from './details/details.component'
 import { NotFoundComponent } from './not-found/not-found.component'
 import { AllCategoriesComponent } from './all-categories/all-categories.component'
+import { PromotionDetailComponent } from './promotion/promotion-detail/promotion-detail.component'
+import { PromotionComponent } from './promotion/promotion.component'
 
 export const routes: Routes = [
   {
@@ -21,12 +23,20 @@ export const routes: Routes = [
     component: AllCategoriesComponent,
   },
   {
-    path: ':products',
-    component: ProductsComponent,
+    path: 'promotion',
+    component: PromotionComponent,
+  },
+  {
+    path: 'promotion/:detail',
+    component: PromotionDetailComponent,
   },
   {
     path: ':category/:product',
     component: DetailsComponent,
+  },
+  {
+    path: ':products',
+    component: ProductsComponent,
   },
   {
     path: '**',
