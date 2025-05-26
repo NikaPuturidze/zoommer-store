@@ -66,7 +66,6 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
       next: (data) => {
         if (this.promotionDetail && page > 1) {
           this.promotionDetail.items = [...this.promotionDetail.items, ...data.items]
-
           this.promotionDetail.categories = data.categories
           this.promotionDetail.item = data.item
         } else {
@@ -83,13 +82,14 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
 
   public toggleCategoryId(id: number): void {
     if (this.promotionId) {
-      this.page = 1
-      this.loadPromotionDetail(this.currentLang, this.page, 28, this.promotionId)
       if (this.categoryIds.includes(id)) {
         this.categoryIds.splice(this.categoryIds.indexOf(id), 1)
       } else {
         this.categoryIds.push(id)
       }
+
+      this.page = 1
+      this.loadPromotionDetail(this.currentLang, this.page, 28, this.promotionId, this.categoryIds)
     }
   }
 
