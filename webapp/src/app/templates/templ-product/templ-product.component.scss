@@ -6,7 +6,7 @@
   position: relative;
 
   @media (width <= 1024px) {
-    height: 283px;
+    height: fit-content;
   }
 
   @media (width <= 340px) {
@@ -24,6 +24,7 @@
     height: 303px;
     justify-content: space-between;
     background: $white-main;
+
     @media (width <= 1024px) {
       height: 283px;
       max-width: 140px;
@@ -97,7 +98,6 @@
 
           @media (width <= 1024px) {
             font-size: 12px;
-            margin-top: 1px;
           }
 
           &::after {
@@ -216,11 +216,19 @@
     border-bottom: 1px solid $gray-primary;
     text-wrap: nowrap;
 
+    @media (width <= 1024px) {
+      max-height: 129px;
+    }
+
     .image {
       border-radius: 8px;
       background: $white-main;
-      height: 128px;
+      height: 100px;
       width: 120px;
+
+      @media (width <= 1024px) {
+        width: 80px;
+      }
 
       .best {
         position: absolute;
@@ -242,6 +250,11 @@
         width: 120px;
         height: 90px;
         object-fit: contain;
+
+        @media (width <= 1024px) {
+          width: 80px;
+          height: 80px;
+        }
       }
     }
 
@@ -250,6 +263,13 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
+      @media (width <= 1024px) {
+        flex-direction: column;
+        padding-bottom: 10px;
+        height: 100%;
+        gap: 10px;
+      }
     }
 
     .description {
@@ -258,6 +278,11 @@
       align-items: flex-start;
       gap: 15px;
       height: 100%;
+
+      @media (width <= 1024px) {
+        align-self: flex-start;
+        gap: 10px;
+      }
 
       .price {
         order: 2;
@@ -278,13 +303,13 @@
           font-size: 12px;
           padding-left: 3px;
           @include regular;
-          margin-top: 2px;
+          margin-top: 0px;
 
           &::after {
             content: '';
             width: 95%;
             position: absolute;
-            top: 33%;
+            top: 37%;
             left: 0px;
             height: 1px;
             background-color: $orange-primary;
@@ -317,6 +342,10 @@
         @include medium;
         text-overflow: ellipsis;
         max-width: 360px;
+
+        @media (width <= 1024px) {
+          font-size: 10px;
+        }
       }
     }
 
@@ -327,6 +356,12 @@
       grid-template-rows: 35px;
       column-gap: 10px;
       height: 35px;
+
+      @media (width <= 1024px) {
+        align-self: flex-end;
+        top: -2px;
+        left: -3px;
+      }
 
       .compare {
         background-color: $gray-primary;
@@ -351,6 +386,10 @@
         opacity: 1;
         cursor: pointer;
 
+        @media (width <= 1024px) {
+          padding: 10px 13px;
+        }
+
         h4 {
           position: relative;
           color: $black-main;
@@ -360,6 +399,10 @@
           opacity: 0.8;
           z-index: 1;
           @include bold;
+
+          @media (width <= 1024px) {
+            font-size: 10px;
+          }
         }
       }
     }

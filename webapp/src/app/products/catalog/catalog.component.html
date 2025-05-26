@@ -1,5 +1,9 @@
 @if (!isLoading && productsResponse) {
-  <div class="catalog" [class.active]="productsResponse.products.length < 1 || showGrid === 'true'">
+  <div
+    class="catalog"
+    [style.display]="productsResponse.products.length < 1 ? 'block' : 'grid'"
+    [class.active]="productsResponse.products.length < 1 || showGrid === 'true'"
+  >
     @for (product of productsResponse.products; track $index) {
       @if (currentLang && product.route) {
         <app-templ-product

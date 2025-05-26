@@ -103,7 +103,7 @@
   </div>
 
   <div class="products">
-    <div [class]="filterOpen ? 'portal' : 'out'"></div>
+    <div [class]="filterOpen ? 'portal' : 'out'" [style.display]="filterOpen ? 'block' : 'none'"></div>
     <app-filter
       (click)="filterOpen = false"
       (FiltersChanged)="onFiltersChanged($event)"
