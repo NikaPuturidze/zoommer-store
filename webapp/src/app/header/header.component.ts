@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, DestroyRef, HostBinding, OnInit } from '@angular/core'
 import { LanguageService } from '../services/language.service'
 import { Router, RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { BurgerService } from '../services/burger.service'
 import { ApiService } from '../services/api.service'
 import { IMegaMenu } from '../../interfaces/mega-menu.interface'
+import { fromEvent, map, throttleTime } from 'rxjs'
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 
 @Component({
   selector: 'app-header',
@@ -22,11 +24,14 @@ export class HeaderComponent implements OnInit {
   public currentFlag = ''
   public isLanguageMenuOpen = false
 
+  @HostBinding('class.sticky') isSticky = false
+
   constructor(
     private languageService: LanguageService,
     private burgerService: BurgerService,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private destroy: DestroyRef
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +39,19 @@ export class HeaderComponent implements OnInit {
       this.currentLang = language
       this.updateLanguageState()
     })
+    this.listenToScroll()
+  }
+
+  public listenToScroll(): void {
+    fromEvent(window, 'scroll')
+      .pipe(
+        throttleTime(25),
+        map(() => window.scrollY),
+        takeUntilDestroyed(this.destroy)
+      )
+      .subscribe((scroll) => {
+        this.isSticky = scroll >= 100
+      })
   }
 
   public updateLanguageState(): void {
