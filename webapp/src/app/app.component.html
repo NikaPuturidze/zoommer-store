@@ -1,7 +1,9 @@
-<app-burger></app-burger>
-@if (viewportWidth > 1024) {
-  <app-navigation [topics]="topics"></app-navigation>
+@if (allGood) {
+  <app-burger></app-burger>
+  @if (viewportWidth > 1024) {
+    <app-navigation [topics]="topics"></app-navigation>
+  }
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+  <app-footer [topics]="topics"></app-footer>
 }
-<app-header></app-header>
-<router-outlet></router-outlet>
-<app-footer [topics]="topics"></app-footer>

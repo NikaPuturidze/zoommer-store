@@ -20,6 +20,7 @@ export class AppComponent {
   @Input() topics?: ITopicsResponse
   public currentLang: 'en' | 'ka' = 'en'
   public viewportWidth
+  public allGood?: boolean
 
   constructor(
     private readonly apiService: ApiService,
@@ -30,11 +31,18 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-    this.authService.setAccessToken()
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
-      this.loadTopics()
-    })
+    this.authService
+      .setAccessToken()
+      .then((result) => {
+        this.allGood = result
+        this.languageService.currentLanguage$.subscribe((language) => {
+          this.currentLang = language
+          this.loadTopics()
+        })
+      })
+      .catch((error: unknown) => {
+        console.error(error)
+      })
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
