@@ -16,12 +16,14 @@
                 }
               </div>
             </div>
-            <div class="arrow-left">
-              <img (click)="previousImage(secIndex)" src="https://zoommer.ge/icons/slider-left-btn.svg" />
-            </div>
-            <div class="arrow-right">
-              <img (click)="nextImage(secIndex)" src="https://zoommer.ge/icons/slider-right-btn.svg" />
-            </div>
+            @if (content[secIndex] >= 6) {
+              <div class="arrow-left">
+                <img (click)="previousImage(secIndex)" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+              </div>
+              <div class="arrow-right">
+                <img (click)="nextImage(secIndex)" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+              </div>
+            }
           </section>
         }
 
