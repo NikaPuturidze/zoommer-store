@@ -50,7 +50,7 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
   private getPromotionId(): void {
     this.actR.paramMap.subscribe((parameterMap) => {
       this.promotionId = Number(parameterMap.get('detail')?.split('-').at(-1))
-      this.loadPromotionDetail(this.currentLang, this.page, 28, this.promotionId)
+      this.loadPromotionDetail(this.currentLang, this.page, 48, this.promotionId)
     })
   }
 
@@ -89,14 +89,14 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
       }
 
       this.page = 1
-      this.loadPromotionDetail(this.currentLang, this.page, 28, this.promotionId, this.categoryIds)
+      this.loadPromotionDetail(this.currentLang, this.page, 48, this.promotionId, this.categoryIds)
     }
   }
 
   public nextPage(): void {
     if (this.promotionId) {
       this.page++
-      this.loadPromotionDetail(this.currentLang, this.page, 28, this.promotionId)
+      this.loadPromotionDetail(this.currentLang, this.page, 48, this.promotionId)
     }
   }
 }

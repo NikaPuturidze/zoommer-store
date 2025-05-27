@@ -33,17 +33,19 @@
             ></app-templ-product>
           }
         </div>
-        <button class="next" (click)="nextPage()">
-          @if (!showLoader) {
-            <h4>{{ currentLang === 'en' ? 'See More' : 'მეტის ნახვა' }}</h4>
-          } @else {
-            <div class="loader">
-              <div class="dot"></div>
-              <div class="dot"></div>
-              <div class="dot"></div>
-            </div>
-          }
-        </button>
+        @if (promotionDetail.items.length >= 48) {
+          <button class="next" (click)="nextPage()">
+            @if (!showLoader) {
+              <h4>{{ currentLang === 'en' ? 'See More' : 'მეტის ნახვა' }}</h4>
+            } @else {
+              <div class="loader">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            }
+          </button>
+        }
       </div>
     </div>
   }
