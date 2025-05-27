@@ -20,45 +20,25 @@ export class ApiService {
 
   private serverUrl = 'http://localhost:3000/api/'
 
-  topics(lang: string): Observable<ITopicsResponse> {
-    return this.httpClient.get<ITopicsResponse>(this.serverUrl + 'topics', {
-      headers: {
-        'accept-language': lang,
-      },
-    })
+  topics(): Observable<ITopicsResponse> {
+    return this.httpClient.get<ITopicsResponse>(this.serverUrl + 'topics')
   }
 
-  topic(lang: string, title: string): Observable<ITopicResponse> {
-    return this.httpClient.get<ITopicResponse>(this.serverUrl + 'topic?title=' + title.toString(), {
-      headers: {
-        'accept-language': lang,
-      },
-    })
+  topic(title: string): Observable<ITopicResponse> {
+    return this.httpClient.get<ITopicResponse>(this.serverUrl + 'topic?title=' + title.toString())
   }
 
-  megaMenu(lang: string): Observable<IMegaMenu[]> {
-    return this.httpClient.get<IMegaMenu[]>(this.serverUrl + 'mega-menu', {
-      headers: {
-        'accept-language': lang,
-      },
-    })
+  megaMenu(): Observable<IMegaMenu[]> {
+    return this.httpClient.get<IMegaMenu[]>(this.serverUrl + 'mega-menu')
   }
 
-  content(lang: string): Observable<IContentResponse> {
-    return this.httpClient.get<IContentResponse>(this.serverUrl + 'content', {
-      headers: {
-        'accept-language': lang,
-      },
-    })
+  content(): Observable<IContentResponse> {
+    return this.httpClient.get<IContentResponse>(this.serverUrl + 'content')
   }
 
   products(options: ProductsOptions): Observable<IProductsResponse> {
-    const { lang, page, limit, specificationIds, categoryId, categories, priceFrom, priceTo, priceAsc, nameAsc } =
-      options
+    const { page, limit, specificationIds, categoryId, categories, priceFrom, priceTo, priceAsc, nameAsc } = options
     return this.httpClient.get<IProductsResponse>(this.serverUrl + 'products', {
-      headers: {
-        'accept-language': lang,
-      },
       params: {
         Page: String(page),
         Limit: String(limit),
@@ -73,55 +53,37 @@ export class ApiService {
     })
   }
 
-  filter(lang: string, catId: number): Observable<IFilterResponse> {
+  filter(catId: number): Observable<IFilterResponse> {
     return this.httpClient.get<IFilterResponse>(this.serverUrl + 'filter', {
-      headers: {
-        'accept-language': lang,
-      },
       params: {
         catId,
       },
     })
   }
 
-  details(lang: string, productId: number): Observable<IProductResponse> {
+  details(productId: number): Observable<IProductResponse> {
     return this.httpClient.get<IProductResponse>(this.serverUrl + 'details', {
-      headers: {
-        'accept-language': lang,
-      },
       params: {
         productId,
       },
     })
   }
 
-  allCategories(lang: string): Observable<IAllCategory[]> {
-    return this.httpClient.get<IAllCategory[]>(this.serverUrl + 'all-categories', {
-      headers: {
-        'accept-language': lang,
-      },
-    })
+  allCategories(): Observable<IAllCategory[]> {
+    return this.httpClient.get<IAllCategory[]>(this.serverUrl + 'all-categories')
   }
 
-  promotion(lang: string): Observable<IPromotion> {
-    return this.httpClient.get<IPromotion>(this.serverUrl + 'promotion', {
-      headers: {
-        'accept-language': lang,
-      },
-    })
+  promotion(): Observable<IPromotion> {
+    return this.httpClient.get<IPromotion>(this.serverUrl + 'promotion')
   }
 
   promotionDetail(
-    lang: string,
     page: number,
     limit: number,
     promotionId: number,
     categoryIds?: number[]
   ): Observable<IPromotionDetailsResponse> {
     return this.httpClient.get<IPromotionDetailsResponse>(this.serverUrl + 'promotion-detail', {
-      headers: {
-        'accept-language': lang,
-      },
       params: {
         Page: String(page),
         Limit: String(limit),
@@ -129,5 +91,9 @@ export class ApiService {
         ...(categoryIds ? { CategoryIds: categoryIds.join(',') } : {}),
       },
     })
+  }
+
+  accessToken(): Observable<{ token: string }> {
+    return this.httpClient.get<{ token: string }>(this.serverUrl + 'cookie')
   }
 }

@@ -41,7 +41,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   }
 
   private loadTopic(paramater: string): void {
-    this.apiService.topic(this.currentLang, paramater).subscribe({
+    this.apiService.topic(paramater).subscribe({
       next: (data: ITopicResponse) => {
         this.title.setTitle(data.title + ' • Zoommer')
         this.topic = data

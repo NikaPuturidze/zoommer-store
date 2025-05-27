@@ -23,12 +23,12 @@ export class AllCategoriesComponent implements OnInit {
   ngOnInit(): void {
     this.languageService.currentLanguage$.subscribe((language) => {
       this.currentLang = language
-      this.loadAllCategories(this.currentLang)
+      this.loadAllCategories()
     })
   }
 
-  private loadAllCategories(lang: string): void {
-    this.apiService.allCategories(lang).subscribe({
+  private loadAllCategories(): void {
+    this.apiService.allCategories().subscribe({
       next: (data: IAllCategory[]) => {
         this.allCategories = data
       },

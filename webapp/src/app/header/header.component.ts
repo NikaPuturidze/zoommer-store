@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit {
     this.burgerService.setBurger(this.burgerService.burgerTranslate.value === 0 ? -100 : 0)
 
     if (this.burgerService.megaMenuSubject.value === undefined) {
-      this.apiService.megaMenu(this.currentLang).subscribe({
+      this.apiService.megaMenu().subscribe({
         next: (data: IMegaMenu[] | undefined) => {
           this.burgerService.setMegaMenu(data)
         },

@@ -179,7 +179,7 @@ export class FilterComponent implements OnInit {
     callback: (specifications: ISpecification[], maxPrice?: number) => void
   ): void {
     this.apiService
-      .filter(this.currentLang, categoryId)
+      .filter(categoryId)
       .pipe(delay(10))
       .subscribe({
         next: (data: IFilterResponse) => {

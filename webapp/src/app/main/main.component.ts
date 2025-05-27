@@ -61,7 +61,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   private loadMegaMenu(): void {
-    this.apiService.megaMenu(this.currentLang).subscribe({
+    this.apiService.megaMenu().subscribe({
       next: (data: IMegaMenu[]) => {
         this.megaMenu = data
         this.burgerService.setMegaMenu(data)
@@ -79,7 +79,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   }
 
   private loadContent(): void {
-    this.apiService.content(this.currentLang).subscribe({
+    this.apiService.content().subscribe({
       next: (data: IContentResponse) => {
         this.content = data
       },

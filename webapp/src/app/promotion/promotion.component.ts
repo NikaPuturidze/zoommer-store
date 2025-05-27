@@ -27,7 +27,7 @@ export class PromotionComponent implements OnInit {
   ngOnInit(): void {
     this.languageService.currentLanguage$.subscribe((language) => {
       this.currentLang = language
-      this.loadPromotion(this.currentLang)
+      this.loadPromotion()
     })
 
     this.viewport.Viewport$.subscribe((values) => {
@@ -35,8 +35,8 @@ export class PromotionComponent implements OnInit {
     })
   }
 
-  private loadPromotion(lang: string): void {
-    this.apiService.promotion(lang).subscribe({
+  private loadPromotion(): void {
+    this.apiService.promotion().subscribe({
       next: (data: IPromotion) => {
         this.promotion = data
       },

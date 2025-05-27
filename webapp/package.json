@@ -21,6 +21,7 @@
     "@angular/router": "^19.2.0",
     "@nestjs/mapped-types": "^2.1.0",
     "@ngneat/content-loader": "^7.0.0",
+    "ngx-cookie-service": "^19.1.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

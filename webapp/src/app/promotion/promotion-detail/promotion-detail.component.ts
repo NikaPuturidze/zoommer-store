@@ -52,22 +52,16 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
   private getPromotionId(): void {
     this.actR.paramMap.subscribe((parameterMap) => {
       this.promotionId = Number(parameterMap.get('detail')?.split('-').at(-1))
-      this.loadPromotionDetail(this.currentLang, this.page, 48, this.promotionId)
+      this.loadPromotionDetail(this.page, 48, this.promotionId)
       this.title.setTitle(
         this.currentLang === 'ka' ? 'ზუმერული შეთავაზებები | Zoommer.ge' : 'Zoommers Offers | Zoommer.ge'
       )
     })
   }
 
-  private loadPromotionDetail(
-    lang: string,
-    page: number,
-    limit: number,
-    promotionId: number,
-    categoryIds?: number[]
-  ): void {
+  private loadPromotionDetail(page: number, limit: number, promotionId: number, categoryIds?: number[]): void {
     this.showLoader = true
-    this.apiService.promotionDetail(lang, page, limit, promotionId, categoryIds).subscribe({
+    this.apiService.promotionDetail(page, limit, promotionId, categoryIds).subscribe({
       next: (data) => {
         if (this.promotionDetail && page > 1) {
           this.promotionDetail.items = [...this.promotionDetail.items, ...data.items]
@@ -94,14 +88,14 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
       }
 
       this.page = 1
-      this.loadPromotionDetail(this.currentLang, this.page, 48, this.promotionId, this.categoryIds)
+      this.loadPromotionDetail(this.page, 48, this.promotionId, this.categoryIds)
     }
   }
 
   public nextPage(): void {
     if (this.promotionId) {
       this.page++
-      this.loadPromotionDetail(this.currentLang, this.page, 48, this.promotionId)
+      this.loadPromotionDetail(this.page, 48, this.promotionId)
     }
   }
 }

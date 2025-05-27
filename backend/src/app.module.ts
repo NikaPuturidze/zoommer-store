@@ -10,6 +10,7 @@ import { DetailsModule } from './details/details.module'
 import { AllCategoriesModule } from './all-categories/all-categories.module'
 import { PromotionModule } from './promotion/promotion.module'
 import { PromotionDetailModule } from './promotion-detail/promotion-detail.module'
+import { CookieModule } from './cookie/cookie.module'
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { PromotionDetailModule } from './promotion-detail/promotion-detail.modul
     AllCategoriesModule,
     PromotionModule,
     PromotionDetailModule,
+    CookieModule,
   ],
   controllers: [],
   providers: [],

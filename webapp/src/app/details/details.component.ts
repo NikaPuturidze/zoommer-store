@@ -56,7 +56,7 @@ export class DetailsComponent {
   }
 
   private loadDetails(productId: number): void {
-    this.apiService.details(this.currentLang, productId).subscribe({
+    this.apiService.details(productId).subscribe({
       next: (data: IProductResponse) => {
         this.title.setTitle(data.product.metaTitle)
         if (data.httpStatusCode !== 200) {

@@ -8,6 +8,7 @@ import { LanguageService } from './services/language.service'
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router'
 import { ViewportService } from './services/viewport.service'
 import { BurgerComponent } from './burger/burger.component'
+import { AuthService } from './services/auth.service'
 
 @Component({
   selector: 'app-root',
@@ -24,10 +25,12 @@ export class AppComponent {
     private readonly apiService: ApiService,
     private languageService: LanguageService,
     private router: Router,
-    private viewport: ViewportService
+    private viewport: ViewportService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
+    this.authService.setAccessToken()
     this.languageService.currentLanguage$.subscribe((language) => {
       this.currentLang = language
       this.loadTopics()
@@ -52,7 +55,7 @@ export class AppComponent {
   }
 
   private loadTopics(): void {
-    this.apiService.topics(this.currentLang).subscribe({
+    this.apiService.topics().subscribe({
       next: (data: ITopicsResponse) => {
         this.topics = data
       },
