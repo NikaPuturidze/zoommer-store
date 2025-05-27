@@ -4,7 +4,7 @@ import * as https from 'https'
 
 @Injectable()
 export class DetailsService {
-  async details(lang: string, productId: number): Promise<unknown> {
+  async details(lang: string, productId: number, accessToken: string): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
 
     const hostname = process.env.ENDPOINT_HOSTNAME
@@ -21,6 +21,7 @@ export class DetailsService {
       headers: {
         Host: hostname,
         'accept-language': selectedLang,
+        authorization: accessToken,
       },
       servername: hostname,
     }

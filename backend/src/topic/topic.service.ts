@@ -4,7 +4,7 @@ import * as https from 'https'
 
 @Injectable()
 export class TopicService {
-  async topic(lang: string, title: string): Promise<unknown> {
+  async topic(lang: string, accessToken: string, title: string): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
 
     const hostname = process.env.ENDPOINT_HOSTNAME
@@ -21,6 +21,7 @@ export class TopicService {
       headers: {
         Host: hostname,
         'accept-language': selectedLang,
+        authorization: accessToken,
       },
       servername: hostname,
     }

@@ -6,7 +6,7 @@ export class PromotionController {
   constructor(private readonly promotionService: PromotionService) {}
 
   @Get()
-  topic(@Headers('accept-language') lang: string): Promise<unknown> {
-    return this.promotionService.promotion(lang)
+  topic(@Headers('accept-language') lang: string, @Headers('authorization') accessToken: string): Promise<unknown> {
+    return this.promotionService.promotion(lang, accessToken)
   }
 }

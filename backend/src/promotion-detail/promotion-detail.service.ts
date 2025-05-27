@@ -6,6 +6,7 @@ import * as https from 'https'
 export class PromotionDetailService {
   async detail(
     lang: string,
+    accessToken: string,
     page: number,
     limit: number,
     promotionId: number,

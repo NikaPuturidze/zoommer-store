@@ -4,7 +4,7 @@ import * as https from 'https'
 
 @Injectable()
 export class FilterService {
-  async filter(lang: string, catId: number): Promise<unknown> {
+  async filter(lang: string, catId: number, accessToken: string): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
 
     const hostname = process.env.ENDPOINT_HOSTNAME
@@ -21,6 +21,7 @@ export class FilterService {
       headers: {
         Host: hostname,
         'accept-language': selectedLang,
+        authorization: accessToken,
       },
       servername: hostname,
     }

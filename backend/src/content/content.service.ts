@@ -4,7 +4,7 @@ import * as https from 'https'
 
 @Injectable()
 export class ContentService {
-  async megaMenu(lang: string): Promise<unknown> {
+  async megaMenu(lang: string, accesToken: string): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
 
     const hostname = process.env.ENDPOINT_HOSTNAME
@@ -18,6 +18,7 @@ export class ContentService {
       headers: {
         Host: hostname,
         'accept-language': selectedLang,
+        authorization: accesToken,
       },
       servername: hostname,
     }

@@ -6,6 +6,7 @@ import * as https from 'https'
 export class ProductsService {
   async products(
     lang: string,
+    accessToken: string,
     page: number,
     limit: number,
     specificationIds: string,
@@ -42,6 +43,7 @@ export class ProductsService {
       headers: {
         Host: hostname,
         'accept-language': selectedLang,
+        authorization: accessToken,
       },
       servername: hostname,
     }

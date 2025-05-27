@@ -5,7 +5,7 @@ import { AllCategoriesService } from './all-categories.service'
 export class AllCategoriesController {
   constructor(private readonly allCategoriesService: AllCategoriesService) {}
   @Get()
-  content(@Headers('accept-language') lang: string): Promise<unknown> {
-    return this.allCategoriesService.allCategories(lang)
+  content(@Headers('accept-language') lang: string, @Headers('authorization') accesToken: string): Promise<unknown> {
+    return this.allCategoriesService.allCategories(lang, accesToken)
   }
 }

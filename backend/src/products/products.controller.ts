@@ -8,6 +8,7 @@ export class ProductsController {
   @Get()
   topic(
     @Headers('accept-language') lang: string,
+    @Headers('authorization') accessToken: string,
     @Query('Page') page: number,
     @Query('Limit') limit: number,
     @Query('CategoryId') categoryId: number,
@@ -20,6 +21,7 @@ export class ProductsController {
   ): Promise<unknown> {
     return this.productsService.products(
       lang,
+      accessToken,
       page,
       limit,
       specificationIds,

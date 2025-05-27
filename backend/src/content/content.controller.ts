@@ -5,7 +5,7 @@ import { ContentService } from './content.service'
 export class ContentController {
   constructor(private readonly contentService: ContentService) {}
   @Get()
-  content(@Headers('accept-language') lang: string): Promise<unknown> {
-    return this.contentService.megaMenu(lang)
+  content(@Headers('accept-language') lang: string, @Headers('authorization') accessToken: string): Promise<unknown> {
+    return this.contentService.megaMenu(lang, accessToken)
   }
 }

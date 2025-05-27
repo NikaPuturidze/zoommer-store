@@ -6,7 +6,11 @@ export class FilterController {
   constructor(private readonly filterService: FilterService) {}
 
   @Get()
-  topic(@Headers('accept-language') lang: string, @Query('catId') catId: number): Promise<unknown> {
-    return this.filterService.filter(lang, catId)
+  topic(
+    @Headers('accept-language') lang: string,
+    @Headers('authorization') accessToken: string,
+    @Query('catId') catId: number
+  ): Promise<unknown> {
+    return this.filterService.filter(lang, catId, accessToken)
   }
 }

@@ -6,7 +6,11 @@ export class TopicController {
   constructor(private readonly topicService: TopicService) {}
 
   @Get()
-  topic(@Headers('accept-language') lang: string, @Query('title') title: string): Promise<unknown> {
-    return this.topicService.topic(lang, title)
+  topic(
+    @Headers('accept-language') lang: string,
+    @Headers('authorization') accessToken: string,
+    @Query('title') title: string
+  ): Promise<unknown> {
+    return this.topicService.topic(lang, accessToken, title)
   }
 }
