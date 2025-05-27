@@ -103,11 +103,11 @@
         min-width: 400px;
         gap: 20px;
         padding-bottom: 37px;
-        border-bottom: 1px solid $gray-primary;
 
         @media (width <= 1024px) {
           position: relative;
           min-width: 0;
+          border-bottom: 1px solid $gray-primary;
         }
 
         @keyframes slide {
