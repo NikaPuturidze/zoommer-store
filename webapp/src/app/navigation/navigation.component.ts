@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { LanguageService } from '../services/language.service'
-import { ITopicsResponse } from '../interfaces/topics.interface'
+import { ITopicsResponse } from '../../interfaces/topics.interface'
 import { Router } from '@angular/router'
 
 @Component({

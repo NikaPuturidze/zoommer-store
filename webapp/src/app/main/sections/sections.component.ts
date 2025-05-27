@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core'
-import { EContent, IContentResponse } from '../../interfaces/content.interface'
+import { EContent, IContentResponse } from '../../../interfaces/content.interface'
 import { CommonModule } from '@angular/common'
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
 import { Router } from '@angular/router'

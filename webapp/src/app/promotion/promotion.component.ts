@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
-import { IPromotion } from '../interfaces/promotion.interface'
+import { IPromotion } from '../../interfaces/promotion.interface'
 import { ViewportService } from '../services/viewport.service'
 
 @Component({

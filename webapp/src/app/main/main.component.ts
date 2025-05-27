@@ -1,14 +1,14 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core'
 import { CategoryComponent } from './category/category.component'
 import { ImageCarouselComponent } from './image-carousel/image-carousel.component'
-import { EContent, IContentResponse } from '../interfaces/content.interface'
+import { EContent, IContentResponse } from '../../interfaces/content.interface'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { SectionsComponent } from './sections/sections.component'
 import { LocalStorageService } from '../services/localstorage.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { ViewportService } from '../services/viewport.service'
-import { IMegaMenu } from '../interfaces/mega-menu.interface'
+import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { BurgerService } from '../services/burger.service'
 
 @Component({

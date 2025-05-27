@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { ActivatedRoute } from '@angular/router'
-import { ITopicResponse } from '../interfaces/topic.interface'
+import { ITopicResponse } from '../../interfaces/topic.interface'
 import { DomSanitizer, SafeHtml, Title } from '@angular/platform-browser'
 import { Subject, combineLatest, takeUntil } from 'rxjs'
 

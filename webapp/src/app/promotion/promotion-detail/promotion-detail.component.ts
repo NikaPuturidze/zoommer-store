@@ -2,7 +2,7 @@ import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnInit, Vie
 import { ActivatedRoute } from '@angular/router'
 import { ApiService } from '../../services/api.service'
 import { LanguageService } from '../../services/language.service'
-import { IPromotionDetailsResponse } from '../../interfaces/promotion-details.interface'
+import { IPromotionDetailsResponse } from '../../../interfaces/promotion-details.interface'
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
 import { Title } from '@angular/platform-browser'
 

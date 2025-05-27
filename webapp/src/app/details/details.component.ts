@@ -4,7 +4,7 @@ import { AdditionalInfoComponent } from './additional-info/additional-info.compo
 import { BuyComponent } from './buy/buy.component'
 import { BundlesComponent } from './bundles/bundles.component'
 import { ActivatedRoute, Params, Router } from '@angular/router'
-import { IProduct, IProductResponse } from '../interfaces/product.interface'
+import { IProduct, IProductResponse } from '../../interfaces/product.interface'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'

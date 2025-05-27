@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { EProducts, IProductsResponse } from '../../interfaces/products.interface'
+import { EProducts, IProductsResponse } from '../../../interfaces/products.interface'
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
 import { LocalStorageService } from '../../services/localstorage.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'

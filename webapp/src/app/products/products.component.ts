@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { EProducts, IProductsResponse, ProductsOptions } from '../interfaces/products.interface'
+import { EProducts, IProductsResponse, ProductsOptions } from '../../interfaces/products.interface'
 import { CatalogComponent } from './catalog/catalog.component'
 import { FilterComponent } from './filter/filter.component'
 import { ApiService } from '../services/api.service'

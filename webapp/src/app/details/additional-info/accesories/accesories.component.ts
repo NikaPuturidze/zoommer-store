@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { IAccessory } from 'webapp/src/app/interfaces/product.interface'
+import { IAccessory } from 'webapp/src/interfaces/product.interface'
 import { TemplProductComponent } from '../../../templates/templ-product/templ-product.component'
 
 @Component({

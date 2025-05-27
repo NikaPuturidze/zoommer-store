@@ -4,7 +4,7 @@ import { SimmilarComponent } from './simmilar/similar.component'
 import { FeaturesComponent } from './features/features.component'
 import { WarrantyComponent } from './warranty/warranty.component'
 import { BranchesComponent } from './branches/branches.component'
-import { IProduct, IProductResponse, ITranslations } from '../../interfaces/product.interface'
+import { IProduct, IProductResponse, ITranslations } from '../../../interfaces/product.interface'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({

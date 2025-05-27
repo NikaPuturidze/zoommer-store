@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { ITranslations } from 'webapp/src/app/interfaces/product.interface'
+import { ITranslations } from 'webapp/src/interfaces/product.interface'
 
 @Component({
   selector: 'app-warranty',

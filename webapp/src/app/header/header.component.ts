@@ -4,7 +4,7 @@ import { Router, RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { BurgerService } from '../services/burger.service'
 import { ApiService } from '../services/api.service'
-import { IMegaMenu } from '../interfaces/mega-menu.interface'
+import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 
 @Component({
   selector: 'app-header',

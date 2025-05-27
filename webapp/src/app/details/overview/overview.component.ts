@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { IProduct, ITranslations } from '../../interfaces/product.interface'
+import { IProduct, ITranslations } from '../../../interfaces/product.interface'
 import { Router } from '@angular/router'
 import { ViewportService } from '../../services/viewport.service'
 

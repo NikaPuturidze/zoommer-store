@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
-import { IAllCategory } from '../interfaces/all-categories.interface'
+import { IAllCategory } from '../../interfaces/all-categories.interface'
 import { Router } from '@angular/router'
 
 @Component({

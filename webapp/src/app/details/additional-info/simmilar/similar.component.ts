@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { ISimilarProductsList, ITranslations } from 'webapp/src/app/interfaces/product.interface'
+import { ISimilarProductsList, ITranslations } from 'webapp/src/interfaces/product.interface'
 import { TemplProductComponent } from '../../../templates/templ-product/templ-product.component'
 
 @Component({

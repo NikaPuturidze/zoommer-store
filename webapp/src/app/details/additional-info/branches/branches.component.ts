@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
-import { IAvailabilityInStores, ITranslations } from 'webapp/src/app/interfaces/product.interface'
+import { IAvailabilityInStores, ITranslations } from 'webapp/src/interfaces/product.interface'
 
 @Component({
   selector: 'app-branches',

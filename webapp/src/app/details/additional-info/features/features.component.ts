@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { ISpecificationGroup, ITranslations } from 'webapp/src/app/interfaces/product.interface'
+import { ISpecificationGroup, ITranslations } from 'webapp/src/interfaces/product.interface'
 import { ViewportService } from 'webapp/src/app/services/viewport.service'
 
 @Component({

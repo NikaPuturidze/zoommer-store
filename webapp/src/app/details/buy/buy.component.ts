@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import { IProduct, ITranslations } from '../../interfaces/product.interface'
+import { IProduct, ITranslations } from '../../../interfaces/product.interface'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 
 @Component({

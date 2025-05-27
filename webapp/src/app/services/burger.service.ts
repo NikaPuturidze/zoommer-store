@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { IMegaMenu } from '../interfaces/mega-menu.interface'
+import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { BehaviorSubject, Observable } from 'rxjs'
 
 @Injectable({

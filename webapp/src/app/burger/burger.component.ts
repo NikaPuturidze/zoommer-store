@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { BurgerService } from '../services/burger.service'
-import { IMegaMenu } from '../interfaces/mega-menu.interface'
+import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { combineLatest } from 'rxjs'
 import { Router } from '@angular/router'
 import { LanguageService } from '../services/language.service'

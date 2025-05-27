@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { IProduct } from '../../interfaces/content.interface'
+import { IProduct } from '../../../interfaces/content.interface'
 import { LocalStorageService } from '../../services/localstorage.service'
 import { Router } from '@angular/router'
 

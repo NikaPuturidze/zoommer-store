@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
-import { ITopicsResponse } from '../interfaces/topics.interface'
+import { ITopicsResponse } from '../../interfaces/topics.interface'
 import { LanguageService } from '../services/language.service'
 import { Router } from '@angular/router'
 

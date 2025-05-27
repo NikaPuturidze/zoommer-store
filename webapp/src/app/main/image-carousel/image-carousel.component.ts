@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core'
-import { EContent, IBanner, IContentResponse } from '../../interfaces/content.interface'
+import { EContent, IBanner, IContentResponse } from '../../../interfaces/content.interface'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { Router } from '@angular/router'
 import { ViewportService } from '../../services/viewport.service'

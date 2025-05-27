@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
-import { IProduct, ITranslations } from '../../interfaces/product.interface'
+import { IProduct, ITranslations } from '../../../interfaces/product.interface'
 
 @Component({
   selector: 'app-bundles',
