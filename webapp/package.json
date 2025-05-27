@@ -7,8 +7,7 @@
     "ng": "ng",
     "start": "ng serve --no-hmr",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "lint": "eslint \"{src,apps,libs}/**/*.ts\" --fix"
   },
   "dependencies": {
     "@angular-slider/ngx-slider": "^19.0.0",

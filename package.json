@@ -21,7 +21,7 @@
     "start": "pnpm -r --parallel start:frontend start:backend",
     "build": "pnpm -r --parallel build:frontend build:backend",
     "prettify": "pnpm -r --parallel format",
-    "lint": "concurrently 'pnpm b lint'",
+    "lint": "concurrently 'pnpm b lint' 'pnpm w lint'",
     "prepare": "husky"
   },
   "devDependencies": {
