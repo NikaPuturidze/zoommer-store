@@ -82,6 +82,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.apiService.content().subscribe({
       next: (data: IContentResponse) => {
         this.content = data
+        console.log(data.section[0].products?.length)
       },
       error: (error: ErrorOptions) => {
         console.error('Failed to load content', error)
