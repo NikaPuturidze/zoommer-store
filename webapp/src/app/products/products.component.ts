@@ -8,6 +8,7 @@ import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router'
 import { startWith } from 'rxjs'
 import { LocalStorageService } from '../services/localstorage.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
+import { Title } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-products',
@@ -40,7 +41,8 @@ export class ProductsComponent implements OnInit {
     private languageService: LanguageService,
     private router: Router,
     private actR: ActivatedRoute,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
@@ -158,6 +160,11 @@ export class ProductsComponent implements OnInit {
   private loadProduct(options: ProductsOptions, callback?: () => void): void {
     this.apiService.products(options).subscribe({
       next: (data: IProductsResponse) => {
+        this.title.setTitle(
+          data.categoryName + ' - ' + this.currentLang === 'en'
+            ? 'Best price, installments and delivery • Zoommer'
+            : 'დაბალი ფასები, განვადებით და მიტანით • Zoommer'
+        )
         this.isMore = data.productsCount > options.page * EProducts.PRODUCT_PER_PAGE
         this.page = options.page
 

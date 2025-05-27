@@ -4,6 +4,7 @@ import { ApiService } from '../../services/api.service'
 import { LanguageService } from '../../services/language.service'
 import { IPromotionDetailsResponse } from '../../interfaces/promotion-details.interface'
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
+import { Title } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-promotion-detail',
@@ -26,7 +27,8 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
     private apiService: ApiService,
     private actR: ActivatedRoute,
     private languageService: LanguageService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +53,9 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
     this.actR.paramMap.subscribe((parameterMap) => {
       this.promotionId = Number(parameterMap.get('detail')?.split('-').at(-1))
       this.loadPromotionDetail(this.currentLang, this.page, 48, this.promotionId)
+      this.title.setTitle(
+        this.currentLang === 'ka' ? 'ზუმერული შეთავაზებები | Zoommer.ge' : 'Zoommers Offers | Zoommer.ge'
+      )
     })
   }
 

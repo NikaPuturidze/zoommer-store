@@ -13,6 +13,7 @@ export const routes: Routes = [
     path: '',
     component: MainComponent,
     pathMatch: 'full',
+    title: 'Zoommer.ge',
   },
   {
     path: 'info/:topic',
@@ -21,10 +22,12 @@ export const routes: Routes = [
   {
     path: 'all-category',
     component: AllCategoriesComponent,
+    title: 'Zoommer.ge',
   },
   {
     path: 'promotion',
     component: PromotionComponent,
+    title: 'Zoommer.ge',
   },
   {
     path: 'promotion/:detail',
@@ -37,6 +40,7 @@ export const routes: Routes = [
   {
     path: ':products',
     component: ProductsComponent,
+    title: 'Zoommer.ge',
   },
   {
     path: '**',

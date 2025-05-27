@@ -3,7 +3,7 @@ import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { ActivatedRoute } from '@angular/router'
 import { ITopicResponse } from '../interfaces/topic.interface'
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
+import { DomSanitizer, SafeHtml, Title } from '@angular/platform-browser'
 import { Subject, combineLatest, takeUntil } from 'rxjs'
 
 @Component({
@@ -22,7 +22,8 @@ export class InfoComponent implements OnInit, OnDestroy {
     private readonly apiService: ApiService,
     private languageService: LanguageService,
     private actR: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +43,7 @@ export class InfoComponent implements OnInit, OnDestroy {
   private loadTopic(paramater: string): void {
     this.apiService.topic(this.currentLang, paramater).subscribe({
       next: (data: ITopicResponse) => {
+        this.title.setTitle(data.title + ' • Zoommer')
         this.topic = data
         this.content = this.sanitizer.bypassSecurityTrustHtml(this.topic.content)
       },

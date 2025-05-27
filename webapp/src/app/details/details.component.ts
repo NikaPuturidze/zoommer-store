@@ -10,6 +10,7 @@ import { LanguageService } from '../services/language.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { DiscountComponent } from './discount/discount.component'
 import { ViewportService } from '../services/viewport.service'
+import { Title } from '@angular/platform-browser'
 
 @Component({
   selector: 'app-details',
@@ -35,7 +36,8 @@ export class DetailsComponent {
     private router: Router,
     private languageService: LanguageService,
     private actR: ActivatedRoute,
-    private viewport: ViewportService
+    private viewport: ViewportService,
+    private title: Title
   ) {}
 
   ngOnInit(): void {
@@ -56,6 +58,7 @@ export class DetailsComponent {
   private loadDetails(productId: number): void {
     this.apiService.details(this.currentLang, productId).subscribe({
       next: (data: IProductResponse) => {
+        this.title.setTitle(data.product.metaTitle)
         if (data.httpStatusCode !== 200) {
           this.router.navigate(['/page/not-found/404/']).catch((error: unknown) => {
             console.error(error)
