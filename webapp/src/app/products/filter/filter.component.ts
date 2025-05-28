@@ -10,7 +10,7 @@ import { ApiService } from '../../services/api.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { ViewportService } from '../../services/viewport.service'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
-import { UntilDestroy } from '@ngneat/until-destroy'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 @UntilDestroy()
 @Component({
   selector: 'app-filter',
@@ -51,7 +51,8 @@ export class FilterComponent implements OnInit {
     this.translateService.onLangChange
       .pipe(
         filter(() => !!this.catInfo),
-        distinctUntilChanged()
+        distinctUntilChanged(),
+        untilDestroyed(this)
       )
       .subscribe(() => {
         this.filterResponse = undefined
