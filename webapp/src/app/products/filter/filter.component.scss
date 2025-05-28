@@ -46,6 +46,15 @@
       border-bottom: 2px solid $gray-primary;
       padding-bottom: 22px;
 
+      .close {
+        display: none;
+
+        @media (width <= 1024px) {
+          display: block;
+          cursor: pointer;
+        }
+      }
+
       @media (width <= 1024px) {
         padding-bottom: 20px;
       }
@@ -55,10 +64,10 @@
         font-size: 16px;
         line-height: 19px;
         @include medium;
-        margin-left: 8px;
         margin-right: auto;
 
         @media (width <= 1024px) {
+          margin-left: 8px;
           font-weight: 500;
           font-size: 12px;
           line-height: 14px;

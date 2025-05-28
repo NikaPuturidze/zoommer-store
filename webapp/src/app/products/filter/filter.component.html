@@ -1,7 +1,7 @@
 @if (specifications) {
   <aside class="filters" [class]="filterOpen ? 'open' : 'closed'">
     <div class="clear">
-      <img src="https://zoommer.ge/icons/close.svg" (click)="filterOpen = false" />
+      <img class="close" src="https://zoommer.ge/icons/close.svg" (click)="filterOpen = false" />
       <h4>{{ filter }}</h4>
       <div (click)="clearFilters()" class="interact">
         <img src="https://zoommer.ge/icons/clear.svg" />
