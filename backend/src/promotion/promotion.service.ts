@@ -5,7 +5,7 @@ import { supportedLanguages, deafaultLanguage } from '../interfaces/constants'
 export class PromotionService {
   async promotion(lang: string, accessToken: string): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
-    const url = `https://zoommer.ge/_next/data/9HBS65XnKzXeCkKI9lMc6/${selectedLang}/promotions.json`
+    const url = `https://zoommer.ge/_next/data/tcSRC4szT_IK-lFcLRMaH/${selectedLang}/promotions.json`
 
     const response = await fetch(url, {
       method: 'GET',
