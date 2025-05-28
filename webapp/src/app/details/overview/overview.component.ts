@@ -11,7 +11,7 @@ import { ViewportService } from '../../services/viewport.service'
 })
 export class OverviewComponent implements OnInit {
   @Input() translations?: ITranslations
-  @Input() public product?: IProduct
+  @Input() product?: IProduct
   @Input() currentLang?: 'en' | 'ka'
   public viewportWidth
 
@@ -53,6 +53,7 @@ export class OverviewComponent implements OnInit {
   }
 
   public navigate(route: string[]): void {
+    this.product = undefined
     this.router.navigate(route).catch((error: unknown) => {
       console.error(error)
     })
