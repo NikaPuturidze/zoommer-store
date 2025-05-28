@@ -27,6 +27,7 @@ export default tseslint.config(
       '@typescript-eslint/no-dynamic-delete': 'off',
       '@typescript-eslint/no-unnecessary-condition': 'off',
       '@typescript-eslint/dot-notation': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/naming-convention': [
         'error',
         {
