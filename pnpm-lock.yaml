@@ -157,6 +157,15 @@ importers:
       '@ngneat/content-loader':
         specifier: ^7.0.0
         version: 7.0.0(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))
+      '@ngneat/until-destroy':
+        specifier: ^10.0.0
+        version: 10.0.0(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
+      '@ngx-translate/core':
+        specifier: ^16.0.4
+        version: 16.0.4(@angular/common@19.2.9(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))
+      '@ngx-translate/http-loader':
+        specifier: ^16.0.1
+        version: 16.0.1(@angular/common@19.2.9(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))
       ngx-cookie-service:
         specifier: ^19.1.2
         version: 19.1.2(@angular/common@19.2.9(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))
@@ -1659,6 +1668,12 @@ packages:
     peerDependencies:
       '@angular/core': '>= 13.0.0'
 
+  '@ngneat/until-destroy@10.0.0':
+    resolution: {integrity: sha512-xXFAabQ4YVJ82LYxdgUlaKZyR3dSbxqG3woSyaclzxfCgWMEDweCcM/GGYbNiHJa0WwklI98RXHvca+UyCxpeg==}
+    peerDependencies:
+      '@angular/core': '>=13'
+      rxjs: ^6.4.0 || ^7.0.0
+
   '@ngtools/webpack@19.2.10':
     resolution: {integrity: sha512-L6X4BbP0zENnOU6++e2sVcMJnsVu2sS3xDeKE2Ybj6gLXdbk4LG1zeYLcrNft5MKEE3mqrygNxlMay7G95cpQA==}
     engines: {node: ^18.19.1 || ^20.11.1 || >=22.0.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
@@ -1666,6 +1681,18 @@ packages:
       '@angular/compiler-cli': ^19.0.0 || ^19.2.0-next.0
       typescript: '>=5.5 <5.9'
       webpack: ^5.54.0
+
+  '@ngx-translate/core@16.0.4':
+    resolution: {integrity: sha512-s8llTL2SJvROhqttxvEs7Cg+6qSf4kvZPFYO+cTOY1d8DWTjlutRkWAleZcPPoeX927Dm7ALfL07G7oYDJ7z6w==}
+    peerDependencies:
+      '@angular/common': '>=16'
+      '@angular/core': '>=16'
+
+  '@ngx-translate/http-loader@16.0.1':
+    resolution: {integrity: sha512-xJEOUpvs6Zfc8G4cmQmegFOEpfYSoplTHHoisPNrATXjRBjpaKsBaPOXlZsuFUW2XV00s16gIyI4+9z1XkO5bw==}
+    peerDependencies:
+      '@angular/common': '>=16'
+      '@angular/core': '>=16'
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -7182,11 +7209,29 @@ snapshots:
       '@angular/core': 19.2.9(rxjs@7.8.2)(zone.js@0.15.0)
       tslib: 2.8.1
 
+  '@ngneat/until-destroy@10.0.0(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)':
+    dependencies:
+      '@angular/core': 19.2.9(rxjs@7.8.2)(zone.js@0.15.0)
+      rxjs: 7.8.2
+      tslib: 2.8.1
+
   '@ngtools/webpack@19.2.10(@angular/compiler-cli@19.2.9(@angular/compiler@19.2.9)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.98.0(esbuild@0.25.1))':
     dependencies:
       '@angular/compiler-cli': 19.2.9(@angular/compiler@19.2.9)(typescript@5.7.3)
       typescript: 5.7.3
       webpack: 5.98.0(esbuild@0.25.1)
+
+  '@ngx-translate/core@16.0.4(@angular/common@19.2.9(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))':
+    dependencies:
+      '@angular/common': 19.2.9(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
+      '@angular/core': 19.2.9(rxjs@7.8.2)(zone.js@0.15.0)
+      tslib: 2.8.1
+
+  '@ngx-translate/http-loader@16.0.1(@angular/common@19.2.9(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))':
+    dependencies:
+      '@angular/common': 19.2.9(@angular/core@19.2.9(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
+      '@angular/core': 19.2.9(rxjs@7.8.2)(zone.js@0.15.0)
+      tslib: 2.8.1
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
