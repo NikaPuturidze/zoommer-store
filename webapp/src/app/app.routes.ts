@@ -30,6 +30,10 @@ export const routes: Routes = [
     title: 'Zoommer.ge',
   },
   {
+    path: 'not-found',
+    component: NotFoundComponent,
+  },
+  {
     path: 'promotion/:detail',
     component: PromotionDetailComponent,
   },
@@ -44,6 +48,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    component: NotFoundComponent,
+    redirectTo: 'not-found',
   },
 ]
