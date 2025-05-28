@@ -1,14 +1,16 @@
 import { Component, Input } from '@angular/core'
-import { IProduct, ITranslations } from '../../../interfaces/product.interface'
+import { IProduct } from '../../../interfaces/product.interface'
 import { ContentLoaderModule } from '@ngneat/content-loader'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-buy',
-  imports: [ContentLoaderModule],
+  imports: [ContentLoaderModule, TranslateModule],
   templateUrl: './buy.component.html',
   styleUrl: './buy.component.scss',
 })
 export class BuyComponent {
-  @Input() translations?: ITranslations
   @Input() product?: IProduct
+
+  constructor(public translateService: TranslateService) {}
 }

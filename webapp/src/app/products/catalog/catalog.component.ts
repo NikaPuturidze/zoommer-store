@@ -4,17 +4,17 @@ import { EProducts, IProductsResponse } from '../../../interfaces/products.inter
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
 import { LocalStorageService } from '../../services/localstorage.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
+import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-catalog',
-  imports: [CommonModule, TemplProductComponent, ContentLoaderModule],
+  imports: [CommonModule, TemplProductComponent, ContentLoaderModule, TranslateModule],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.scss',
 })
 export class CatalogComponent implements OnInit {
   @Output() pageSet = new EventEmitter<number>()
   @Input() productsResponse?: IProductsResponse
-  @Input() public currentLang?: 'ka' | 'en' = 'en'
   @Input() isLoading?: boolean
   @Input() isMore?: boolean
   @Input() showLoader?: boolean

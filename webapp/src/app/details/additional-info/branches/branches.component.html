@@ -1,7 +1,7 @@
 @if (availabilityInStores) {
   <div class="availability">
     <div class="availability-top-row">
-      <h4>{{ translations?.branches?.title }}</h4>
+      <h4 translate="branches"></h4>
       <div class="availability-type">
         <div class="type" (click)="availabilityType = false">
           @if (!availabilityType) {
@@ -9,7 +9,7 @@
           } @else {
             <img src="https://zoommer.ge/icons/rectangle-orange.svg" />
           }
-          <h4>{{ translations?.branches?.inStock }}</h4>
+          <h4 translate="isStock"></h4>
         </div>
         <div class="type" (click)="availabilityType = true">
           @if (availabilityType) {
@@ -17,7 +17,7 @@
           } @else {
             <img src="https://zoommer.ge/icons/rectangle-orange.svg" />
           }
-          <h4>{{ translations?.branches?.soon }}</h4>
+          <h4 translate="branches_courierTime"></h4>
         </div>
       </div>
     </div>
@@ -32,12 +32,12 @@
               <div class="address">
                 <h4>{{ store.branchName }}</h4>
                 <p>{{ store.city }} - {{ store.address }}</p>
-                <h4>{{ store.inStock ? translations?.branches?.inStock : translations?.branches?.notInStock }}</h4>
+                <h4>{{ store.inStock ? ('isStock' | translate) : ('notStock' | translate) }}</h4>
               </div>
               <div class="times">
                 <h4>{{ store.phoneNumber }}</h4>
-                <h5>{{ translations?.branches?.monSat }}: {{ store.workingHoursMonToSat }}</h5>
-                <h5>{{ translations?.branches?.sun }}: {{ store.workingHoursSun }}</h5>
+                <h5>{{ 'monSat' | translate }}: {{ store.workingHoursMonToSat }}</h5>
+                <h5>{{ 'sunday' | translate }}: {{ store.workingHoursSun }}</h5>
               </div>
             </div>
           }
@@ -49,12 +49,13 @@
               <div class="address">
                 <h4>{{ store.branchName }}</h4>
                 <p>{{ store.city }} - {{ store.address }}</p>
-                <h4>{{ store.inStock ? translations?.branches?.inStock : translations?.branches?.notInStock }}</h4>
+
+                <h4>{{ store.inStock ? ('isStock' | translate) : ('notStock' | translate) }}</h4>
               </div>
               <div class="times">
                 <h4>{{ store.phoneNumber }}</h4>
-                <h5>{{ translations?.branches?.monSat }}: {{ store.workingHoursMonToSat }}</h5>
-                <h5>{{ translations?.branches?.sun }}: {{ store.workingHoursSun }}</h5>
+                <h5>{{ 'monSat' | translate }}: {{ store.workingHoursMonToSat }}</h5>
+                <h5>{{ 'sunday' | translate }}: {{ store.workingHoursSun }}</h5>
               </div>
             </div>
           }
@@ -64,10 +65,10 @@
     @if (availabilityInStores.length > 3) {
       <div appScaleOnClick class="see-more-a" (click)="showMore = !showMore">
         @if (showMore) {
-          <h4>{{ translations?.branches?.seeLess }}</h4>
+          <h4 translate="seeLess"></h4>
           <img [style.transform]="'rotate(180deg)'" src="https://zoommer.ge/icons/arrow-down-orange.svg" />
         } @else {
-          <h4>{{ translations?.branches?.seeMore }}</h4>
+          <h4 translate="seeMore"></h4>
           <img src="https://zoommer.ge/icons/arrow-down-orange.svg" />
         }
       </div>

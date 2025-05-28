@@ -28,7 +28,7 @@
 </section>
 
 @if (content) {
-  <app-sections [content]="content" [currentLang]="currentLang"></app-sections>
+  <app-sections [content]="content"></app-sections>
 } @else {
   <div class="skeleton-container">
     @for (item of [1, 2, 3]; track $index) {

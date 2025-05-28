@@ -9,19 +9,22 @@
         @for (item of topics.showInTopMenu; track $index) {
           <h4 (click)="navigate(['/info/', item.urlName])">{{ item.title }}</h4>
         }
-        <h4>{{ currentBranch }}</h4>
-        @if (currentFlag) {
-          <div class="nav-language" (click)="toggleLanguageMenu()">
-            <img [src]="currentFlag" />
-            <div
-              class="languages"
-              (click)="chooseLanguage($event)"
-              [ngClass]="isLanguageMenuOpen ? 'active' : 'inactive'"
-            >
-              <h4>{{ currentLanguage }}</h4>
-            </div>
+        <h4 translate="branches"></h4>
+        <div class="nav-language" (click)="toggleLanguageMenu()">
+          <img
+            [src]="
+              'https://zoommer.ge/icons/footer/' + (translateService.currentLang === 'en' ? 'en.svg' : 'flag-geo.png')
+            "
+          />
+
+          <div
+            class="languages"
+            (click)="chooseLanguage($event)"
+            [ngClass]="isLanguageMenuOpen ? 'active' : 'inactive'"
+          >
+            <h4 translate="oppositeLang"></h4>
           </div>
-        }
+        </div>
       </div>
     </div>
   }

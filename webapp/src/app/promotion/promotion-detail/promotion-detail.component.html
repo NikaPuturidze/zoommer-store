@@ -7,9 +7,7 @@
           <p>{{ promotionDetail.item.name }}</p>
         </div>
         <div class="categories" #product [style.justifyContent]="justifyContent">
-          <h4 [class]="categoryIds.length < 1 ? 'active' : 'inActive'" (click)="categoryIds = []">
-            {{ this.currentLang === 'ka' ? 'ყველა' : 'All' }}
-          </h4>
+          <h4 [class]="categoryIds.length < 1 ? 'active' : 'inActive'" (click)="categoryIds = []" translate="all"></h4>
           @for (category of promotionDetail.categories; track $index) {
             <h4
               [class]="categoryIds.includes(category.id) ? 'active' : 'inActive'"
@@ -29,14 +27,13 @@
               [productPrice]="product.price"
               [productSalePrice]="product.previousPrice ?? 0"
               [route]="[product.route]"
-              [currentLang]="currentLang"
             ></app-templ-product>
           }
         </div>
         @if (promotionDetail.items.length >= 48) {
           <button class="next" (click)="nextPage()">
             @if (!showLoader) {
-              <h4>{{ currentLang === 'en' ? 'See More' : 'მეტის ნახვა' }}</h4>
+              <h4 translate="seeMore"></h4>
             } @else {
               <div class="loader">
                 <div class="dot"></div>

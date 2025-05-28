@@ -8,20 +8,24 @@
             <h4 class="af">{{ product.previousPrice }} ₾</h4>
           }
         </div>
-        @if (translations?.buy?.display == 1) {
+        @if (translateService.currentLang === 'ka') {
           <p>
-            თვეში: <span>{{ (product.price / 36).toFixed(1) }} ₾</span> -დან
+            {{ 'perMonth' | translate }}:
+            <span>{{ (product.price / 36).toFixed(1) }} ₾</span>
+            -{{ 'from' | translate }}
           </p>
         } @else {
           <p>
-            Per month: from <span>{{ (product.price / 36).toFixed(1) }} ₾</span>
+            {{ 'perMonth' | translate }}
+            {{ 'from' | translate }}
+            <span>{{ (product.price / 36).toFixed(1) }} ₾</span>
           </p>
         }
       </div>
       <div class="utils">
         <div>
           <img src="https://zoommer.ge/icons/branch.svg" alt="" />
-          <h5>{{ translations?.buy?.atBranches }}</h5>
+          <h5 translate="stockIsBranches"></h5>
         </div>
         <div>
           <svg
@@ -48,7 +52,7 @@
               d="M9 9.375a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M9 9.375v2.25"
             ></path>
           </svg>
-          <h5>{{ translations?.buy?.insurance }}</h5>
+          <h5 translate="priceInsurance"></h5>
         </div>
         <div>
           <svg
@@ -74,7 +78,7 @@
               d="M9 15.203c2.647 0 5.115-1.56 6.832-4.26.675-1.058.675-2.835 0-3.893C14.115 4.35 11.647 2.79 9 2.79S3.885 4.35 2.167 7.05c-.675 1.058-.675 2.835 0 3.893 1.718 2.7 4.185 4.26 6.833 4.26"
             ></path>
           </svg>
-          <h5>{{ translations?.buy?.control }}</h5>
+          <h5 translate="priceControll"></h5>
         </div>
         <div>
           <svg
@@ -100,21 +104,19 @@
               d="M12.75 16.5h-7.5c-3 0-3.75-.75-3.75-3.75v-1.5c0-3 .75-3.75 3.75-3.75h7.5c3 0 3.75.75 3.75 3.75v1.5c0 3-.75 3.75-3.75 3.75"
             ></path>
           </svg>
-          <h5>{{ translations?.buy?.reservation }}</h5>
+          <h5 translate="priceReservation"></h5>
         </div>
       </div>
       <div class="buy">
-        <button type="button">{{ translations?.buy?.buy }}</button>
+        <button type="button" translate="buy"></button>
         <div>
           <button>
             <img src="https://zoommer.ge/icons/compare.svg" alt="" />
-            <h4>
-              {{ translations?.buy?.compare }}
-            </h4>
+            <h4 translate="compare"></h4>
           </button>
           <button>
             <img src="https://zoommer.ge/icons/cart-button.svg" alt="" />
-            <h4>{{ translations?.buy?.add }}</h4>
+            <h4 translate="add"></h4>
           </button>
         </div>
       </div>

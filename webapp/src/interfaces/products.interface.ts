@@ -106,7 +106,6 @@ export interface IProduct {
 }
 
 export interface IBaseParameters {
-  lang: string
   page: number
   limit: number
   specificationIds?: string

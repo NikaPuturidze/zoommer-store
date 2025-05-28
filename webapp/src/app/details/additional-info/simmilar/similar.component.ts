@@ -1,16 +1,16 @@
 import { Component, Input } from '@angular/core'
-import { ISimilarProductsList, ITranslations } from 'webapp/src/interfaces/product.interface'
+import { ISimilarProductsList } from 'webapp/src/interfaces/product.interface'
 import { TemplProductComponent } from '../../../templates/templ-product/templ-product.component'
+import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-similar',
-  imports: [TemplProductComponent],
+  imports: [TemplProductComponent, TranslateModule],
   templateUrl: './similar.component.html',
   styleUrl: './similar.component.scss',
 })
 export class SimmilarComponent {
   @Input() similarProductsList?: ISimilarProductsList[]
-  @Input() translations?: ITranslations
   @Input() currentLang: 'ka' | 'en' = 'en'
   public imageIndex = 0
   public offsetX = 0

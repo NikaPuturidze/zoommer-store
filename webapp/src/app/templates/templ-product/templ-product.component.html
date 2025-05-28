@@ -16,15 +16,17 @@
             }
           </div>
           @if (product.price > 0) {
-            @if (currentLang === 'ka') {
+            @if (translateService.currentLang === 'ka') {
               <p>
-                თვეში:
+                {{ 'perMonth' | translate }}:
                 <span>{{ roundPrice(product.price / 36) }} ₾</span>
-                -დან
+                -{{ 'from' | translate }}
               </p>
             } @else {
               <p>
-                Per month: from <span>{{ roundPrice(product.price / 36) }} ₾</span>
+                {{ 'perMonth' | translate }}
+                {{ 'from' | translate }}
+                <span>{{ roundPrice(product.price / 36) }} ₾</span>
               </p>
             }
           }
@@ -36,11 +38,7 @@
           </div>
           <div class="add">
             <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
-            @if (currentLang === 'ka') {
-              <h4>დამატება</h4>
-            } @else {
-              <h4>Add</h4>
-            }
+            <h4 translate="add"></h4>
           </div>
         </div>
       </div>
@@ -53,15 +51,17 @@
           }
         </div>
         @if (product.price > 0) {
-          @if (currentLang === 'ka') {
+          @if (translateService.currentLang === 'ka') {
             <p>
-              თვეში:
+              {{ 'perMonth' | translate }}:
               <span>{{ roundPrice(product.price / 36) }} ₾</span>
-              -დან
+              -{{ 'from' | translate }}
             </p>
           } @else {
             <p>
-              Per month: from <span>{{ roundPrice(product.price / 36) }} ₾</span>
+              {{ 'perMonth' | translate }}
+              {{ 'from' | translate }}
+              <span>{{ roundPrice(product.price / 36) }} ₾</span>
             </p>
           }
         }
@@ -73,11 +73,7 @@
         </div>
         <div class="add">
           <img src="https://zoommer.ge/icons/cart-button.svg" />
-          @if (currentLang === 'ka') {
-            <h4>დამატება</h4>
-          } @else {
-            <h4>Add</h4>
-          }
+          <h4 translate="add"></h4>
         </div>
       </div>
     }
@@ -100,15 +96,17 @@
             }
           </div>
           @if (productPrice && productPrice > 0) {
-            @if (currentLang === 'ka') {
+            @if (translateService.currentLang === 'ka') {
               <p>
-                თვეში:
+                {{ 'perMonth' | translate }}:
                 <span>{{ roundPrice(productPrice / 36) }} ₾</span>
-                -დან
+                -{{ 'from' | translate }}
               </p>
             } @else {
               <p>
-                Per month: from <span>{{ roundPrice(productPrice / 36) }} ₾</span>
+                {{ 'perMonth' | translate }}
+                {{ 'from' | translate }}
+                <span>{{ roundPrice(productPrice / 36) }} ₾</span>
               </p>
             }
           }
@@ -120,11 +118,7 @@
           </div>
           <div class="add">
             <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
-            @if (currentLang === 'ka') {
-              <h4>დამატება</h4>
-            } @else {
-              <h4>Add</h4>
-            }
+            <h4 translate="add"></h4>
           </div>
         </div>
       </div>
@@ -137,15 +131,17 @@
           }
         </div>
         @if (productPrice && productPrice > 0) {
-          @if (currentLang === 'ka') {
+          @if (translateService.currentLang === 'ka') {
             <p>
-              თვეში:
+              {{ 'perMonth' | translate }}:
               <span>{{ roundPrice(productPrice / 36) }} ₾</span>
-              -დან
+              -{{ 'from' | translate }}
             </p>
           } @else {
             <p>
-              Per month: from <span>{{ roundPrice(productPrice / 36) }} ₾</span>
+              {{ 'perMonth' | translate }}
+              {{ 'from' | translate }}
+              <span>{{ roundPrice(productPrice / 36) }} ₾</span>
             </p>
           }
         }
@@ -157,11 +153,7 @@
         </div>
         <div class="add">
           <img src="https://zoommer.ge/icons/cart-button.svg" />
-          @if (currentLang === 'ka') {
-            <h4>დამატება</h4>
-          } @else {
-            <h4>Add</h4>
-          }
+          <h4 translate="add"></h4>
         </div>
       </div>
     }

@@ -1,19 +1,20 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
 import { ApiService } from '../../services/api.service'
-import { LanguageService } from '../../services/language.service'
 import { IPromotionDetailsResponse } from '../../../interfaces/promotion-details.interface'
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
 import { Title } from '@angular/platform-browser'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 
+@UntilDestroy()
 @Component({
   selector: 'app-promotion-detail',
-  imports: [TemplProductComponent],
+  imports: [TemplProductComponent, TranslateModule],
   templateUrl: './promotion-detail.component.html',
   styleUrl: './promotion-detail.component.scss',
 })
 export class PromotionDetailComponent implements OnInit, AfterViewChecked {
-  public currentLang: 'ka' | 'en' = 'en'
   public promotionDetail?: IPromotionDetailsResponse
   public categoryIds: number[] = []
   public justifyContent: 'center' | 'flex-start' = 'flex-start'
@@ -26,15 +27,19 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
   constructor(
     private apiService: ApiService,
     private actR: ActivatedRoute,
-    private languageService: LanguageService,
+    private translateService: TranslateService,
     private cd: ChangeDetectorRef,
     private title: Title
   ) {}
 
   ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
+    this.getPromotionId()
+    this.translateService.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
       this.getPromotionId()
+    })
+
+    this.translateService.get('seoTitlePromotion').subscribe((title: string) => {
+      this.title.setTitle(title)
     })
   }
 
@@ -53,9 +58,6 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
     this.actR.paramMap.subscribe((parameterMap) => {
       this.promotionId = Number(parameterMap.get('detail')?.split('-').at(-1))
       this.loadPromotionDetail(this.page, 48, this.promotionId)
-      this.title.setTitle(
-        this.currentLang === 'ka' ? 'ზუმერული შეთავაზებები | Zoommer.ge' : 'Zoommers Offers | Zoommer.ge'
-      )
     })
   }
 

@@ -1,18 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
 import { ActivatedRoute } from '@angular/router'
 import { ITopicResponse } from '../../interfaces/topic.interface'
 import { DomSanitizer, SafeHtml, Title } from '@angular/platform-browser'
-import { Subject, combineLatest, takeUntil } from 'rxjs'
-
+import { Subject, combineLatest } from 'rxjs'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+@UntilDestroy()
 @Component({
   selector: 'app-info',
   imports: [],
   templateUrl: './info.component.html',
   styleUrl: './info.component.scss',
 })
-export class InfoComponent implements OnInit, OnDestroy {
+export class InfoComponent implements OnInit {
   public topic?: ITopicResponse
   public content?: SafeHtml
   public currentLang: 'en' | 'ka' = 'en'
@@ -28,16 +29,11 @@ export class InfoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     combineLatest([this.languageService.currentLanguage$, this.actR.params])
-      .pipe(takeUntil(this.destroy$))
+      .pipe(untilDestroyed(this))
       .subscribe(([language, parameters]) => {
         this.currentLang = language
         this.loadTopic(parameters['topic'] as string)
       })
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next()
-    this.destroy$.complete()
   }
 
   private loadTopic(paramater: string): void {

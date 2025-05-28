@@ -6,12 +6,13 @@ import { BundlesComponent } from './bundles/bundles.component'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { IProduct, IProductResponse } from '../../interfaces/product.interface'
 import { ApiService } from '../services/api.service'
-import { LanguageService } from '../services/language.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { DiscountComponent } from './discount/discount.component'
 import { ViewportService } from '../services/viewport.service'
 import { Title } from '@angular/platform-browser'
-
+import { TranslateService } from '@ngx-translate/core'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+@UntilDestroy()
 @Component({
   selector: 'app-details',
   imports: [
@@ -28,26 +29,26 @@ import { Title } from '@angular/platform-browser'
 export class DetailsComponent {
   public productResponse?: IProductResponse
   public product?: IProduct
-  public currentLang: 'ka' | 'en' = 'en'
-  public viewportWidth
+  public viewportWidth = 0
 
   constructor(
-    private readonly apiService: ApiService,
+    private apiService: ApiService,
     private router: Router,
-    private languageService: LanguageService,
+    private translateService: TranslateService,
     private actR: ActivatedRoute,
     private viewport: ViewportService,
     private title: Title
   ) {}
 
   ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
+    this.actR.params.subscribe((parameters) => {
+      this.loadDetails(this.getProductId(parameters))
+    })
+
+    this.translateService.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
       this.productResponse = undefined
       this.product = undefined
-      this.currentLang = language
-      this.actR.params.subscribe((parameters) => {
-        this.loadDetails(this.getProductId(parameters))
-      })
+      this.loadDetails(this.getProductId(this.actR.snapshot.params))
     })
 
     this.viewport.Viewport$.subscribe((value) => {
@@ -58,13 +59,13 @@ export class DetailsComponent {
   private loadDetails(productId: number): void {
     this.apiService.details(productId).subscribe({
       next: (data: IProductResponse) => {
-        this.title.setTitle(data.product.metaTitle)
         if (data.httpStatusCode !== 200) {
-          this.router.navigate(['/page/not-found/404/']).catch((error: unknown) => {
+          this.router.navigate(['/not-found']).catch((error: unknown) => {
             console.error(error)
           })
           return
         }
+        this.title.setTitle(data.product.metaTitle)
         this.productResponse = data
         this.product = data.product
         data.product.specificationGroup.forEach((specification) => {

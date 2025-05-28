@@ -5,12 +5,8 @@
     [class.active]="productsResponse.products.length < 1 || showGrid === 'true'"
   >
     @for (product of productsResponse.products; track $index) {
-      @if (currentLang && product.route) {
-        <app-templ-product
-          [currentLang]="currentLang"
-          [product]="product"
-          [route]="[product.route]"
-        ></app-templ-product>
+      @if (product.route) {
+        <app-templ-product [product]="product" [route]="[product.route]"></app-templ-product>
       }
     }
     @if (productsResponse.products.length < 1) {
@@ -27,7 +23,7 @@
   >
     <button class="next">
       @if (!showLoader) {
-        <h4>See More</h4>
+        <h4 translate="seeMore"></h4>
       } @else {
         <div class="loader">
           <div class="dot"></div>

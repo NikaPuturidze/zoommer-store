@@ -10,17 +10,17 @@
       <div class="first">
         <div class="navigation" (click)="navigateTo(['/', 'all-category'])">
           <img src="https://zoommer.ge/icons/dots.svg" alt="dots" />
-          <h4>{{ navigation }}</h4>
+          <h4 translate="navigation"></h4>
         </div>
         <div class="search">
           <img src="https://zoommer.ge/icons/main-search.svg" alt="search" />
-          <input type="search" [placeholder]="search" />
+          <input type="search" [placeholder]="'search' | translate" />
         </div>
       </div>
       <div class="second">
         <div class="cart">
           <img src="https://zoommer.ge/icons/header-cart.svg" />
-          <div>{{ cart }}</div>
+          <div translate="cart"></div>
         </div>
         <div class="login">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@
               d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10"
             ></path>
           </svg>
-          <div>{{ logIn }}</div>
+          <div translate="logIn"></div>
         </div>
         <div class="discount" (click)="navigateTo(['/', 'promotion'])">
           <h4>%</h4>
@@ -62,7 +62,7 @@
               (click)="chooseLanguage($event)"
               [ngClass]="isLanguageMenuOpen ? 'active' : 'inactive'"
             >
-              <h4>{{ currentLanguage }}</h4>
+              <h4 translate="oppositeLang"></h4>
             </div>
           </div>
         </div>

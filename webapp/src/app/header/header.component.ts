@@ -1,5 +1,4 @@
 import { Component, DestroyRef, HostBinding, OnInit } from '@angular/core'
-import { LanguageService } from '../services/language.service'
 import { Router, RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { BurgerService } from '../services/burger.service'
@@ -7,15 +6,16 @@ import { ApiService } from '../services/api.service'
 import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { fromEvent, map, throttleTime } from 'rxjs'
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
+import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, TranslateModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
-  public currentLang: 'en' | 'ka' = 'en'
+  public currentLang = 'ka'
   public currentLanguage = ''
   public navigation = ''
   public cart = ''
@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
   @HostBinding('class.sticky') isSticky = false
 
   constructor(
-    private languageService: LanguageService,
+    private translateService: TranslateService,
     private burgerService: BurgerService,
     private apiService: ApiService,
     private router: Router,
@@ -35,9 +35,9 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
-      this.updateLanguageState()
+    this.translateService.onLangChange.subscribe((change: LangChangeEvent) => {
+      this.currentLang = change.lang
+      this.currentFlag = `https://zoommer.ge/icons/footer/${this.currentLang === 'en' ? 'en.svg' : 'flag-geo.png'}`
     })
     this.listenToScroll()
   }
@@ -52,15 +52,6 @@ export class HeaderComponent implements OnInit {
       .subscribe((scroll) => {
         this.isSticky = scroll >= 100
       })
-  }
-
-  public updateLanguageState(): void {
-    this.navigation = this.currentLang === 'en' ? 'Navigation' : 'ნავიგაცია'
-    this.search = this.currentLang === 'en' ? 'Search' : 'ძიება'
-    this.cart = this.currentLang === 'en' ? 'Cart' : 'კალათა'
-    this.logIn = this.currentLang === 'en' ? 'Log In' : 'შესვლა'
-    this.currentFlag = `https://zoommer.ge/icons/footer/${this.currentLang === 'en' ? 'en.svg' : 'flag-geo.png'}`
-    this.currentLanguage = this.currentLang === 'en' ? 'GEO' : 'ENG'
   }
 
   public toggleLanguageMenu(): void {
@@ -84,9 +75,7 @@ export class HeaderComponent implements OnInit {
 
   public chooseLanguage(event: MouseEvent): void {
     event.stopPropagation()
-    this.currentLang = this.currentLang === 'en' ? 'ka' : 'en'
-    this.languageService.setLanguage(this.currentLang)
-    this.updateLanguageState()
+    this.translateService.use(this.currentLang === 'en' ? 'ka' : 'en')
     this.isLanguageMenuOpen = false
   }
 

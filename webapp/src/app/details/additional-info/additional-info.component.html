@@ -1,44 +1,36 @@
-@if (product && translations) {
+@if (product) {
   <div class="additional-info">
     <div class="sections-row">
       <div class="row-wrapper">
         @if (product.accessories.length > 0) {
           <a>
-            <h4>{{ translations.additionalInfo.title[0] }}</h4>
+            <h4 translate="accessories"></h4>
           </a>
         }
         @if (product.similarProductsList.length > 0) {
           <a>
-            <h4>{{ translations.additionalInfo.title[1] }}</h4>
+            <h4 translate="sameProducts"></h4>
           </a>
         }
         @if (product.specificationGroup.length > 0) {
           <a>
-            <h4>{{ translations.additionalInfo.title[2] }}</h4>
+            <h4 translate="additionalFeatures"></h4>
           </a>
         }
         <a>
-          <h4>{{ translations.additionalInfo.title[3] }}</h4>
+          <h4 translate="branches"></h4>
         </a>
       </div>
     </div>
     <div class="additional-sections">
-      <app-accesories [currentLang]="currentLang" [accesories]="product.accessories"></app-accesories>
-      <app-similar
-        [currentLang]="currentLang"
-        [translations]="translations"
-        [similarProductsList]="product.similarProductsList"
-      ></app-similar>
-      <app-features [translations]="translations" [features]="product.specificationGroup"></app-features>
+      <app-accesories [accesories]="product.accessories"></app-accesories>
+      <app-similar [similarProductsList]="product.similarProductsList"></app-similar>
+      <app-features [features]="product.specificationGroup"></app-features>
       <app-warranty
-        [translations]="translations"
         [certificateFileUrl]="product.certificateFileUrl"
         [manualsFileUrl]="product.manualsFileUrl"
       ></app-warranty>
-      <app-branches
-        [translations]="translations"
-        [availabilityInStores]="productResponse?.availabilityInStores"
-      ></app-branches>
+      <app-branches [availabilityInStores]="productResponse?.availabilityInStores"></app-branches>
     </div>
   </div>
 } @else {

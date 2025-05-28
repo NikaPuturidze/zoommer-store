@@ -1,15 +1,15 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
-import { IAvailabilityInStores, ITranslations } from 'webapp/src/interfaces/product.interface'
+import { TranslateModule } from '@ngx-translate/core'
+import { IAvailabilityInStores } from 'webapp/src/interfaces/product.interface'
 
 @Component({
   selector: 'app-branches',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './branches.component.html',
   styleUrl: './branches.component.scss',
 })
 export class BranchesComponent implements OnChanges {
   @Input() availabilityInStores?: IAvailabilityInStores[]
-  @Input() translations?: ITranslations
   public inStockBranches?: IAvailabilityInStores[]
   public showMore = false
   public availabilityType = false

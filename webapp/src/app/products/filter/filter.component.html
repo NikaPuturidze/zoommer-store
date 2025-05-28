@@ -2,15 +2,15 @@
   <aside class="filters" [class]="filterOpen ? 'open' : 'closed'">
     <div class="clear">
       <img class="close" src="https://zoommer.ge/icons/close.svg" (click)="filterOpen = false" />
-      <h4>{{ filter }}</h4>
+      <h4 translate="filter"></h4>
       <div (click)="clearFilters()" class="interact">
         <img src="https://zoommer.ge/icons/clear.svg" />
-        <h4>{{ clear }}</h4>
+        <h4 translate="clear"></h4>
       </div>
     </div>
     <div class="slider">
       <div class="slider-label" (click)="tooglePrice()">
-        <h4>{{ price }}</h4>
+        <h4 translate="price"></h4>
         <img src="https://zoommer.ge/icons/accordion-arrow.svg" />
       </div>
 
@@ -85,7 +85,7 @@
               (click)="specification.showAll = !specification.showAll"
               class="show"
             >
-              {{ seeState(specification.showAll) }}
+              {{ specification.showAll ? ('seeLess' | translate) : ('seeMore' | translate) }}
             </h4>
           }
         </div>

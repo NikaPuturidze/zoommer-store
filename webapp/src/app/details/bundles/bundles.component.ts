@@ -1,9 +1,10 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
-import { IProduct, ITranslations } from '../../../interfaces/product.interface'
+import { IProduct } from '../../../interfaces/product.interface'
+import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-bundles',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './bundles.component.html',
   styleUrl: './bundles.component.scss',
 })
@@ -11,7 +12,6 @@ export class BundlesComponent implements OnChanges {
   public bundleTotalPrice?: number
   public bundleTotalSalePrice?: number
   @Input() product?: IProduct
-  @Input() translations?: ITranslations
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['product']?.currentValue && this.product) {

@@ -2,16 +2,16 @@ import { Component, Input, OnInit } from '@angular/core'
 import { IProduct } from '../../../interfaces/content.interface'
 import { LocalStorageService } from '../../services/localstorage.service'
 import { Router } from '@angular/router'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-templ-product',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './templ-product.component.html',
   styleUrl: './templ-product.component.scss',
 })
 export class TemplProductComponent implements OnInit {
   @Input() product?: IProduct
-  @Input() currentLang: 'en' | 'ka' = 'en'
   @Input() route?: string[]
   @Input() imageUrl?: string
   @Input() productPrice?: number
@@ -21,6 +21,7 @@ export class TemplProductComponent implements OnInit {
   public showGrid?: string
 
   constructor(
+    public translateService: TranslateService,
     private localStorageService: LocalStorageService,
     private router: Router
   ) {}

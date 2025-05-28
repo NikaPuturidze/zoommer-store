@@ -1,21 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { RouterModule } from '@angular/router'
-import { LanguageService } from '../services/language.service'
+import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-not-found',
-  imports: [RouterModule],
+  imports: [RouterModule, TranslateModule],
   templateUrl: './not-found.component.html',
   styleUrl: './not-found.component.scss',
 })
-export class NotFoundComponent implements OnInit {
-  public currentLang: 'ka' | 'en' = 'en'
-
-  constructor(private languageService: LanguageService) {}
-
-  ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
-    })
-  }
-}
+export class NotFoundComponent {}

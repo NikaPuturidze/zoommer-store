@@ -1,10 +1,10 @@
 @if (product) {
   <div class="bundles">
     <div class="bundles-row">
-      <h4>{{ translations?.bundles?.title }}</h4>
+      <h4 translate="togetherIsCheeper"></h4>
       <div class="add-item">
         <img src="https://zoommer.ge/icons/add-item.svg" />
-        <h5>{{ translations?.bundles?.addItem }}</h5>
+        <h5 translate="addItem"></h5>
       </div>
     </div>
     <div class="bundle-products">
@@ -43,7 +43,7 @@
 
       <div class="bundle-buy">
         <div class="bundle-price-sum">
-          <h4 class="total">ჯამური ფასი ({{ product.bundles.length }})</h4>
+          <h4 class="total">{{ 'allPrice' | translate }} ({{ product.bundles.length }})</h4>
           <div class="bundle-total-price">
             <h3 class="btp-sale">{{ bundleTotalSalePrice?.toFixed(2) }} ₾</h3>
             <h4 class="btp-total">{{ bundleTotalPrice }} ₾</h4>
@@ -54,7 +54,7 @@
             <img src="https://zoommer.ge/icons/cart-small.svg" />
           </div>
           <div class="bundle-buy-btn">
-            <h4 class="bbb-text">ყიდვა</h4>
+            <h4 class="bbb-text" translate="buy"></h4>
           </div>
         </div>
       </div>

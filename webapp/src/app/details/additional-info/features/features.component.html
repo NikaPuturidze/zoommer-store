@@ -1,7 +1,7 @@
-@if (translations && features) {
+@if (features) {
   <div class="specifications">
     <div class="specifications-title">
-      <h4>{{ translations.features.title }}</h4>
+      <h4 translate="additionalFeatures"></h4>
     </div>
     <div class="spec-wrapper">
       <div class="specification-list" [style.maxHeight.px]="isSeeMore ? 2500 : viewportWidth <= 1024 ? 200 : 442">
@@ -43,10 +43,10 @@
       <div class="see-more-wrapper" (click)="toggleSeeMore()" [class.active]="!isSeeMore">
         <div appScaleOnClick class="see-more">
           @if (isSeeMore) {
-            <h4>{{ translations.features.seeLess }}</h4>
+            <h4 translate="seeLess"></h4>
             <img [style.transform]="'rotate(180deg)'" src="https://zoommer.ge/icons/arrow-down-orange.svg" />
           } @else {
-            <h4>{{ translations.features.seeMore }}</h4>
+            <h4 translate="seeMore"></h4>
             <img src="https://zoommer.ge/icons/arrow-down-orange.svg" />
           }
         </div>

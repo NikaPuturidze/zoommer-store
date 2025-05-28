@@ -3,7 +3,7 @@
     <div class="options-wrapper">
       <div class="option-wrapper">
         <div class="option">
-          <h4>{{ optionsArray[0] }}</h4>
+          <h4 translate="navigation"></h4>
         </div>
         @for (first of topics?.firstFooter; track $index) {
           <p class="option-text" (click)="navigate(['info/', first.urlName])">{{ first.title }}</p>
@@ -11,7 +11,7 @@
       </div>
       <div class="option-wrapper">
         <div class="option">
-          <h4>{{ optionsArray[1] }}</h4>
+          <h4 translate="payments"></h4>
         </div>
         @for (second of topics?.secondFooter; track $index) {
           <p class="option-text" (click)="navigate(['info/', second.urlName])">{{ second.title }}</p>
@@ -19,7 +19,7 @@
       </div>
       <div class="option-wrapper">
         <div class="option">
-          <h4>{{ optionsArray[2] }}</h4>
+          <h4 translate="follow-us"></h4>
         </div>
         <a target="_blank" href="https://www.facebook.com/zoommerge/?ref=page_internal">
           <img width="20" height="20" src="https://zoommer.ge/icons/footer/fb.svg" />
@@ -40,7 +40,7 @@
       </div>
       <div class="option-wrapper">
         <div class="option">
-          <h4>{{ optionsArray[3] }}</h4>
+          <h4 translate="contact"></h4>
         </div>
         <a href="mailto:info&#64;zoommer.ge">
           <img width="20" height="20" src="https://zoommer.ge/icons/footer/gmail.svg" />
@@ -52,11 +52,12 @@
         </a>
         <a href="/branches">
           <img width="20" height="20" src="https://zoommer.ge/icons/footer/locations.svg" />
-          <p>{{ optionsArray[4] }}</p>
+
+          <p translate="branches"></p>
         </a>
         <a href="/info/corporate-sales">
           <img width="20" height="20" src="https://zoommer.ge/icons/footer/locations.svg" />
-          <p>{{ optionsArray[5] }}</p>
+          <p translate="corporate_sales"></p>
         </a>
         <p>
           <a href="Zoomerge://success=true&amp;orderId=6372">Zoommer App</a>

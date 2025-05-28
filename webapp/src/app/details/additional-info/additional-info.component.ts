@@ -4,8 +4,9 @@ import { SimmilarComponent } from './simmilar/similar.component'
 import { FeaturesComponent } from './features/features.component'
 import { WarrantyComponent } from './warranty/warranty.component'
 import { BranchesComponent } from './branches/branches.component'
-import { IProduct, IProductResponse, ITranslations } from '../../../interfaces/product.interface'
+import { IProduct, IProductResponse } from '../../../interfaces/product.interface'
 import { ContentLoaderModule } from '@ngneat/content-loader'
+import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-additional-info',
@@ -16,6 +17,7 @@ import { ContentLoaderModule } from '@ngneat/content-loader'
     WarrantyComponent,
     BranchesComponent,
     ContentLoaderModule,
+    TranslateModule,
   ],
   templateUrl: './additional-info.component.html',
   styleUrl: './additional-info.component.scss',
@@ -23,6 +25,4 @@ import { ContentLoaderModule } from '@ngneat/content-loader'
 export class AdditionalInfoComponent {
   @Input() product?: IProduct
   @Input() productResponse?: IProductResponse
-  @Input() translations?: ITranslations
-  @Input() currentLang: 'ka' | 'en' = 'en'
 }

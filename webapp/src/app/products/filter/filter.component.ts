@@ -4,34 +4,29 @@ import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@an
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { EFilter, IFilterResponse, ISpecification } from '../../../interfaces/filter.interface'
-import { LanguageService } from '../../services/language.service'
 import { debounceTime, delay, distinctUntilChanged, filter, switchMap } from 'rxjs'
 import { ICategoryInfo, ProductsOptions } from '../../../interfaces/products.interface'
 import { ApiService } from '../../services/api.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { ViewportService } from '../../services/viewport.service'
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { UntilDestroy } from '@ngneat/until-destroy'
+@UntilDestroy()
 @Component({
   selector: 'app-filter',
-  imports: [CommonModule, NgxSliderModule, FormsModule, ContentLoaderModule],
+  imports: [CommonModule, NgxSliderModule, FormsModule, ContentLoaderModule, TranslateModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss',
 })
 export class FilterComponent implements OnInit {
   @Output() readonly FiltersChanged = new EventEmitter<ProductsOptions>()
+  @Input() filterOpen?: boolean
   public specifications?: ISpecification[]
   public filterResponse?: IFilterResponse
-  public currentLang: 'en' | 'ka' = 'en'
-  public filter = ''
-  public clear = ''
-  public seeMore = ''
-  public seeLess = ''
-  public price = ''
   public minValue!: number
   public maxValue!: number
   public options!: Options
   public showPrice = true
-  @Input() filterOpen?
   private queries: Record<string, string[]> = {}
   private page = 1
   private limit = 28
@@ -39,8 +34,8 @@ export class FilterComponent implements OnInit {
   private productOptions!: ProductsOptions
 
   constructor(
-    private readonly apiService: ApiService,
-    private languageService: LanguageService,
+    private apiService: ApiService,
+    private translateService: TranslateService,
     private actR: ActivatedRoute,
     private router: Router,
     private viewport: ViewportService
@@ -49,23 +44,18 @@ export class FilterComponent implements OnInit {
   @HostBinding('class.mobile') isMobile = false
 
   ngOnInit(): void {
-    this.currentLang = this.languageService.getCurrentLanguage() as 'ka' | 'en'
-    this.updateLanguageState()
-
     this.viewport.Viewport$.subscribe((values) => {
       this.isMobile = values.width < 1024
     })
 
-    this.languageService.currentLanguage$
+    this.translateService.onLangChange
       .pipe(
         filter(() => !!this.catInfo),
         distinctUntilChanged()
       )
-      .subscribe((lang) => {
+      .subscribe(() => {
         this.filterResponse = undefined
         this.specifications = undefined
-        this.currentLang = lang
-        this.updateLanguageState()
 
         if (this.catInfo) {
           this.loadFilters(this.catInfo.catId, (specs) => {
@@ -86,7 +76,6 @@ export class FilterComponent implements OnInit {
 
             if (this.catInfo) {
               this.productOptions = {
-                lang: this.currentLang,
                 page: this.page,
                 limit: this.limit,
                 ...(this.catInfo.isSuper ? { categories: this.catInfo.catId } : { categoryId: this.catInfo.catId }),
@@ -142,7 +131,6 @@ export class FilterComponent implements OnInit {
 
                 if (this.catInfo) {
                   this.productOptions = {
-                    lang: this.currentLang,
                     page: this.page,
                     limit: this.limit,
                     ...(this.catInfo.isSuper ? { categories: this.catInfo.catId } : { categoryId: this.catInfo.catId }),
@@ -184,7 +172,7 @@ export class FilterComponent implements OnInit {
       .subscribe({
         next: (data: IFilterResponse) => {
           if ((data.maxPrice === 0 && data.minPrice === 0) || data.errors.length > 0) {
-            this.router.navigate(['/page/not-found/404/']).catch((error: unknown) => {
+            this.router.navigate(['/not-found']).catch((error: unknown) => {
               console.error(error)
             })
             return
@@ -227,14 +215,6 @@ export class FilterComponent implements OnInit {
       isSuper,
     }
     callback(this.catInfo)
-  }
-
-  public updateLanguageState(): void {
-    this.filter = this.currentLang === 'en' ? 'Filter' : 'ფილტრი'
-    this.clear = this.currentLang === 'en' ? 'Clear' : 'გასუფთავება'
-    this.seeMore = this.currentLang === 'en' ? 'See More' : 'მეტის ნახვა'
-    this.seeLess = this.currentLang === 'en' ? 'See Less' : 'აკეცვა'
-    this.price = this.currentLang === 'en' ? 'Price' : 'ფასი'
   }
 
   public clearFilters(): void {
@@ -285,10 +265,6 @@ export class FilterComponent implements OnInit {
       .catch((error: unknown) => {
         console.error(error)
       })
-  }
-
-  public seeState(condition: boolean | null): string {
-    return condition ? this.seeLess : this.seeMore
   }
 
   public tooglePrice(): void {

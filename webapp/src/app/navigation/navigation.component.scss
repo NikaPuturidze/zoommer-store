@@ -99,13 +99,14 @@ nav {
           align-items: center;
           justify-content: center;
           margin-top: 4px;
-          z-index: 2;
+          z-index: 999999999;
           transition: none !important;
 
           h4 {
             color: $black-main;
             font-size: 14px;
             @include regular;
+            text-transform: uppercase;
           }
         }
 

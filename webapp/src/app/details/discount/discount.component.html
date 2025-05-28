@@ -1,8 +1,8 @@
-@if (product && product.discountType == 'Gifts' && translations) {
+@if (product && product.discountType == 'Gifts') {
   <div class="discount">
     <div class="discount-type">
       <img src="https://zoommer.ge/icons/gift.svg" />
-      <h4>{{ translations.gift.title }}</h4>
+      <h4 translate="productWithGifts"></h4>
     </div>
     <div class="card-container">
       <div class="card">

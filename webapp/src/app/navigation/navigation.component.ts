@@ -1,34 +1,23 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { LanguageService } from '../services/language.service'
 import { ITopicsResponse } from '../../interfaces/topics.interface'
 import { Router } from '@angular/router'
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-navigation',
-  imports: [CommonModule],
+  imports: [CommonModule, TranslateModule],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
   @Input() topics?: ITopicsResponse
-  public currentLang: 'en' | 'ka' = 'en'
-  public currentFlag = ''
-  public currentBranch = ''
-  public currentLanguage = ''
   public isLanguageMenuOpen = false
 
   constructor(
-    private languageService: LanguageService,
-    private router: Router
+    private router: Router,
+    public translateService: TranslateService
   ) {}
-
-  ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
-      this.updateLanguageState()
-    })
-  }
 
   public toggleLanguageMenu(): void {
     this.isLanguageMenuOpen = !this.isLanguageMenuOpen
@@ -36,9 +25,8 @@ export class NavigationComponent implements OnInit {
 
   public chooseLanguage(event: MouseEvent): void {
     event.stopPropagation()
-    this.currentLang = this.currentLang === 'en' ? 'ka' : 'en'
-    this.languageService.setLanguage(this.currentLang)
-    this.updateLanguageState()
+    window.localStorage.setItem('language', this.translateService.currentLang === 'en' ? 'ka' : 'en')
+    this.translateService.use(this.translateService.currentLang === 'en' ? 'ka' : 'en')
     this.isLanguageMenuOpen = false
   }
 
@@ -46,11 +34,5 @@ export class NavigationComponent implements OnInit {
     this.router.navigate(route).catch((error: unknown) => {
       console.error(error)
     })
-  }
-
-  private updateLanguageState(): void {
-    this.currentFlag = `https://zoommer.ge/icons/footer/${this.currentLang === 'en' ? 'en.svg' : 'flag-geo.png'}`
-    this.currentBranch = this.currentLang === 'en' ? 'Branches' : 'ფილიალები'
-    this.currentLanguage = this.currentLang === 'en' ? 'GEO' : 'ENG'
   }
 }

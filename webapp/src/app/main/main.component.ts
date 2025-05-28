@@ -3,14 +3,16 @@ import { CategoryComponent } from './category/category.component'
 import { ImageCarouselComponent } from './image-carousel/image-carousel.component'
 import { EContent, IContentResponse } from '../../interfaces/content.interface'
 import { ApiService } from '../services/api.service'
-import { LanguageService } from '../services/language.service'
 import { SectionsComponent } from './sections/sections.component'
 import { LocalStorageService } from '../services/localstorage.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { ViewportService } from '../services/viewport.service'
 import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { BurgerService } from '../services/burger.service'
+import { TranslateService } from '@ngx-translate/core'
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy'
 
+@UntilDestroy()
 @Component({
   selector: 'app-main',
   imports: [CategoryComponent, ImageCarouselComponent, SectionsComponent, ContentLoaderModule],
@@ -21,25 +23,25 @@ export class MainComponent implements OnInit, AfterViewInit {
   @Input() public megaMenu?: (IMegaMenu | undefined)[]
   public content?: IContentResponse
   public carouselWidth = 0
-  public currentLang: 'en' | 'ka' = 'en'
-  public viewportWidth
+  public viewportWidth = 0
 
   @ViewChild(ImageCarouselComponent, { read: ElementRef, static: true })
   private carouselHost!: ElementRef<HTMLElement>
 
   constructor(
-    private readonly apiService: ApiService,
-    private languageService: LanguageService,
+    private apiService: ApiService,
+    private translateService: TranslateService,
     private localStorageService: LocalStorageService,
     private viewport: ViewportService,
     private burgerService: BurgerService
   ) {}
 
   ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
+    this.loadContent()
+    this.loadMegaMenu()
+    this.translateService.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
       this.megaMenu = undefined
       this.content = undefined
-      this.currentLang = language
       this.loadContent()
       this.loadMegaMenu()
     })

@@ -16,7 +16,7 @@ export class ImageCarouselComponent implements OnChanges, AfterViewInit {
   public translate = ''
   public offsetX = 0
   public imageIndex = 0
-  public viewportWidth
+  public viewportWidth = 0
   private prevWidth: number | null = null
 
   constructor(

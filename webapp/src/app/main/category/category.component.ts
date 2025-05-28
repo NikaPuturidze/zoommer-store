@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { ApiService } from '../../services/api.service'
-import { LanguageService } from '../../services/language.service'
 import { IMegaMenu } from '../../../interfaces/mega-menu.interface'
 import { CommonModule } from '@angular/common'
 import { Router } from '@angular/router'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { BurgerService } from '../../services/burger.service'
 import { ViewportService } from '../../services/viewport.service'
-
+import { TranslateService } from '@ngx-translate/core'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+import { skip } from 'rxjs'
+@UntilDestroy()
 @Component({
   selector: 'app-category',
   imports: [CommonModule, ContentLoaderModule],
@@ -16,35 +17,37 @@ import { ViewportService } from '../../services/viewport.service'
 })
 export class CategoryComponent implements OnInit {
   public megaMenu: IMegaMenu[] | undefined
-  public currentLang: 'en' | 'ka' = 'en'
   public isInCategory = false
   public currentCategory = -1
-  public viewportWidth
+  public viewportWidth = 0
   @Input() width = 0
 
   constructor(
-    private readonly apiService: ApiService,
-    private languageService: LanguageService,
+    private translateService: TranslateService,
     private router: Router,
     private burgerService: BurgerService,
     private viewport: ViewportService
   ) {}
 
   ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
-      this.burgerService.getMegaMenu().subscribe({
-        next: (data: IMegaMenu[] | undefined) => {
-          this.megaMenu = data
-        },
-        error: (error: unknown) => {
-          console.error(error)
-        },
-      })
+    this.loadMegaMenu()
+    this.translateService.onLangChange.pipe(skip(1), untilDestroyed(this)).subscribe(() => {
+      this.loadMegaMenu()
     })
 
     this.viewport.Viewport$.subscribe((values) => {
       this.viewportWidth = values.width
+    })
+  }
+
+  private loadMegaMenu(): void {
+    this.burgerService.getMegaMenu().subscribe({
+      next: (data: IMegaMenu[] | undefined) => {
+        this.megaMenu = data
+      },
+      error: (error: unknown) => {
+        console.error(error)
+      },
     })
   }
 

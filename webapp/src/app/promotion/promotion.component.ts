@@ -1,32 +1,32 @@
 import { Component, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ApiService } from '../services/api.service'
-import { LanguageService } from '../services/language.service'
 import { IPromotion } from '../../interfaces/promotion.interface'
 import { ViewportService } from '../services/viewport.service'
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+@UntilDestroy()
 @Component({
   selector: 'app-promotion',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './promotion.component.html',
   styleUrl: './promotion.component.scss',
 })
 export class PromotionComponent implements OnInit {
-  public currentLang: 'ka' | 'en' = 'en'
   public promotion?: IPromotion
-  public viewportWidth
+  public viewportWidth = 0
 
   constructor(
     private apiService: ApiService,
-    private languageService: LanguageService,
+    private translateService: TranslateService,
     private router: Router,
     private actR: ActivatedRoute,
     private viewport: ViewportService
   ) {}
 
   ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
+    this.loadPromotion()
+    this.translateService.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
       this.loadPromotion()
     })
 

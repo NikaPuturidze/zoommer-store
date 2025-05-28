@@ -3,16 +3,17 @@ import { EProducts, IProductsResponse, ProductsOptions } from '../../interfaces/
 import { CatalogComponent } from './catalog/catalog.component'
 import { FilterComponent } from './filter/filter.component'
 import { ApiService } from '../services/api.service'
-import { LanguageService } from '../services/language.service'
 import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router'
 import { startWith } from 'rxjs'
 import { LocalStorageService } from '../services/localstorage.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { Title } from '@angular/platform-browser'
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+@UntilDestroy()
 @Component({
   selector: 'app-products',
-  imports: [CatalogComponent, FilterComponent, ContentLoaderModule, RouterModule],
+  imports: [CatalogComponent, FilterComponent, ContentLoaderModule, RouterModule, TranslateModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
 })
@@ -21,13 +22,11 @@ export class ProductsComponent implements OnInit {
   public productsResponse?: IProductsResponse
   public isSortOpen = false
   public currentSort?: string
-  public filter?: string
   public sortLabels = {
     en: ['Price: High to Low', 'Price: Low to High', 'Name: A-Z', 'Name: Z-A'],
     ka: ['ფასი: კლებადობით', 'ფასი: ზრდადობით', 'დასახელება: A-Z', 'დასახელება: Z-A'],
   }
   public sortFallback = { en: 'Sort', ka: 'სორტირება' }
-  public currentLang: 'en' | 'ka' = 'en'
   public sort? = {}
   public showGrid?: string
   public isLoading = false
@@ -37,8 +36,8 @@ export class ProductsComponent implements OnInit {
   @Input() filterOpen = false
 
   constructor(
-    private readonly apiService: ApiService,
-    private languageService: LanguageService,
+    public translateService: TranslateService,
+    private apiService: ApiService,
     private router: Router,
     private actR: ActivatedRoute,
     private localStorageService: LocalStorageService,
@@ -46,11 +45,14 @@ export class ProductsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
+    this.translateService.get('seoTitle').subscribe((title: string) => {
+      this.title.setTitle(title)
+    })
+
+    this.getSort()
+    this.translateService.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
       this.productsResponse = undefined
       this.getSort()
-      this.filter = language === 'en' ? 'filter' : 'ფილტრი'
     })
 
     this.localStorageService.observe('showGrid').subscribe((value) => {
@@ -73,7 +75,7 @@ export class ProductsComponent implements OnInit {
   public onPageSet(nextPage: number): void {
     this.showLoader = true
     this.page = nextPage
-    this.loadProduct({ ...this.productsOptions, ...this.sort, page: nextPage, lang: this.currentLang }, () => {
+    this.loadProduct({ ...this.productsOptions, ...this.sort, page: nextPage }, () => {
       this.showLoader = false
     })
   }
@@ -88,7 +90,6 @@ export class ProductsComponent implements OnInit {
       ...this.productsOptions,
       ...this.sort,
       page: 1,
-      lang: this.currentLang,
     })
   }
 
@@ -107,7 +108,7 @@ export class ProductsComponent implements OnInit {
   }
 
   public switchSort(option: string): void {
-    const labels = this.sortLabels[this.currentLang]
+    const labels = this.sortLabels[this.translateService.currentLang] as string[]
     let query: Params
 
     if (option === labels[0]) query = { priceAsc: true, nameAsc: '' }
@@ -142,7 +143,7 @@ export class ProductsComponent implements OnInit {
       const priceAsc = priceAscRaw === 'true' ? true : priceAscRaw === 'false' ? false : undefined
       const nameAsc = nameAscRaw === 'true' ? true : nameAscRaw === 'false' ? false : undefined
 
-      const labels = this.sortLabels[this.currentLang]
+      const labels = this.sortLabels[this.translateService.currentLang] as string[]
 
       this.sort = {
         nameAsc,
@@ -153,18 +154,13 @@ export class ProductsComponent implements OnInit {
       else if (priceAsc === false) this.currentSort = labels[1]
       else if (nameAsc === true) this.currentSort = labels[2]
       else if (nameAsc === false) this.currentSort = labels[3]
-      else this.currentSort = this.sortFallback[this.currentLang]
+      else this.currentSort = this.sortFallback[this.translateService.currentLang] as string
     })
   }
 
   private loadProduct(options: ProductsOptions, callback?: () => void): void {
     this.apiService.products(options).subscribe({
       next: (data: IProductsResponse) => {
-        this.title.setTitle(
-          data.categoryName + ' - ' + this.currentLang === 'en'
-            ? 'Best price, installments and delivery • Zoommer'
-            : 'დაბალი ფასები, განვადებით და მიტანით • Zoommer'
-        )
         this.isMore = data.productsCount > options.page * EProducts.PRODUCT_PER_PAGE
         this.page = options.page
 

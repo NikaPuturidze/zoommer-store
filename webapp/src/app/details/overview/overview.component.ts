@@ -1,19 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { IProduct, ITranslations } from '../../../interfaces/product.interface'
+import { IProduct } from '../../../interfaces/product.interface'
 import { Router } from '@angular/router'
 import { ViewportService } from '../../services/viewport.service'
+import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-overview',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.scss',
 })
 export class OverviewComponent implements OnInit {
-  @Input() translations?: ITranslations
   @Input() product?: IProduct
-  @Input() currentLang?: 'en' | 'ka'
-  public viewportWidth
+  public viewportWidth = 0
 
   constructor(
     private router: Router,
@@ -53,7 +52,6 @@ export class OverviewComponent implements OnInit {
   }
 
   public navigate(route: string[]): void {
-    this.product = undefined
     this.router.navigate(route).catch((error: unknown) => {
       console.error(error)
     })

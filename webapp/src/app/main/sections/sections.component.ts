@@ -13,9 +13,8 @@ import { ViewportService } from '../../services/viewport.service'
 })
 export class SectionsComponent implements OnChanges, OnInit {
   @Input() content?: IContentResponse
-  @Input() currentLang: 'en' | 'ka' = 'en'
   public sectionArray: number[] = []
-  public viewportWidth
+  public viewportWidth = 0
 
   constructor(
     private router: Router,

@@ -1,28 +1,29 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../services/api.service'
-import { LanguageService } from '../services/language.service'
 import { IAllCategory } from '../../interfaces/all-categories.interface'
 import { Router } from '@angular/router'
-
+import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+@UntilDestroy()
 @Component({
   selector: 'app-all-categories',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './all-categories.component.html',
   styleUrl: './all-categories.component.scss',
 })
 export class AllCategoriesComponent implements OnInit {
-  public currentLang: 'ka' | 'en' = 'en'
   public allCategories?: IAllCategory[]
 
   constructor(
     private apiService: ApiService,
-    private languageService: LanguageService,
+    private translateService: TranslateService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.languageService.currentLanguage$.subscribe((language) => {
-      this.currentLang = language
+    this.loadAllCategories()
+    this.translateService.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
+      this.allCategories = undefined
       this.loadAllCategories()
     })
   }

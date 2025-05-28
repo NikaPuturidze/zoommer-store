@@ -1,7 +1,7 @@
 @if (similarProductsList && similarProductsList.length > 0) {
   <section class="section-slider-one">
     <div class="slider-one">
-      <h4 class="title">{{ translations?.similar?.title }}</h4>
+      <h4 class="title" translate="sameProducts"></h4>
       <div class="section-one-container" [style.transform]="'translateX(' + offsetX + 'px)'">
         @for (similar of similarProductsList; track $index) {
           <app-templ-product
@@ -11,7 +11,6 @@
             [productSalePrice]="similar.previousPrice ? similar.previousPrice : 0"
             [productName]="similar.productName"
             [labelText]="similar.labelText ? similar.labelText : ''"
-            [currentLang]="currentLang"
           ></app-templ-product>
         }
       </div>

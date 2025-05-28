@@ -1,21 +1,21 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { ISpecificationGroup, ITranslations } from 'webapp/src/interfaces/product.interface'
+import { ISpecificationGroup } from 'webapp/src/interfaces/product.interface'
 import { ViewportService } from 'webapp/src/app/services/viewport.service'
+import { TranslateModule } from '@ngx-translate/core'
 
 @Component({
   selector: 'app-features',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './features.component.html',
   styleUrl: './features.component.scss',
 })
 export class FeaturesComponent implements OnInit {
   @Input() features?: ISpecificationGroup[]
-  @Input() translations?: ITranslations
   public isSeeMore = false
   public isActive = true
   public currentMarginBottom = 10
   public marginBottomMap: Record<number, number> = {}
-  public viewportWidth
+  public viewportWidth = 0
 
   constructor(private viewport: ViewportService) {}
 

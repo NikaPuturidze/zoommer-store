@@ -1,14 +1,12 @@
 import { Component, Input } from '@angular/core'
-import { ITranslations } from 'webapp/src/interfaces/product.interface'
-
+import { TranslateModule } from '@ngx-translate/core'
 @Component({
   selector: 'app-warranty',
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './warranty.component.html',
   styleUrl: './warranty.component.scss',
 })
 export class WarrantyComponent {
-  @Input() translations?: ITranslations
   @Input() manualsFileUrl = ''
   @Input() certificateFileUrl = ''
   public isWarrantyOpen = false
