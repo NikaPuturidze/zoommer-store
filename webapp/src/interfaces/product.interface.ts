@@ -1,7 +1,6 @@
 export interface IProductResponse {
   product: IProduct
   availabilityInStores: IAvailabilityInStores[]
-  translations: ITranslations
   httpStatusCode: number
 }
 
@@ -225,62 +224,4 @@ export interface IGift {
   previousPrice: number | null
   price: number
   productId: number
-}
-
-export interface ITranslations {
-  main: string
-  gift: {
-    title: string
-  }
-  bundles: {
-    title: string
-    addItem: string
-    totalPrice: string
-    buy: string
-  }
-  additionalInfo: {
-    title: string[]
-  }
-  similar: {
-    title: string
-  }
-  features: {
-    title: string
-    seeLess: string
-    seeMore: string
-  }
-  warranty?: {
-    warranty?: {
-      title: string
-      button: string
-    }
-    manual?: {
-      title: string
-      button: string
-    }
-    certificate?: {
-      title: string
-      button: string
-    }
-  }
-  branches: {
-    title: string
-    inStock: string
-    notInStock: string
-    soon: string
-    monSat: string
-    sun: string
-    seeLess: string
-    seeMore: string
-  }
-  buy: {
-    display: number
-    atBranches: string
-    insurance: string
-    control: string
-    reservation: string
-    buy: string
-    compare: string
-    add: string
-  }
 }
