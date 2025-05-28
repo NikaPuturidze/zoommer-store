@@ -95,10 +95,10 @@
     }
 
     &::ng-deep {
-      * {
-        transition: none !important;
-      }
       .slider {
+        * {
+          transition: none !important;
+        }
         .slider-label {
           display: flex;
           align-items: center;
