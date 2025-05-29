@@ -34,7 +34,12 @@
           >
             @for (banner of section.banners; track $index) {
               <div class="banner-container">
-                <img class="banner" [src]="banner.webImageUrl" (click)="navigate(banner.route)" />
+                <img
+                  class="banner"
+                  [src]="viewportWidth <= 1024 ? banner.mobileImageUrl : banner.webImageUrl"
+                  (click)="navigate(banner.route)"
+                  [style.maxHeight.px]="banner.webDimensions?.heightInPixels"
+                />
               </div>
             }
           </section>
