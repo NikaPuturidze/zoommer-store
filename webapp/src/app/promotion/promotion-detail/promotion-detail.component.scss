@@ -2,6 +2,7 @@
 
 :host {
   flex-grow: 1;
+  min-height: 100vh;
 
   section {
     display: flex;
@@ -11,10 +12,12 @@
     margin: 0 auto;
     padding: 0 15px;
     margin-top: 30px;
+    min-height: 200px;
 
     @media (width <= 1024px) {
       padding: 0;
       margin-top: 0;
+      min-height: auto;
     }
 
     img {
