@@ -101,7 +101,7 @@
 
           .navigation {
             background-color: $orange-main;
-            width: 130px;
+            min-width: 130px;
             border-radius: 12px;
             height: fit-content;
             display: flex;
