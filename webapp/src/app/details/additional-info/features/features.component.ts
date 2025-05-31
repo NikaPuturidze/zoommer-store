@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
 import { ISpecificationGroup } from 'webapp/src/interfaces/product.interface'
 import { ViewportService } from 'webapp/src/app/services/viewport.service'
 import { TranslateModule } from '@ngx-translate/core'
@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core'
   templateUrl: './features.component.html',
   styleUrl: './features.component.scss',
 })
-export class FeaturesComponent implements OnInit {
+export class FeaturesComponent implements OnInit, AfterViewInit {
   @Input() features?: ISpecificationGroup[]
   public isSeeMore = false
   public isActive = true
@@ -17,12 +17,20 @@ export class FeaturesComponent implements OnInit {
   public marginBottomMap: Record<number, number> = {}
   public viewportWidth = 0
 
+  @ViewChild('spec') spec?: ElementRef<HTMLElement>
+
   constructor(private viewport: ViewportService) {}
 
   ngOnInit(): void {
     this.viewport.Viewport$.subscribe((values) => {
       this.viewportWidth = values.width
     })
+  }
+
+  ngAfterViewInit(): void {
+    if (this.spec) {
+      console.log(this.spec?.nativeElement.offsetHeight - 46)
+    }
   }
 
   public toggleSeeMore(): void {

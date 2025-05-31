@@ -50,7 +50,6 @@
 
       .specification-list {
         pointer-events: auto;
-        min-height: 442px;
         transition: max-height 1s ease-out;
 
         @media (width <= 1024px) {
