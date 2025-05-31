@@ -3,7 +3,7 @@ import { MatRippleModule } from '@angular/material/core'
 import { Router } from '@angular/router'
 import { TranslateModule } from '@ngx-translate/core'
 import { BurgerService } from '../services/burger.service'
-import { ApiService } from '../services/api.service'
+import { AuthService } from '../services/auth.service'
 
 @Component({
   selector: 'app-bottom-bar',
@@ -15,7 +15,7 @@ export class BottomBarComponent {
   constructor(
     private router: Router,
     private burgerService: BurgerService,
-    private apiService: ApiService
+    public authService: AuthService
   ) {}
 
   public isCurrentRoute(route: string): boolean {

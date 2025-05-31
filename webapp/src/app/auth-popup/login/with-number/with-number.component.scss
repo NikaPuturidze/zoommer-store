@@ -63,6 +63,10 @@
           border-radius: 14px;
           top: 54px;
 
+          @media (width <= 340px) {
+            width: 289px;
+          }
+
           .search {
             padding-top: 8px;
             background: $white-main;
@@ -78,6 +82,10 @@
               margin-left: 6px;
               padding: 3px 8px 5px;
               outline: none;
+
+              @media (width <= 340px) {
+                width: 277px;
+              }
             }
           }
 
@@ -207,25 +215,4 @@
       }
     }
   }
-}
-
-.flag {
-  display: inline-block;
-  margin-right: 7px;
-  margin-top: 2px;
-  width: 16px;
-  height: 11px;
-  background-image: url(https://i.imgur.com/VrbGA31.png);
-}
-
-.flag-c {
-  display: inline-block;
-  margin-right: 39px;
-  margin-top: 2px;
-  width: 16px;
-  height: 11px;
-  position: absolute;
-  top: 50%;
-  margin-top: -5px;
-  background-image: url(https://i.imgur.com/VrbGA31.png);
 }

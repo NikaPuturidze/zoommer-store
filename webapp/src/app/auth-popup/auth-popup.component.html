@@ -1,21 +1,37 @@
 @let current = authService.current | async;
 @let loginType = authService.loginType | async;
 @let registerType = authService.registerType | async;
+@let viewportWidth = (viewport.Viewport$ | async)?.width ?? 0;
+@let finalHeight = authService.finalHeight | async;
+@let finalHeightReg = authService.finalHeightReg | async;
 
 <div class="wrapper" (click)="authService.closeFlags()">
   <section
+    #section
     [style.height.px]="
-      current === 'login'
-        ? loginType === 'number'
-          ? 432
-          : loginType === 'code'
-            ? 459
-            : (authService.finalHeight | async)
-        : current === 'register'
-          ? registerType === 'code'
-            ? 464
-            : (authService.finalHeightReg | async)
-          : (authService.finalHeightReg | async)
+      viewportWidth > 1024
+        ? current === 'login'
+          ? loginType === 'number'
+            ? 432
+            : loginType === 'code'
+              ? 459
+              : finalHeight
+          : current === 'register'
+            ? registerType === 'code'
+              ? 464
+              : finalHeightReg
+            : finalHeightReg
+        : current === 'login'
+          ? loginType === 'number'
+            ? 432
+            : loginType === 'code'
+              ? 459 + 17
+              : finalHeight
+          : current === 'register'
+            ? registerType === 'code'
+              ? 464 + 17
+              : finalHeightReg
+            : finalHeightReg
     "
   >
     <div class="container">
