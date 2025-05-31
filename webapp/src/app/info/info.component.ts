@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiService } from '../services/api.service'
 import { LanguageService } from '../services/language.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { ITopicResponse } from '../../interfaces/topic.interface'
 import { DomSanitizer, SafeHtml, Title } from '@angular/platform-browser'
-import { Subject, combineLatest } from 'rxjs'
+import { combineLatest } from 'rxjs'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 @UntilDestroy()
 @Component({
@@ -17,14 +17,14 @@ export class InfoComponent implements OnInit {
   public topic?: ITopicResponse
   public content?: SafeHtml
   public currentLang: 'en' | 'ka' = 'en'
-  private destroy$ = new Subject<void>()
 
   constructor(
-    private readonly apiService: ApiService,
+    private apiService: ApiService,
     private languageService: LanguageService,
     private actR: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private title: Title
+    private title: Title,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -42,10 +42,19 @@ export class InfoComponent implements OnInit {
         this.title.setTitle(data.title + ' • Zoommer')
         this.topic = data
         this.content = this.sanitizer.bypassSecurityTrustHtml(this.topic.content)
+        if (!data.success) {
+          this.navigate(['/not-found'])
+        }
       },
       error: (error: ErrorOptions) => {
         console.error('Failed to load topic', error)
       },
+    })
+  }
+
+  public navigate(route: string[]): void {
+    this.router.navigate(route).catch((error: unknown) => {
+      console.error(error)
     })
   }
 }

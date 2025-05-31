@@ -32,6 +32,7 @@ export const routes: Routes = [
   {
     path: 'not-found',
     component: NotFoundComponent,
+    title: '404',
   },
   {
     path: 'promotion/:detail',
