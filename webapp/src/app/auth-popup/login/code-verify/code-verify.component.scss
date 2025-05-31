@@ -1,0 +1,242 @@
+@use '../../../../styles.scss' as *;
+
+:host {
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .inputs {
+      margin-bottom: 20px;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr;
+      column-gap: 11px;
+      transition: 0.3s;
+      width: 100%;
+      height: 100%;
+      background-color: $gray-primary;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+
+      .c {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 14px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        border-radius: 12px;
+        z-index: 1;
+        line-height: 17px;
+        color: rgba($black-main, 0.6);
+        @include medium;
+      }
+
+      .selected-country {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        font-family: Roboto, sans-serif;
+        font-weight: 200;
+      }
+
+      ul {
+        outline: none;
+        z-index: 1;
+        list-style: none;
+        position: absolute;
+        padding: 0;
+        margin: 10px 0 10px -1px;
+        box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.35);
+        background-color: $white-main;
+        width: 300px;
+        max-height: 200px;
+        overflow-y: scroll;
+        left: 0;
+        border-radius: 14px;
+        top: 54px;
+
+        .search {
+          padding-top: 8px;
+          background: $white-main;
+          position: sticky;
+          top: 0;
+
+          input {
+            border: 1px solid #cacaca;
+            border-radius: 10px;
+            width: 287px;
+            font-size: 15px;
+            line-height: 15px;
+            margin-left: 6px;
+            padding: 3px 8px 5px;
+            outline: none;
+          }
+        }
+
+        .no-entries-message {
+          padding: 7px 10px 11px;
+          opacity: 0.7;
+          font-size: 15px;
+          font-family: Roboto, sans-serif;
+        }
+      }
+
+      .code {
+        position: relative;
+        box-sizing: border-box;
+        height: 50px;
+        min-height: 50px;
+        border-radius: 12px;
+        margin: 0px;
+        transition: 0.3s;
+        border: none;
+        background: $gray-primary;
+        cursor: text;
+
+        label {
+          display: block;
+          letter-spacing: 0px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          align-items: center;
+          transition: 0.175s ease-out;
+          max-width: calc(100% - 1.25rem);
+          color: rgba($black-main, 0.6);
+          padding-left: 16px;
+          padding-right: 0.7rem;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          @include medium;
+          cursor: text;
+
+          &.active {
+            transform: translateY(-1.2rem);
+            font-size: 12px;
+          }
+        }
+
+        input {
+          border: none;
+          outline: none;
+          width: calc(100% - 16px);
+          left: 16px;
+          padding-right: 0.7rem;
+          font-size: 0.813rem;
+          color: $black-main;
+          appearance: none;
+          background: transparent;
+          position: absolute;
+          top: 50%;
+          line-height: 1;
+          font-weight: 500;
+          -moz-appearance: textfield;
+          &::-webkit-outer-spin-button,
+          &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+          @include medium;
+        }
+
+        &:focus-within label {
+          transform: translateY(-1.2rem);
+          font-size: 12px;
+        }
+      }
+
+      .msg {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        color: rgba($red-main, 0.8);
+        position: absolute;
+        top: 110%;
+        left: 2%;
+        @include bold;
+      }
+    }
+
+    .utils {
+      margin-bottom: 10px;
+      margin-top: -7px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h4 {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 14px;
+        color: $black-main;
+        cursor: pointer;
+        @include medium;
+      }
+
+      .resend-container {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .resend {
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+
+          @keyframes spin {
+            from {
+              transform: rotate(0deg);
+            }
+            to {
+              transform: rotate(360deg);
+            }
+          }
+
+          img {
+            &.spinning {
+              animation: spin 0.8s linear infinite;
+            }
+          }
+
+          h4 {
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 14px;
+            color: $black-main;
+            @include medium;
+          }
+        }
+      }
+    }
+
+    button {
+      min-height: 50px;
+      background: $orange-main;
+      border-radius: 12px;
+      padding: 16px;
+      border: none;
+      cursor: pointer;
+
+      h4 {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        color: $white-main;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        @include bold;
+      }
+    }
+  }
+}

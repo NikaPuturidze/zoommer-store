@@ -7,13 +7,24 @@ import { ApiService } from './services/api.service'
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router'
 import { ViewportService } from './services/viewport.service'
 import { BurgerComponent } from './burger/burger.component'
-import { AuthService } from './services/auth.service'
+import { TokenService } from './services/token.service'
 import { TranslateService } from '@ngx-translate/core'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+import { AuthPopupComponent } from './auth-popup/auth-popup.component'
+import { AuthService } from './services/auth.service'
+import { AsyncPipe } from '@angular/common'
 @UntilDestroy()
 @Component({
   selector: 'app-root',
-  imports: [NavigationComponent, HeaderComponent, FooterComponent, RouterOutlet, BurgerComponent],
+  imports: [
+    NavigationComponent,
+    HeaderComponent,
+    FooterComponent,
+    RouterOutlet,
+    BurgerComponent,
+    AuthPopupComponent,
+    AsyncPipe,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -27,7 +38,8 @@ export class AppComponent {
     private translate: TranslateService,
     private router: Router,
     private viewport: ViewportService,
-    private authService: AuthService
+    private tokenService: TokenService,
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -37,7 +49,7 @@ export class AppComponent {
       window.localStorage.setItem('language', 'ka')
     } else this.translate.use(language)
 
-    this.authService
+    this.tokenService
       .setAccessToken()
       .then((result) => {
         this.allGood = result

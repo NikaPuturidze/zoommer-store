@@ -27,7 +27,7 @@
           <section
             [ngClass]="{
               'section-banner-one': section.bannerTemplateRowNumber === 1 && section.colorValue === '#000000',
-              'section-banner-three': section.bannerTemplateRowNumber === 2 && section.colorValue === '#000000',
+              'section-banner-three': section.bannerTemplateRowNumber === 2 && section.colorValue !== '#000000',
               'section-banner-two': section.colorValue != '#000000',
             }"
             [style.backgroundColor]="section.colorValue != '#000000' ? section.colorValue : null"

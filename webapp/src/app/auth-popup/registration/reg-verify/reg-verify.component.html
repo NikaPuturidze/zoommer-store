@@ -1,0 +1,37 @@
+@if (verify) {
+  <form [formGroup]="verify" (submit)="onSubmit()">
+    <h3 class="t" translate="registerModal_submitNumber"></h3>
+    <h4 class="s">{{ ('registerModal_smsSentTo' | translate) + ': ' + authService.sentUsername }}</h4>
+    <div class="inputs">
+      <div
+        class="code"
+        (click)="focusCode()"
+        [style.border]="showError || wrongCode || displayMsg ? '1px solid rgb(255, 0, 0)' : '0px solid rgb(255, 0, 0)'"
+        [style.backgroundColor]="showError || wrongCode || displayMsg ? '#fff' : '#f2f2f2'"
+      >
+        <input #code type="number" formControlName="code" (input)="inputChange()" />
+        <label translate="enterCode" [class.active]="verify.get('code')?.value"></label>
+      </div>
+      <div class="msg">{{ displayMsg }}</div>
+    </div>
+    <div class="utils">
+      <h4 (click)="authService.setRegisterTypeNumber()">&lt; {{ 'goBack' | translate }}</h4>
+      <div class="resend-container">
+        <div class="resend" (click)="resendCode()">
+          <img
+            [class.spinning]="loadResend"
+            [style.display]="codeSent ? 'none' : 'block'"
+            src="https://zoommer.ge/icons/resend.svg"
+          />
+          <h4
+            [translate]="resendResponse"
+            [style.color]="codeSent ? (data?.success ? '#369260' : 'rgb(255,0,0)') : '#000'"
+          ></h4>
+        </div>
+      </div>
+    </div>
+    <button type="submit" [class.disabled]="verify.invalid">
+      <h4 translate="submitCode"></h4>
+    </button>
+  </form>
+}

@@ -1,0 +1,209 @@
+@use '../../styles.scss' as *;
+
+:host {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 999999;
+
+  &.visible {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    background-color: rgba($black-main, 0);
+    animation: bg 0.25s forwards ease;
+
+    @keyframes bg {
+      from {
+        background-color: rgba($black-main, 0);
+      }
+      to {
+        background-color: rgba($black-main, 0.6);
+      }
+    }
+
+    .wrapper {
+      width: 100vw;
+      height: 100vh;
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      section {
+        width: 442px;
+        background: $white-main;
+        border: 1px solid $orange-second;
+        border-radius: 20px;
+        padding-inline: 20px;
+        position: relative;
+        transform: translateY(100px);
+        animation: slideUpBounce 0.4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+        transition: height 0.4s ease;
+        overflow-y: hidden;
+
+        @keyframes slideUpBounce {
+          0% {
+            transform: translateY(100px);
+          }
+          80% {
+            transform: translateY(-8px);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+
+        .container {
+          opacity: 0.3;
+          animation: opacity 0.3s forwards ease;
+          @keyframes opacity {
+            from {
+              opacity: 0.3;
+            }
+            to {
+              opacity: 1;
+            }
+          }
+
+          .selector {
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid $gray-primary;
+
+            .login,
+            .registration {
+              width: 50%;
+              padding: 24px 0px 14px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              cursor: pointer;
+
+              h4 {
+                color: rgba($black-main, 0.8);
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 19px;
+                text-align: center;
+                @include medium;
+              }
+            }
+
+            .underline {
+              position: absolute;
+              width: 50%;
+              height: 2px;
+              background-color: $orange-main;
+              bottom: -2px;
+              left: 0;
+              transform: translateX(0);
+              transition: transform 0.2s cubic-bezier(0.6, -0.45, 0.6, 1.45);
+
+              &.right {
+                transform: translateX(100%);
+              }
+
+              &.left {
+                transform: translateX(0);
+              }
+            }
+          }
+
+          .close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+            cursor: pointer;
+          }
+
+          .content {
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+
+            .google {
+              border-top: 2px solid $gray-primary;
+              padding-bottom: 20px;
+
+              h4 {
+                margin: 20px auto;
+                text-align: center;
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 14px;
+                color: $black-main;
+                @include medium;
+              }
+
+              .button-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 20px;
+
+                .button {
+                  position: relative;
+                  overflow: hidden;
+                  z-index: -1;
+                  width: 100%;
+                  height: 50px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  border-radius: 12px;
+                  padding: 10px 45px;
+                  background: $gray-primary;
+                  cursor: pointer;
+
+                  .google-btn {
+                    position: absolute;
+                    top: 10%;
+                    left: 0;
+                    width: 100%;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 40px;
+                    opacity: 1;
+
+                    .circle {
+                      border-radius: 50%;
+                      margin: 0;
+                      padding: 10px;
+                      height: 40px;
+                      width: 40px;
+                      background: $white-main;
+                      border: 1px solid #dadce0;
+
+                      svg {
+                        width: 18px;
+                        height: 18px;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.fade-out {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+}

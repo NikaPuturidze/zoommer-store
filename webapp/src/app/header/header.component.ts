@@ -1,13 +1,15 @@
-import { Component, DestroyRef, HostBinding, OnInit } from '@angular/core'
+import { Component, HostBinding, OnInit } from '@angular/core'
 import { Router, RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { BurgerService } from '../services/burger.service'
 import { ApiService } from '../services/api.service'
 import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { fromEvent, map, throttleTime } from 'rxjs'
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
 import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+import { AuthService } from '../services/auth.service'
 
+@UntilDestroy()
 @Component({
   selector: 'app-header',
   imports: [RouterModule, CommonModule, TranslateModule],
@@ -31,7 +33,7 @@ export class HeaderComponent implements OnInit {
     private burgerService: BurgerService,
     private apiService: ApiService,
     private router: Router,
-    private destroy: DestroyRef
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -47,7 +49,7 @@ export class HeaderComponent implements OnInit {
       .pipe(
         throttleTime(25),
         map(() => window.scrollY),
-        takeUntilDestroyed(this.destroy)
+        untilDestroyed(this)
       )
       .subscribe((scroll) => {
         this.isSticky = scroll >= 100

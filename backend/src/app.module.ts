@@ -11,6 +11,9 @@ import { AllCategoriesModule } from './all-categories/all-categories.module'
 import { PromotionModule } from './promotion/promotion.module'
 import { PromotionDetailModule } from './promotion-detail/promotion-detail.module'
 import { CookieModule } from './cookie/cookie.module'
+import { UserModule } from './user/user.module'
+import { TokenModule } from './token/token.module'
+import { LoginModule } from './login/login.module'
 
 @Module({
   imports: [
@@ -28,6 +31,9 @@ import { CookieModule } from './cookie/cookie.module'
     PromotionModule,
     PromotionDetailModule,
     CookieModule,
+    UserModule,
+    TokenModule,
+    LoginModule,
   ],
   controllers: [],
   providers: [],

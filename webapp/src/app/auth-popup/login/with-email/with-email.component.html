@@ -1,0 +1,62 @@
+@if (withEmail) {
+  <form [formGroup]="withEmail" (submit)="onSubmit()">
+    <div class="inputs">
+      <div
+        class="email"
+        (click)="focusEmail()"
+        [style.marginBottom.px]="displayMsgEmail ? 20 : 0"
+        [style.backgroundColor]="displayMsgEmail ? '#fff' : '#f2f2f2'"
+        [style.border]="displayMsgEmail ? '1px solid rgb(255, 0, 0)' : '0px solid rgb(255, 0, 0)'"
+      >
+        <input #email type="text" (input)="emailChange()" formControlName="email" />
+        <label translate="email" [class.active]="this.withEmail.get('email')?.value"></label>
+        <div
+          [hidden]="!displayMsgEmail"
+          class="msg"
+          [translate]="
+            !displayMsgEmail
+              ? !withEmail.get('email')?.value
+                ? 'mandatory_field'
+                : withEmail.get('email')?.invalid
+                  ? 'invalid_data'
+                  : ''
+              : ''
+          "
+        ></div>
+      </div>
+      <div
+        class="password"
+        (click)="focusPassword()"
+        [style.marginBottom.px]="displayMsgPassword ? 20 : 0"
+        [style.border]="displayMsgPassword ? '1px solid rgb(255, 0, 0)' : '0px solid rgb(255, 0, 0)'"
+        [style.backgroundColor]="displayMsgPassword ? '#fff' : '#f2f2f2'"
+      >
+        <input
+          #password
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          (input)="passwordChange()"
+          formControlName="password"
+        />
+        <label translate="password" [class.active]="this.withEmail.get('password')?.value"></label>
+        <button type="button" matRipple matRippleColor="rgba(0, 0, 0, 0.04)" class="eye" (click)="togglePassword()">
+          <img
+            [src]="
+              isPasswordVisible
+                ? 'https://zoommer.ge/icons/showPassword.svg'
+                : 'https://zoommer.ge/icons/hiddenPassword.svg'
+            "
+          />
+          <span class="splash"></span>
+        </button>
+        <div [hidden]="!displayMsgPassword" class="msg" translate="mandatory_field"></div>
+      </div>
+      <div class="forgot-pass">
+        <h4>{{ 'forgotPassword' | translate }}?</h4>
+      </div>
+      <div [hidden]="!displayResponse" class="msg response">{{ response | titlecase }}</div>
+    </div>
+    <button type="submit">
+      <h4 translate="login"></h4>
+    </button>
+  </form>
+}

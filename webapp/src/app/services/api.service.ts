@@ -11,6 +11,9 @@ import { IProductResponse } from '../../interfaces/product.interface'
 import { IAllCategory } from '../../interfaces/all-categories.interface'
 import { IPromotion } from '../../interfaces/promotion.interface'
 import { IPromotionDetailsResponse } from '../../interfaces/promotion-details.interface'
+import { IUser } from 'webapp/src/interfaces/user.interface'
+import { IToken } from 'webapp/src/interfaces/token.interface'
+import { ILogin } from 'webapp/src/interfaces/login.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -20,23 +23,23 @@ export class ApiService {
 
   private serverUrl = 'http://localhost:3000/api/'
 
-  topics(): Observable<ITopicsResponse> {
+  public topics(): Observable<ITopicsResponse> {
     return this.httpClient.get<ITopicsResponse>(this.serverUrl + 'topics')
   }
 
-  topic(title: string): Observable<ITopicResponse> {
+  public topic(title: string): Observable<ITopicResponse> {
     return this.httpClient.get<ITopicResponse>(this.serverUrl + 'topic?title=' + title.toString())
   }
 
-  megaMenu(): Observable<IMegaMenu[]> {
+  public megaMenu(): Observable<IMegaMenu[]> {
     return this.httpClient.get<IMegaMenu[]>(this.serverUrl + 'mega-menu')
   }
 
-  content(): Observable<IContentResponse> {
+  public content(): Observable<IContentResponse> {
     return this.httpClient.get<IContentResponse>(this.serverUrl + 'content')
   }
 
-  products(options: ProductsOptions): Observable<IProductsResponse> {
+  public products(options: ProductsOptions): Observable<IProductsResponse> {
     const { page, limit, specificationIds, categoryId, categories, priceFrom, priceTo, priceAsc, nameAsc } = options
     return this.httpClient.get<IProductsResponse>(this.serverUrl + 'products', {
       params: {
@@ -53,7 +56,7 @@ export class ApiService {
     })
   }
 
-  filter(catId: number): Observable<IFilterResponse> {
+  public filter(catId: number): Observable<IFilterResponse> {
     return this.httpClient.get<IFilterResponse>(this.serverUrl + 'filter', {
       params: {
         catId,
@@ -61,7 +64,7 @@ export class ApiService {
     })
   }
 
-  details(productId: number): Observable<IProductResponse> {
+  public details(productId: number): Observable<IProductResponse> {
     return this.httpClient.get<IProductResponse>(this.serverUrl + 'details', {
       params: {
         productId,
@@ -69,15 +72,15 @@ export class ApiService {
     })
   }
 
-  allCategories(): Observable<IAllCategory[]> {
+  public allCategories(): Observable<IAllCategory[]> {
     return this.httpClient.get<IAllCategory[]>(this.serverUrl + 'all-categories')
   }
 
-  promotion(): Observable<IPromotion> {
+  public promotion(): Observable<IPromotion> {
     return this.httpClient.get<IPromotion>(this.serverUrl + 'promotion')
   }
 
-  promotionDetail(
+  public promotionDetail(
     page: number,
     limit: number,
     promotionId: number,
@@ -93,7 +96,27 @@ export class ApiService {
     })
   }
 
-  accessToken(): Observable<{ token: string }> {
+  public accessToken(): Observable<{ token: string }> {
     return this.httpClient.get<{ token: string }>(this.serverUrl + 'cookie')
+  }
+
+  public user(username: string): Observable<IUser> {
+    return this.httpClient.post<IUser>(this.serverUrl + 'user', {
+      username,
+    })
+  }
+
+  public login(username: string, code: string): Observable<ILogin> {
+    return this.httpClient.post<ILogin>(this.serverUrl + 'login', {
+      username,
+      code,
+    })
+  }
+
+  public token(credintails: { email: string; password: string }): Observable<IToken> {
+    return this.httpClient.post<IToken>(this.serverUrl + 'token', {
+      email: credintails.email,
+      password: credintails.password,
+    })
   }
 }

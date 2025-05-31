@@ -1,0 +1,151 @@
+@use '../../../../styles.scss' as *;
+
+:host {
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .inputs {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .email,
+      .password {
+        position: relative;
+        height: 50px;
+        min-height: 50px;
+        border-radius: 12px;
+        margin: 0px;
+        transition: 0.3s;
+        border: none;
+        background: $gray-primary;
+        cursor: text;
+
+        label {
+          display: block;
+          letter-spacing: 0px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          align-items: center;
+          transition: 0.175s ease-out;
+          max-width: calc(100% - 1.25rem);
+          color: rgba($black-main, 0.6);
+          padding-left: 16px;
+          padding-right: 0.7rem;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          @include medium;
+          cursor: text;
+
+          &.active {
+            transform: translateY(-1.2rem);
+            font-size: 12px;
+          }
+        }
+
+        input {
+          border: none;
+          outline: none;
+          width: calc(100% - 16px);
+          left: 16px;
+          padding-right: 0.7rem;
+          font-size: 0.813rem;
+          color: $black-main;
+          appearance: none;
+          background: transparent;
+          position: absolute;
+          top: 50%;
+          line-height: 1;
+          font-weight: 500;
+          -moz-appearance: textfield;
+          &::-webkit-outer-spin-button,
+          &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+          @include medium;
+        }
+
+        &:focus-within label {
+          transform: translateY(-1.2rem);
+          font-size: 12px;
+        }
+
+        .eye {
+          position: absolute;
+          right: 0px;
+          top: 50%;
+          transform: translate(-10%, -50%);
+          cursor: pointer;
+          padding: 8px;
+          border-radius: 50%;
+          height: 38px;
+          width: 38px;
+          background-color: transparent;
+          min-height: auto;
+
+          &:hover {
+            background-color: rgba($black-main, 0.04);
+          }
+        }
+      }
+
+      .msg {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        color: rgba($red-main, 0.8);
+        position: absolute;
+        top: 110%;
+        left: 2%;
+        @include bold;
+      }
+
+      .forgot-pass {
+        width: 100%;
+        text-align: right;
+        margin-bottom: 10px;
+        display: flex;
+        justify-content: right;
+
+        h4 {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 14px;
+          width: fit-content;
+          color: $black-main;
+          cursor: pointer;
+          @include medium;
+        }
+      }
+
+      .response {
+        height: 20px;
+        position: static !important;
+      }
+    }
+
+    button {
+      min-height: 50px;
+      background: $orange-main;
+      border-radius: 12px;
+      padding: 16px;
+      border: none;
+      cursor: pointer;
+
+      h4 {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        color: $white-main;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        @include bold;
+      }
+    }
+  }
+}

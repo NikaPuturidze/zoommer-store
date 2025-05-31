@@ -28,6 +28,12 @@ export default tseslint.config(
       '@typescript-eslint/no-unnecessary-condition': 'off',
       '@typescript-eslint/dot-notation': 'off',
       '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/unbound-method': [
+        'error',
+        {
+          ignoreStatic: true,
+        },
+      ],
       '@typescript-eslint/naming-convention': [
         'error',
         {

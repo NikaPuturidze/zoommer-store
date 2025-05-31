@@ -6,11 +6,12 @@ import { TemplProductComponent } from '../../templates/templ-product/templ-produ
 import { Title } from '@angular/platform-browser'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+import { PulseLoaderComponent } from '../../ui/loaders/pulse-loader/pulse-loader.component'
 
 @UntilDestroy()
 @Component({
   selector: 'app-promotion-detail',
-  imports: [TemplProductComponent, TranslateModule],
+  imports: [TemplProductComponent, TranslateModule, PulseLoaderComponent],
   templateUrl: './promotion-detail.component.html',
   styleUrl: './promotion-detail.component.scss',
 })

@@ -235,7 +235,8 @@
   "authModal_withNumber": "Authenticate with Phone Number",
   "authModal_withEmail": "Authenticate with Email",
   "authModal_logWithAnotherMethod": "Or log in with another method",
-  "registerModal_agreeRules": "Read and agree to the \u003Ca target='_blank' href='/info/terms-and-conditions'\u003Erules and conditions and personal data protection policy\u003C/a\u003E",
+  "registerModal_agreeRules": "Read and agree to the ",
+  "registerModal_agreeRules2": "rules and conditions and personal data protection policy",
   "registerModal_submitNumber": "Please verify your number",
   "registerModal_smsSentTo": "SMS code sent to your number",
   "registerModal_successRegistration_title": "Congratulations! You have successfully registered",
@@ -337,5 +338,7 @@
   "branches-page-description": "Find our branch locations across the city. Visit zoommer branches for our services near you.",
   "cookie-policy": "Cookie Policy",
   "by-continuing-using-site-you-agree-cookie-usage": "By continuing to use the site, you agree to the use of cookies, for more information visit",
-  "confidentiality-policy": "Confidentiality Policy"
+  "confidentiality-policy": "Confidentiality Policy",
+  "nothing": "Nothing found",
+  "mandatory_field": "This field is required!"
 }

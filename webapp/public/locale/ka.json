@@ -235,7 +235,8 @@
   "authModal_withNumber": "ნომრით ავტორიზაცია",
   "authModal_withEmail": "მეილით ავტორიზაცია",
   "authModal_logWithAnotherMethod": "ან გაიარე ავტორიზაცია სხვა მეთოდით",
-  "registerModal_agreeRules": "წავიკითხე და ვეთანხმები \u003Ca target='_blank' href='/info/terms-and-conditions'\u003Eწესებს, პირობებს და პერსონალურ მონაცემთა დაცვის პოლიტიკას\u003C/a\u003E",
+  "registerModal_agreeRules": "წავიკითხე და ვეთანხმები ",
+  "registerModal_agreeRules2": "წესებს, პირობებს და პერსონალურ მონაცემთა დაცვის პოლიტიკას",
   "registerModal_submitNumber": "გთხოვთ დაადასტუროთ ნომერი",
   "registerModal_smsSentTo": "სმს კოდი გამოგზავნილია ნომერზე",
   "registerModal_successRegistration_title": "თქვენ წარმატებით დარეგისტრირდით",
@@ -338,5 +339,7 @@
   "branches-page-description": "იპოვეთ ჩვენი ფილიალების მდებარეობები ქალაქის მასშტაბით. ეწვიეთ ზუმერის ფილიალებს ჩვენი სერვისებისთვის თქვენთან ახლოს.",
   "cookie-policy": "Cookie პოლიტიკა",
   "by-continuing-using-site-you-agree-cookie-usage": "საიტით სარგებლობის გაგრძელებით, შენ ეთანხმები Cookie ჩანაწერების გამოყენებას. მეტი ინფორმაცისათვის იხილეთ",
-  "confidentiality-policy": "კონფიდენციალურობის პოლიტიკა"
+  "confidentiality-policy": "კონფიდენციალურობის პოლიტიკა",
+  "nothing": "არ მოიძებნა",
+  "mandatory_field": "ეს ველი სავალდებულოა!"
 }

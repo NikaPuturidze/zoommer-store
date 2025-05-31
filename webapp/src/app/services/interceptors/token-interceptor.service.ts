@@ -2,7 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http'
 import { inject } from '@angular/core'
 import { CookieService } from 'ngx-cookie-service'
 
-export const authInterceptor: HttpInterceptorFn = (request, next) => {
+export const tokenInterceptor: HttpInterceptorFn = (request, next) => {
   const token = inject(CookieService).get('access-token')
 
   if (token)

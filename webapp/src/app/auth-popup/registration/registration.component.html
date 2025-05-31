@@ -1,0 +1,6 @@
+@let registerType = authService.registerType | async;
+
+<div class="wrapper">
+  <app-reg-number [hidden]="registerType !== 'number'"></app-reg-number>
+  <app-reg-verify [hidden]="registerType !== 'code'"></app-reg-verify>
+</div>

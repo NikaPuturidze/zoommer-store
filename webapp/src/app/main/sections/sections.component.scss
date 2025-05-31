@@ -201,6 +201,7 @@
       grid-template-columns: auto auto;
       justify-content: space-between;
       gap: 20px;
+      border-radius: 12px;
 
       @media (width <= 1024px) {
         display: none;

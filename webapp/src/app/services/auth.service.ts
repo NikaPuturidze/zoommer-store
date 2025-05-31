@@ -1,29 +1,95 @@
 import { Injectable } from '@angular/core'
-import { CookieService } from 'ngx-cookie-service'
-import { ApiService } from './api.service'
-import { lastValueFrom } from 'rxjs'
+import { BehaviorSubject } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private cookieService: CookieService,
-    private apiService: ApiService
-  ) {}
+  public popupVisibility$ = new BehaviorSubject<boolean>(false)
+  public current = new BehaviorSubject<'login' | 'register'>('login')
+  public loginType = new BehaviorSubject<'number' | 'email' | 'code'>('number')
+  public registerType = new BehaviorSubject<'number' | 'code'>('number')
+  public showFlags = new BehaviorSubject<boolean>(false)
+  public finalHeight = new BehaviorSubject<number>(507)
+  public finalHeightReg = new BehaviorSubject<number>(407)
+  public sentUsername: string | null = null
 
-  public async setAccessToken(): Promise<boolean> {
-    if (!this.cookieService.check('access-token')) {
-      try {
-        const data = await lastValueFrom(this.apiService.accessToken())
-        this.cookieService.set('access-token', data.token, 4)
-        return true
-      } catch (error: unknown) {
-        console.error('access-token fetch failed', error)
-        return false
-      }
+  public addHeight(number: number): void {
+    this.finalHeight.next(this.finalHeight.value + number)
+  }
+
+  public removeHeight(number: number): void {
+    this.finalHeight.next(this.finalHeight.value - number)
+  }
+
+  public addHeightReg(number: number): void {
+    if (this.finalHeightReg.value <= 407) {
+      this.finalHeightReg.next(this.finalHeightReg.value + number)
     }
+  }
 
-    return true
+  public removeHeightReg(number: number): void {
+    const newHeight = this.finalHeightReg.value - number
+    if (newHeight >= 407) {
+      this.finalHeightReg.next(newHeight)
+    } else {
+      this.finalHeightReg.next(407)
+    }
+  }
+
+  public openPopup(): void {
+    this.popupVisibility$.next(true)
+  }
+
+  public closePopup(): void {
+    this.popupVisibility$.next(false)
+  }
+
+  public setLogin(): void {
+    this.current.next('login')
+  }
+
+  public setLoginTypeNumber(): void {
+    this.loginType.next('number')
+  }
+
+  public setLoginTypeCode(): void {
+    this.loginType.next('code')
+  }
+
+  public setLoginTypeEmail(): void {
+    this.loginType.next('email')
+  }
+
+  public setRegisterTypeNumber(): void {
+    this.registerType.next('number')
+  }
+
+  public setRegisterTypeCode(): void {
+    this.registerType.next('code')
+  }
+
+  public setRegister(): void {
+    this.current.next('register')
+  }
+
+  public openFlags(): void {
+    this.showFlags.next(true)
+  }
+
+  public closeFlags(): void {
+    this.showFlags.next(false)
+  }
+
+  public toggleFlags(): void {
+    this.showFlags.next(!this.showFlags.value)
+  }
+
+  public setUsername(username: string): void {
+    this.sentUsername = String(+username)
+  }
+
+  public resetUsername(): void {
+    this.sentUsername = null
   }
 }

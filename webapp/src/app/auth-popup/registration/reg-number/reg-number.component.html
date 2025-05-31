@@ -1,0 +1,60 @@
+@if (regNumber) {
+  <form [formGroup]="regNumber" (submit)="onSubmit()">
+    <div class="inputs" [style.marginBottom.px]="displayMsg ? 20 : 0">
+      <div class="country-code" (click)="authService.toggleFlags()" (click)="$event.stopPropagation()">
+        <div class="selected-country">
+          <div [class]="'flag-c ' + currentCountry.iso2"></div>
+        </div>
+        <div class="c">{{ currentCountry.dialCode }}</div>
+        <ul
+          [style.visibility]="(authService.showFlags | async) ? 'visible' : 'hidden'"
+          (click)="$event.stopPropagation()"
+        >
+          <li class="search">
+            <input #search type="search" [placeholder]="'search' | translate" (input)="onCountrySearch(search.value)" />
+          </li>
+          @for (country of filteredCountries; track $index) {
+            <li class="country" (click)="setCountry($index)">
+              <div [class]="'flag ' + country.iso2"></div>
+              <span class="country-name">{{ country.name }}</span>
+              <span class="dial-code">{{ country.dialCode }}</span>
+            </li>
+          } @empty {
+            <li class="no-entries-message">
+              <span translate="nothing"></span>
+            </li>
+          }
+        </ul>
+      </div>
+      <div
+        class="phone"
+        (click)="focusPhone()"
+        [style.border]="displayMsg ? '1px solid rgb(255, 0, 0)' : '0px solid rgb(255, 0, 0)'"
+        [style.backgroundColor]="displayMsg ? '#fff' : '#f2f2f2'"
+      >
+        <input #phone type="text" (input)="inputChange()" formControlName="phone" />
+        <label translate="phoneNumber" [class.active]="this.regNumber.get('phone')?.value"></label>
+      </div>
+      @if (displayMsg) {
+        <div class="msg" translate="invalid_data"></div>
+      }
+    </div>
+    <div class="terms-wrapper">
+      <img
+        (click)="toggleTerms()"
+        [src]="agreeToTerms ? 'https://zoommer.ge/icons/checked-rules.svg' : 'https://zoommer.ge/icons/frame.png'"
+      />
+      <p>
+        {{ 'registerModal_agreeRules' | translate }}
+        <a routerLink="/info/terms"> {{ 'registerModal_agreeRules2' | translate }}</a>
+      </p>
+    </div>
+    <button type="submit" [class.disabled]="!agreeToTerms">
+      @if (!showLoader) {
+        <h4 translate="registration"></h4>
+      } @else {
+        <app-pulse-loader color="#fff"></app-pulse-loader>
+      }
+    </button>
+  </form>
+}

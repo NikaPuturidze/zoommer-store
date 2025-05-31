@@ -1,0 +1,20 @@
+<div class="wrapper">
+  @let loginType = authService.loginType | async;
+
+  <div class="login-type">
+    <div
+      class="with-number"
+      (click)="authService.setLoginTypeNumber()"
+      [class.active]="loginType === 'number' || loginType === 'code'"
+    >
+      <h4 translate="authModal_withNumber"></h4>
+    </div>
+    <div class="with-email" (click)="authService.setLoginTypeEmail()" [class.active]="loginType === 'email'">
+      <h4 translate="authModal_withEmail"></h4>
+    </div>
+  </div>
+
+  <app-code-verify [hidden]="loginType !== 'code'" #codeVerify></app-code-verify>
+  <app-with-number [hidden]="loginType !== 'number'" #withNumber></app-with-number>
+  <app-with-email [hidden]="loginType !== 'email'" #withEmail></app-with-email>
+</div>

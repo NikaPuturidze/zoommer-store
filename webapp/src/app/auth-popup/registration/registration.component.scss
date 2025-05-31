@@ -1,0 +1,18 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  opacity: 0.2;
+
+  &.active {
+    animation: fadeIn 0.2s ease-in-out forwards;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0.2;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  opacity: 0.2;
+
+  &.active {
+    animation: fadeIn 0.2s ease-in-out forwards;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0.2;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+
+    .login-type {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 5px;
+
+      .with-number,
+      .with-email {
+        cursor: pointer;
+        padding: 12px 11px;
+        border-radius: 30px;
+        background: $gray-primary;
+        text-align: center;
+        border: 1px solid $white-main;
+
+        h4 {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 14px;
+          color: $black-main;
+          @include medium;
+          opacity: 0.5;
+        }
+
+        &.active {
+          background: rgba($orange-main, 0.2);
+          border: 1px solid $orange-main;
+
+          h4 {
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+}

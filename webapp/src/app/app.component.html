@@ -1,4 +1,6 @@
 @if (allGood) {
+  <app-auth-popup [class.visible]="authService.popupVisibility$ | async"></app-auth-popup>
+  @if (authService.popupVisibility$ | async) {}
   <app-burger></app-burger>
   @if (viewportWidth > 1024) {
     <app-navigation [topics]="topics"></app-navigation>
