@@ -2,7 +2,6 @@ import { Component, HostBinding, OnInit } from '@angular/core'
 import { Router, RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { BurgerService } from '../services/burger.service'
-import { ApiService } from '../services/api.service'
 import { fromEvent, map, throttleTime } from 'rxjs'
 import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
@@ -30,7 +29,6 @@ export class HeaderComponent implements OnInit {
   constructor(
     private translateService: TranslateService,
     private burgerService: BurgerService,
-    private apiService: ApiService,
     private router: Router,
     public authService: AuthService
   ) {}

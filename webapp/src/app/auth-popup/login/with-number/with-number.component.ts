@@ -12,7 +12,7 @@ import { PulseLoaderComponent } from '../../../ui/loaders/pulse-loader/pulse-loa
   selector: 'app-with-number',
   imports: [TranslateModule, ReactiveFormsModule, AsyncPipe, PulseLoaderComponent],
   templateUrl: './with-number.component.html',
-  styleUrl: './with-number.component.scss',
+  styleUrls: ['./with-number.component.scss', '../../flags.component.scss'],
 })
 export class WithNumberComponent implements OnInit {
   public withNumber?: FormGroup

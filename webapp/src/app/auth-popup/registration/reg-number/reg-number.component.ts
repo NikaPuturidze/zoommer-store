@@ -13,7 +13,7 @@ import { PulseLoaderComponent } from '../../../ui/loaders/pulse-loader/pulse-loa
   selector: 'app-reg-number',
   imports: [ReactiveFormsModule, AsyncPipe, TranslateModule, RouterLink, PulseLoaderComponent],
   templateUrl: './reg-number.component.html',
-  styleUrl: './reg-number.component.scss',
+  styleUrls: ['./reg-number.component.scss', '../../flags.component.scss'],
 })
 export class RegNumberComponent implements OnInit {
   public regNumber?: FormGroup
