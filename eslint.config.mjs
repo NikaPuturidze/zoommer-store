@@ -69,7 +69,7 @@ export default tseslint.config(
         },
       ],
       '@typescript-eslint/no-extraneous-class': 'off',
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+      'no-console': ['error', { allow: ['warn', 'error'] }],
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/explicit-module-boundary-types': 'error',
       complexity: ['error', { max: 10 }],
