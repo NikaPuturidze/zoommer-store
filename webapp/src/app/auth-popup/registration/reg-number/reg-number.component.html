@@ -46,7 +46,9 @@
       />
       <p>
         {{ 'registerModal_agreeRules' | translate }}
-        <a routerLink="/info/terms"> {{ 'registerModal_agreeRules2' | translate }}</a>
+        <a (click)="authService.closePopup()" routerLink="/info/terms-and-conditions">
+          {{ 'registerModal_agreeRules2' | translate }}</a
+        >
       </p>
     </div>
     <button type="submit" [class.disabled]="!agreeToTerms">
