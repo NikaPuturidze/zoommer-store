@@ -43,6 +43,7 @@ export class AuthService {
 
   public closePopup(): void {
     this.popupVisibility$.next(false)
+    this.current.next('login')
   }
 
   public setLogin(): void {
