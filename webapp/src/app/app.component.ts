@@ -13,6 +13,9 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 import { AuthPopupComponent } from './auth-popup/auth-popup.component'
 import { AuthService } from './services/auth.service'
 import { AsyncPipe } from '@angular/common'
+import { BottomBarComponent } from './bottom-bar/bottom-bar.component'
+import { IMegaMenu } from '../interfaces/mega-menu.interface'
+import { BurgerService } from './services/burger.service'
 @UntilDestroy()
 @Component({
   selector: 'app-root',
@@ -24,6 +27,7 @@ import { AsyncPipe } from '@angular/common'
     BurgerComponent,
     AuthPopupComponent,
     AsyncPipe,
+    BottomBarComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -39,6 +43,7 @@ export class AppComponent {
     private router: Router,
     private viewport: ViewportService,
     private tokenService: TokenService,
+    private burgerService: BurgerService,
     public authService: AuthService
   ) {}
 
@@ -70,6 +75,17 @@ export class AppComponent {
     this.viewport.Viewport$.subscribe((values) => {
       this.viewportWidth = values.width
     })
+
+    if (this.burgerService.megaMenuSubject.value === undefined) {
+      this.apiService.megaMenu().subscribe({
+        next: (data: IMegaMenu[] | undefined) => {
+          this.burgerService.setMegaMenu(data)
+        },
+        error: (error: ErrorOptions) => {
+          console.error('Failed to load mega-menu', error)
+        },
+      })
+    }
   }
 
   private loadTopics(): void {

@@ -3,7 +3,6 @@ import { Router, RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { BurgerService } from '../services/burger.service'
 import { ApiService } from '../services/api.service'
-import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { fromEvent, map, throttleTime } from 'rxjs'
 import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
@@ -62,17 +61,6 @@ export class HeaderComponent implements OnInit {
 
   public toggleBurger(): void {
     this.burgerService.setBurger(this.burgerService.burgerTranslate.value === 0 ? -100 : 0)
-
-    if (this.burgerService.megaMenuSubject.value === undefined) {
-      this.apiService.megaMenu().subscribe({
-        next: (data: IMegaMenu[] | undefined) => {
-          this.burgerService.setMegaMenu(data)
-        },
-        error: (error: ErrorOptions) => {
-          console.error('Failed to load mega-menu', error)
-        },
-      })
-    }
   }
 
   public chooseLanguage(event: MouseEvent): void {

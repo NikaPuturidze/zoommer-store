@@ -1,22 +1,22 @@
-@if (megaMenu) {
-  <div [style.transform]="'translateX(' + translate + '%' + ')'" class="burger">
-    <div class="search-bar">
-      <img class="s-img" (click)="toggleBurger()" src="https://zoommer.ge/icons/burger-close.svg" />
-      <div class="search">
-        <img src="https://zoommer.ge/icons/main-search.svg" />
-        <input type="text" [placeholder]="currentLang === 'en' ? 'Search' : 'ძიება'" />
-      </div>
+<div [style.transform]="'translateX(' + translate + '%' + ')'" class="burger">
+  <div class="search-bar">
+    <img class="s-img" (click)="toggleBurger()" src="https://zoommer.ge/icons/burger-close.svg" />
+    <div class="search">
+      <img src="https://zoommer.ge/icons/main-search.svg" />
+      <input type="text" [placeholder]="currentLang === 'en' ? 'Search' : 'ძიება'" />
     </div>
-    <div class="container">
-      <div class="side-categories">
-        @for (category of megaMenu; track $index) {
-          <div class="category" (click)="selectCategory($index)" [class.selected]="$index === categoryIndex">
-            <img [src]="category.iconUrl" />
-            <h4>{{ category.name }}</h4>
-          </div>
-        }
-      </div>
-      <div class="categories">
+  </div>
+  <div class="container">
+    <div class="side-categories">
+      @for (category of megaMenu; track $index) {
+        <div class="category" (click)="selectCategory($index)" [class.selected]="$index === categoryIndex">
+          <img [src]="category.iconUrl" />
+          <h4>{{ category.name }}</h4>
+        </div>
+      }
+    </div>
+    <div class="categories">
+      @if (megaMenu) {
         @for (child of megaMenu[categoryIndex].childItems; track $index) {
           <div class="content">
             <h4>{{ child.name }}</h4>
@@ -30,7 +30,7 @@
             </div>
           </div>
         }
-      </div>
+      }
     </div>
   </div>
-}
+</div>
