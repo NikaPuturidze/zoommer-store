@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core'
 import { OverviewComponent } from './overview/overview.component'
 import { AdditionalInfoComponent } from './additional-info/additional-info.component'
 import { BuyComponent } from './buy/buy.component'
@@ -12,6 +12,7 @@ import { ViewportService } from '../services/viewport.service'
 import { Title } from '@angular/platform-browser'
 import { TranslateService } from '@ngx-translate/core'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
+
 @UntilDestroy()
 @Component({
   selector: 'app-details',
@@ -25,6 +26,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
   ],
   templateUrl: './details.component.html',
   styleUrl: './details.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DetailsComponent {
   public productResponse?: IProductResponse
@@ -37,7 +39,8 @@ export class DetailsComponent {
     private translateService: TranslateService,
     private actR: ActivatedRoute,
     private viewport: ViewportService,
-    private title: Title
+    private title: Title,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -54,6 +57,8 @@ export class DetailsComponent {
     this.viewport.Viewport$.subscribe((value) => {
       this.viewportWidth = value.width
     })
+
+    this.cdr.detectChanges()
   }
 
   private loadDetails(productId: number): void {
@@ -73,6 +78,7 @@ export class DetailsComponent {
         })
         data.product.currentImage = 0
         data.product.translateX = 0
+        this.cdr.detectChanges()
       },
       error: (error: ErrorOptions) => {
         console.error(error)
