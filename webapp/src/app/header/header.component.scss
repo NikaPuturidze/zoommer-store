@@ -24,6 +24,11 @@
     width: 100%;
     background: $gray-primary;
 
+    &.sticky {
+      background-color: rgba(237, 235, 235, 0.74);
+      backdrop-filter: blur(10px);
+    }
+
     .header-container {
       display: flex;
       justify-content: space-between;
