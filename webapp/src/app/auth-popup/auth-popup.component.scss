@@ -53,6 +53,7 @@
         transform: translateY(100px);
         transition: height 0.4s ease;
         animation: forwards;
+        overflow: hidden;
 
         @media (width <= 1024px) {
           width: 100%;
@@ -60,6 +61,7 @@
           border-bottom-left-radius: 0;
           border-bottom-right-radius: 0;
           padding-bottom: 0;
+          overflow: inherit;
         }
 
         &.fade-in-sb {
