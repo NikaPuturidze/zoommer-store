@@ -18,6 +18,8 @@ import { ContentLoaderModule } from '@ngneat/content-loader'
 import { TranslateModule } from '@ngx-translate/core'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 import { fromEvent, throttleTime, map } from 'rxjs'
+import { ViewportService } from '../../services/viewport.service'
+import { AsyncPipe } from '@angular/common'
 
 @UntilDestroy()
 @Component({
@@ -30,6 +32,7 @@ import { fromEvent, throttleTime, map } from 'rxjs'
     BranchesComponent,
     ContentLoaderModule,
     TranslateModule,
+    AsyncPipe,
   ],
   templateUrl: './additional-info.component.html',
   styleUrl: './additional-info.component.scss',
@@ -45,7 +48,10 @@ export class AdditionalInfoComponent implements OnInit {
 
   @ViewChildren('observeSection', { read: ElementRef }) sections?: QueryList<ElementRef<HTMLDivElement>>
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(
+    private cdr: ChangeDetectorRef,
+    public viewport: ViewportService
+  ) {}
 
   ngOnInit(): void {
     this.listenToScroll()

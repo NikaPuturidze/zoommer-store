@@ -1,26 +1,31 @@
 @if (product) {
+  @let viewportData = viewport.Viewport$ | async;
   <div class="additional-info">
     <div class="sections-row-sticky" [class]="isSticky ? 'sticky' : 'unsticky'">
-      <div class="row-wrapper">
-        @if (product.accessories.length > 0) {
-          <a>
-            <h4 [class.active]="activeSection === 0" class="accessories" translate="accessories"></h4>
-          </a>
-        }
-        @if (product.similarProductsList.length > 0) {
-          <a>
-            <h4 [class.active]="activeSection === 1" class="sameProducts" translate="sameProducts"></h4>
-          </a>
-        }
-        @if (product.specificationGroup.length > 0) {
-          <a>
-            <h4 [class.active]="activeSection === 2" class="additionalFeatures" translate="additionalFeatures"></h4>
-          </a>
-        }
-        <a>
-          <h4 [class.active]="activeSection === 3" class="branches" translate="branches"></h4>
-        </a>
-      </div>
+      @if (viewportData) {
+        <div class="row-wrapper">
+          @if (product.accessories.length > 0) {
+            <a>
+              <h4 [class.active]="activeSection === 0" class="accessories" translate="accessories"></h4>
+            </a>
+          }
+          @if (product.similarProductsList.length > 0) {
+            <a>
+              <h4 [class.active]="activeSection === 1" class="sameProducts" translate="same"></h4>
+            </a>
+          }
+          @if (product.specificationGroup.length > 0 && viewportData.width > 1024) {
+            <a>
+              <h4 [class.active]="activeSection === 2" class="additionalFeatures" translate="features"></h4>
+            </a>
+          }
+          @if (viewportData.width > 1024) {
+            <a>
+              <h4 [class.active]="activeSection === 3" class="branches" translate="branches"></h4>
+            </a>
+          }
+        </div>
+      }
     </div>
     <div class="sections-row">
       <div class="row-wrapper">
@@ -31,12 +36,12 @@
         }
         @if (product.similarProductsList.length > 0) {
           <a>
-            <h4 translate="sameProducts"></h4>
+            <h4 translate="same"></h4>
           </a>
         }
         @if (product.specificationGroup.length > 0) {
           <a>
-            <h4 translate="additionalFeatures"></h4>
+            <h4 translate="features"></h4>
           </a>
         }
         <a>
