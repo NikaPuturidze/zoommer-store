@@ -50,10 +50,12 @@
 
       .specification-list {
         pointer-events: auto;
-        transition: max-height 1s ease-out;
+        transition: max-height 0.3s ease-in-out;
 
-        @media (width <= 1024px) {
-          min-height: 200px;
+        &.active {
+          @media (width <= 1024px) {
+            height: auto !important;
+          }
         }
 
         .specification {
@@ -194,6 +196,12 @@
           pointer-events: auto;
           opacity: 1;
           cursor: pointer;
+
+          &.active {
+            &::after {
+              display: none;
+            }
+          }
 
           @media (width <= 1024px) {
             background-color: $white-main;

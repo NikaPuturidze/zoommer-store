@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
 import { ISpecificationGroup } from 'webapp/src/interfaces/product.interface'
 import { ViewportService } from 'webapp/src/app/services/viewport.service'
 import { TranslateModule } from '@ngx-translate/core'
@@ -17,13 +17,17 @@ export class FeaturesComponent implements OnInit {
   public marginBottomMap: Record<number, number> = {}
   public viewportWidth = 0
 
-  @ViewChild('spec') spec?: ElementRef<HTMLElement>
+  @ViewChild('sp') sp?: ElementRef<HTMLDivElement>
 
-  constructor(private viewport: ViewportService) {}
+  constructor(
+    private viewport: ViewportService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.viewport.Viewport$.subscribe((values) => {
       this.viewportWidth = values.width
+      this.cdr.markForCheck()
     })
   }
 

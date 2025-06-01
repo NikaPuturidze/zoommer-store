@@ -1,17 +1,24 @@
 @if (features) {
-  <div #spec class="specifications">
+  <div class="specifications">
     <div class="specifications-title">
       <h4 translate="additionalFeatures"></h4>
     </div>
     <div class="spec-wrapper">
-      <div class="specification-list" [style.maxHeight.px]="isSeeMore ? 2500 : viewportWidth <= 1024 ? 200 : 442">
+      <div
+        #sp
+        class="specification-list"
+        [style.maxHeight.px]="
+          features.length > 2 ? (isSeeMore ? sp.scrollHeight : viewportWidth <= 1024 ? 200 : 400) : 'auto'
+        "
+      >
         @for (specifications of features; track $index) {
           <div
+            #spc
             class="specification"
             (click)="toggleIsActive($index)"
             (transitionend)="onTransitionEnd($event, $index)"
             [style.marginBottom.px]="marginBottomMap[$index] || viewportWidth <= 1024 ? 0 : 10"
-            [style.maxHeight.px]="specifications.isActive ? 550 : 40"
+            [style.maxHeight.px]="specifications.isActive ? spc.scrollHeight : 40"
           >
             <div class="spec-title">
               <h4>{{ specifications.groupName }}</h4>
@@ -40,22 +47,19 @@
           </div>
         }
       </div>
-      <div
-        class="see-more-wrapper"
-        [style.display]="spec.offsetHeight - 46 < 442 ? 'none' : 'block'"
-        (click)="toggleSeeMore()"
-        [class.active]="!isSeeMore"
-      >
-        <div appScaleOnClick class="see-more">
-          @if (isSeeMore) {
-            <h4 translate="seeLess"></h4>
-            <img [style.transform]="'rotate(180deg)'" src="https://zoommer.ge/icons/arrow-down-orange.svg" />
-          } @else {
-            <h4 translate="seeMore"></h4>
-            <img src="https://zoommer.ge/icons/arrow-down-orange.svg" />
-          }
+      @if (features.length > 2) {
+        <div class="see-more-wrapper" (click)="toggleSeeMore()" [class.active]="!isSeeMore">
+          <div appScaleOnClick class="see-more">
+            @if (isSeeMore) {
+              <h4 translate="seeLess"></h4>
+              <img [style.transform]="'rotate(180deg)'" src="https://zoommer.ge/icons/arrow-down-orange.svg" />
+            } @else {
+              <h4 translate="seeMore"></h4>
+              <img src="https://zoommer.ge/icons/arrow-down-orange.svg" />
+            }
+          </div>
         </div>
-      </div>
+      }
     </div>
   </div>
 }

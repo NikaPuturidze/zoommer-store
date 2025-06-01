@@ -41,6 +41,10 @@
             line-height: 14px;
             height: 50px;
           }
+
+          @media (width <= 1152px) {
+            font-size: 14px;
+          }
         }
       }
     }
