@@ -65,7 +65,7 @@ export class DetailsComponent {
     this.apiService.details(productId).subscribe({
       next: (data: IProductResponse) => {
         if (data.httpStatusCode !== 200) {
-          this.router.navigate(['/not-found']).catch((error: unknown) => {
+          this.router.navigate(['/not-found'], { replaceUrl: true }).catch((error: unknown) => {
             console.error(error)
           })
           return

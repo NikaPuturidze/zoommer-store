@@ -173,7 +173,7 @@ export class FilterComponent implements OnInit {
       .subscribe({
         next: (data: IFilterResponse) => {
           if ((data.maxPrice === 0 && data.minPrice === 0) || data.errors.length > 0) {
-            this.router.navigate(['/not-found']).catch((error: unknown) => {
+            this.router.navigate(['/not-found'], { replaceUrl: true }).catch((error: unknown) => {
               console.error(error)
             })
             return
