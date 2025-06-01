@@ -45,16 +45,16 @@
       }
     }
 
-    animation: load 0.5s ease forwards;
+    animation: load 0.5s ease;
   }
 }
 
 @keyframes load {
   from {
-    scale: 0.85;
+    transform: scale(0.85);
   }
 
   to {
-    scale: 1;
+    transform: scale(1);
   }
 }

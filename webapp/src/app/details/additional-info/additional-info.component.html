@@ -1,5 +1,27 @@
 @if (product) {
   <div class="additional-info">
+    <div class="sections-row-sticky" [class]="isSticky ? 'sticky' : 'unsticky'">
+      <div class="row-wrapper">
+        @if (product.accessories.length > 0) {
+          <a>
+            <h4 [class.active]="activeSection === 0" class="accessories" translate="accessories"></h4>
+          </a>
+        }
+        @if (product.similarProductsList.length > 0) {
+          <a>
+            <h4 [class.active]="activeSection === 1" class="sameProducts" translate="sameProducts"></h4>
+          </a>
+        }
+        @if (product.specificationGroup.length > 0) {
+          <a>
+            <h4 [class.active]="activeSection === 2" class="additionalFeatures" translate="additionalFeatures"></h4>
+          </a>
+        }
+        <a>
+          <h4 [class.active]="activeSection === 3" class="branches" translate="branches"></h4>
+        </a>
+      </div>
+    </div>
     <div class="sections-row">
       <div class="row-wrapper">
         @if (product.accessories.length > 0) {
@@ -23,14 +45,29 @@
       </div>
     </div>
     <div class="additional-sections">
-      <app-accesories [accesories]="product.accessories"></app-accesories>
-      <app-similar [similarProductsList]="product.similarProductsList"></app-similar>
-      <app-features [features]="product.specificationGroup"></app-features>
+      <app-accesories
+        #observeSection
+        data-section="0"
+        id="accessories"
+        [accesories]="product.accessories"
+      ></app-accesories>
+      <app-similar #observeSection data-section="1" [similarProductsList]="product.similarProductsList"></app-similar>
+      <app-features
+        #observeSection
+        data-section="2"
+        id="features"
+        [features]="product.specificationGroup"
+      ></app-features>
       <app-warranty
         [certificateFileUrl]="product.certificateFileUrl"
         [manualsFileUrl]="product.manualsFileUrl"
       ></app-warranty>
-      <app-branches [availabilityInStores]="productResponse?.availabilityInStores"></app-branches>
+      <app-branches
+        #observeSection
+        data-section="3"
+        id="branches"
+        [availabilityInStores]="productResponse?.availabilityInStores"
+      ></app-branches>
     </div>
   </div>
 } @else {
