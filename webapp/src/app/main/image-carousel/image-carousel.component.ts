@@ -44,6 +44,7 @@ export class ImageCarouselComponent implements OnChanges, AfterViewInit {
         if (crossedToSmall || crossedToLarge) {
           this.offsetX = 0
           this.translate = 'translateX(0px)'
+          this.imageIndex = 0
 
           this.hostReference.nativeElement.scrollLeft = 0
         }
@@ -60,7 +61,11 @@ export class ImageCarouselComponent implements OnChanges, AfterViewInit {
 
   public nextImage(): void {
     if (this.imageIndex !== this.bannerWidths.length - 1) {
-      this.offsetX -= this.bannerWidths[this.imageIndex + 1] + EContent.GAP
+      if (this.bannerWidths[this.imageIndex] == 220 && this.bannerWidths[this.imageIndex + 1] == 895) {
+        this.offsetX -= 220 + EContent.GAP
+      } else {
+        this.offsetX -= this.bannerWidths[this.imageIndex + 1] + EContent.GAP
+      }
       this.imageIndex++
     }
     this.translate = `translateX(${this.offsetX.toString()}px)`
@@ -68,7 +73,11 @@ export class ImageCarouselComponent implements OnChanges, AfterViewInit {
 
   public previousImage(): void {
     if (this.imageIndex > 0) {
-      this.offsetX += this.bannerWidths[this.imageIndex] + EContent.GAP
+      if (this.bannerWidths[this.imageIndex] == 895 && this.bannerWidths[this.imageIndex - 1] == 220) {
+        this.offsetX += 220 + EContent.GAP
+      } else {
+        this.offsetX += this.bannerWidths[this.imageIndex] + EContent.GAP
+      }
       this.imageIndex--
     }
 
