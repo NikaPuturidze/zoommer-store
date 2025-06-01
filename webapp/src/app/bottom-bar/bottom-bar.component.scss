@@ -33,6 +33,7 @@
         align-items: center;
         justify-content: center;
         gap: 2px;
+        cursor: pointer;
 
         .wrapper {
           display: flex;
@@ -44,7 +45,6 @@
           background-color: rgb(236, 94, 42);
           position: absolute;
           bottom: 26px;
-          cursor: pointer;
         }
 
         button {
