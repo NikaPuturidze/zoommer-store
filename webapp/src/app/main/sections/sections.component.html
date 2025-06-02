@@ -1,73 +1,91 @@
 <div class="sections">
   @if (content) {
     @for (section of content.section; let secIndex = $index; track $index) {
-      @if (section.orderNumber > -1) {
-        @if (section.sectionType === 5 || section.sectionType === 1) {
-          <section class="section-slider-one">
-            <h4 class="title">{{ section.title }}</h4>
-            <div class="slider-one">
-              <div class="section-one-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
-                @for (product of section.products; track $index) {
-                  <app-templ-product [route]="[product.route]" [product]="product"></app-templ-product>
-                }
+      @defer (on viewport) {
+        @if (section.orderNumber > -1) {
+          @if (section.sectionType === 5 || section.sectionType === 1) {
+            <section class="section-slider-one">
+              <h4 class="title">{{ section.title }}</h4>
+              <div class="slider-one">
+                <div class="section-one-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
+                  @for (product of section.products; track $index) {
+                    @defer (on viewport) {
+                      <app-templ-product [route]="[product.route]" [product]="product"></app-templ-product>
+                    } @placeholder {
+                      <content-loader class="skeleton-product" [viewBox]="'0 0 160 303'">
+                        <svg:rect x="0" y="0" rx="4" ry="4" width="160" height="170" fill="currentColor" />
+                        <svg:rect x="0" y="187.67" rx="4" ry="4" width="96" height="20" fill="currentColor" />
+                        <svg:rect x="0" y="225.34" rx="4" ry="4" width="160" height="20" fill="currentColor" />
+                        <svg:rect x="0" y="263" rx="4" ry="4" width="40" height="40" fill="currentColor" />
+                        <svg:rect x="50" y="263" rx="4" ry="4" width="110" height="40" fill="currentColor" />
+                      </content-loader>
+                    }
+                  }
+                </div>
               </div>
-            </div>
-            @if (section.products && section.products.length >= 6) {
+              @if (section.products && section.products.length >= 6) {
+                <div class="arrow-left">
+                  <img (click)="previousImage(secIndex)" src="https://zoommer.ge/icons/slider-left-btn.svg" />
+                </div>
+                <div class="arrow-right">
+                  <img (click)="nextImage(secIndex)" src="https://zoommer.ge/icons/slider-right-btn.svg" />
+                </div>
+              }
+            </section>
+          }
+
+          @if (section.sectionType === 3 && !section.isScroll) {
+            <section
+              [ngClass]="{
+                'section-banner-one': section.bannerTemplateRowNumber === 1 && section.colorValue === '#000000',
+                'section-banner-three': section.bannerTemplateRowNumber === 2 && section.colorValue !== '#000000',
+                'section-banner-two': section.colorValue != '#000000',
+              }"
+              [style.backgroundColor]="section.colorValue != '#000000' ? section.colorValue : null"
+            >
+              @for (banner of section.banners; track $index) {
+                <div class="banner-container">
+                  <img
+                    loading="lazy"
+                    class="banner"
+                    (click)="navigate(banner.route)"
+                    [style.maxHeight.px]="banner.webDimensions?.heightInPixels"
+                    [appSrcset]="(viewportWidth <= 1024 ? banner.mobileImageUrl : banner.webImageUrl)!"
+                    [quality]="60"
+                    [defaultWidth]="1200"
+                  />
+                </div>
+              }
+            </section>
+          }
+
+          @if (section.sectionType === 3 && section.isScroll) {
+            <section
+              class="section-slider-two"
+              [style.backgroundColor]="section.colorValue != '#000000' ? section.colorValue : null"
+            >
+              <div class="slider-two">
+                <div class="slider-two-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
+                  @for (item of section.banners; track $index) {
+                    <img
+                      loading="lazy"
+                      (click)="navigate(item.route)"
+                      [src]="viewportWidth <= 1024 ? item.mobileImageUrl : item.webImageUrl"
+                    />
+                  }
+                </div>
+              </div>
               <div class="arrow-left">
                 <img (click)="previousImage(secIndex)" src="https://zoommer.ge/icons/slider-left-btn.svg" />
               </div>
               <div class="arrow-right">
                 <img (click)="nextImage(secIndex)" src="https://zoommer.ge/icons/slider-right-btn.svg" />
               </div>
-            }
-          </section>
+            </section>
+          }
         }
-
-        @if (section.sectionType === 3 && !section.isScroll) {
-          <section
-            [ngClass]="{
-              'section-banner-one': section.bannerTemplateRowNumber === 1 && section.colorValue === '#000000',
-              'section-banner-three': section.bannerTemplateRowNumber === 2 && section.colorValue !== '#000000',
-              'section-banner-two': section.colorValue != '#000000',
-            }"
-            [style.backgroundColor]="section.colorValue != '#000000' ? section.colorValue : null"
-          >
-            @for (banner of section.banners; track $index) {
-              <div class="banner-container">
-                <img
-                  class="banner"
-                  [src]="viewportWidth <= 1024 ? banner.mobileImageUrl : banner.webImageUrl"
-                  (click)="navigate(banner.route)"
-                  [style.maxHeight.px]="banner.webDimensions?.heightInPixels"
-                />
-              </div>
-            }
-          </section>
-        }
-
-        @if (section.sectionType === 3 && section.isScroll) {
-          <section
-            class="section-slider-two"
-            [style.backgroundColor]="section.colorValue != '#000000' ? section.colorValue : null"
-          >
-            <div class="slider-two">
-              <div class="slider-two-container" [style.transform]="'translateX(-' + getOffset(secIndex) + 'px)'">
-                @for (item of section.banners; track $index) {
-                  <img
-                    (click)="navigate(item.route)"
-                    [src]="viewportWidth <= 1024 ? item.mobileImageUrl : item.webImageUrl"
-                  />
-                }
-              </div>
-            </div>
-            <div class="arrow-left">
-              <img (click)="previousImage(secIndex)" src="https://zoommer.ge/icons/slider-left-btn.svg" />
-            </div>
-            <div class="arrow-right">
-              <img (click)="nextImage(secIndex)" src="https://zoommer.ge/icons/slider-right-btn.svg" />
-            </div>
-          </section>
-        }
+      } @placeholder {
+        <div style="height: 303px"></div>
       }
     }
   }

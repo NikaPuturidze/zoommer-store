@@ -32,6 +32,7 @@ export class FilterComponent implements OnInit {
   private limit = 28
   private catInfo?: ICategoryInfo
   private productOptions!: ProductsOptions
+  private filtersEmitted = false
 
   constructor(
     private apiService: ApiService,
@@ -85,8 +86,6 @@ export class FilterComponent implements OnInit {
                 ...(queryParameters['priceTo'] ? { priceTo: queryParameters['priceTo'] as number } : {}),
               }
             }
-
-            this.FiltersChanged.emit(this.productOptions)
           })
         }
       })

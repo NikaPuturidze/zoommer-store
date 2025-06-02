@@ -5,10 +5,11 @@ import { TemplProductComponent } from '../../templates/templ-product/templ-produ
 import { LocalStorageService } from '../../services/localstorage.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { TranslateModule } from '@ngx-translate/core'
+import { SrcsetDirective } from '../../services/directives/srcset.directive'
 
 @Component({
   selector: 'app-catalog',
-  imports: [CommonModule, TemplProductComponent, ContentLoaderModule, TranslateModule],
+  imports: [CommonModule, TemplProductComponent, ContentLoaderModule, TranslateModule, SrcsetDirective],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.scss',
 })

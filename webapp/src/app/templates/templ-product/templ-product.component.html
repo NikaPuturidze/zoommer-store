@@ -1,13 +1,56 @@
 @if (product) {
-  <div (click)="navigate(route)" [class]="showGrid === 'true' ? 'product' : 'product-grid'">
-    <div class="image">
-      <img [src]="product.imageUrl" />
-      @if (product.labelText) {
-        <div class="best" [style.display]="showGrid === 'true' ? 'static' : 'none'">{{ product.labelText }}</div>
-      }
-    </div>
-    @if (showGrid === 'false') {
-      <div class="unity">
+  @defer (on viewport) {
+    <div (click)="navigate(route)" [class]="showGrid === 'true' ? 'product' : 'product-grid'">
+      <div class="image">
+        <img
+          [src]="product.imageUrl"
+          [appSrcset]="product.imageUrl!"
+          [quality]="75"
+          [defaultWidth]="160"
+          height="160"
+          width="160"
+        />
+        @if (product.labelText) {
+          <div class="best" [style.display]="showGrid === 'true' ? 'static' : 'none'">{{ product.labelText }}</div>
+        }
+      </div>
+      @if (showGrid === 'false') {
+        <div class="unity">
+          <div class="description">
+            <div class="price">
+              <h4 [style.color]="product.previousPrice ? '#ec5e2a' : '#000'">{{ product.price }} ₾</h4>
+              @if (product.previousPrice) {
+                <span>{{ product.previousPrice }} ₾</span>
+              }
+            </div>
+            @if (product.price > 0) {
+              @if (translateService.currentLang === 'ka') {
+                <p>
+                  {{ 'perMonth' | translate }}:
+                  <span>{{ roundPrice(product.price / 36) }} ₾</span>
+                  -{{ 'from' | translate }}
+                </p>
+              } @else {
+                <p>
+                  {{ 'perMonth' | translate }}
+                  {{ 'from' | translate }}
+                  <span>{{ roundPrice(product.price / 36) }} ₾</span>
+                </p>
+              }
+            }
+            <a>{{ product.name }}</a>
+          </div>
+          <div class="buy">
+            <div class="compare">
+              <img loading="lazy" src="https://zoommer.ge/icons/compare-card.svg" />
+            </div>
+            <div class="add">
+              <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
+              <h4 translate="add"></h4>
+            </div>
+          </div>
+        </div>
+      } @else {
         <div class="description">
           <div class="price">
             <h4 [style.color]="product.previousPrice ? '#ec5e2a' : '#000'">{{ product.price }} ₾</h4>
@@ -24,7 +67,7 @@
               </p>
             } @else {
               <p>
-                {{ 'perMonth' | translate }}
+                {{ 'perMonth' | translate }}:
                 {{ 'from' | translate }}
                 <span>{{ roundPrice(product.price / 36) }} ₾</span>
               </p>
@@ -34,60 +77,64 @@
         </div>
         <div class="buy">
           <div class="compare">
-            <img loading="lazy" src="https://zoommer.ge/icons/compare-card.svg" />
+            <img src="https://zoommer.ge/icons/compare-card.svg" />
           </div>
           <div class="add">
-            <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
+            <img src="https://zoommer.ge/icons/cart-button.svg" />
             <h4 translate="add"></h4>
           </div>
         </div>
-      </div>
-    } @else {
-      <div class="description">
-        <div class="price">
-          <h4 [style.color]="product.previousPrice ? '#ec5e2a' : '#000'">{{ product.price }} ₾</h4>
-          @if (product.previousPrice) {
-            <span>{{ product.previousPrice }} ₾</span>
-          }
-        </div>
-        @if (product.price > 0) {
-          @if (translateService.currentLang === 'ka') {
-            <p>
-              {{ 'perMonth' | translate }}:
-              <span>{{ roundPrice(product.price / 36) }} ₾</span>
-              -{{ 'from' | translate }}
-            </p>
-          } @else {
-            <p>
-              {{ 'perMonth' | translate }}:
-              {{ 'from' | translate }}
-              <span>{{ roundPrice(product.price / 36) }} ₾</span>
-            </p>
-          }
-        }
-        <a>{{ product.name }}</a>
-      </div>
-      <div class="buy">
-        <div class="compare">
-          <img src="https://zoommer.ge/icons/compare-card.svg" />
-        </div>
-        <div class="add">
-          <img src="https://zoommer.ge/icons/cart-button.svg" />
-          <h4 translate="add"></h4>
-        </div>
-      </div>
-    }
-  </div>
-} @else {
-  <div (click)="navigate(route)" class="product">
-    <div class="image">
-      <img [src]="imageUrl" />
-      @if (labelText) {
-        <div class="best">{{ labelText }}</div>
       }
     </div>
-    @if (showGrid === 'false') {
-      <div class="unity">
+  } @placeholder {
+    <div style="width: 160px; height: 303px"></div>
+  }
+} @else {
+  @defer (on viewport) {
+    <div (click)="navigate(route)" class="product">
+      <div class="image">
+        <img [src]="imageUrl" />
+        @if (labelText) {
+          <div class="best">{{ labelText }}</div>
+        }
+      </div>
+      @if (showGrid === 'false') {
+        <div class="unity">
+          <div class="description">
+            <div class="price">
+              <h4 [style.color]="productSalePrice ? '#ec5e2a' : '#000'">{{ productPrice }} ₾</h4>
+              @if (productSalePrice) {
+                <span>{{ productSalePrice }} ₾</span>
+              }
+            </div>
+            @if (productPrice && productPrice > 0) {
+              @if (translateService.currentLang === 'ka') {
+                <p>
+                  {{ 'perMonth' | translate }}:
+                  <span>{{ roundPrice(productPrice / 36) }} ₾</span>
+                  -{{ 'from' | translate }}
+                </p>
+              } @else {
+                <p>
+                  {{ 'perMonth' | translate }}:
+                  {{ 'from' | translate }}
+                  <span>{{ roundPrice(productPrice / 36) }} ₾</span>
+                </p>
+              }
+            }
+            <a>{{ productName }}</a>
+          </div>
+          <div class="buy">
+            <div class="compare">
+              <img loading="lazy" src="https://zoommer.ge/icons/compare-card.svg" />
+            </div>
+            <div class="add">
+              <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
+              <h4 translate="add"></h4>
+            </div>
+          </div>
+        </div>
+      } @else {
         <div class="description">
           <div class="price">
             <h4 [style.color]="productSalePrice ? '#ec5e2a' : '#000'">{{ productPrice }} ₾</h4>
@@ -114,48 +161,16 @@
         </div>
         <div class="buy">
           <div class="compare">
-            <img loading="lazy" src="https://zoommer.ge/icons/compare-card.svg" />
+            <img src="https://zoommer.ge/icons/compare-card.svg" />
           </div>
           <div class="add">
-            <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
+            <img src="https://zoommer.ge/icons/cart-button.svg" />
             <h4 translate="add"></h4>
           </div>
         </div>
-      </div>
-    } @else {
-      <div class="description">
-        <div class="price">
-          <h4 [style.color]="productSalePrice ? '#ec5e2a' : '#000'">{{ productPrice }} ₾</h4>
-          @if (productSalePrice) {
-            <span>{{ productSalePrice }} ₾</span>
-          }
-        </div>
-        @if (productPrice && productPrice > 0) {
-          @if (translateService.currentLang === 'ka') {
-            <p>
-              {{ 'perMonth' | translate }}:
-              <span>{{ roundPrice(productPrice / 36) }} ₾</span>
-              -{{ 'from' | translate }}
-            </p>
-          } @else {
-            <p>
-              {{ 'perMonth' | translate }}:
-              {{ 'from' | translate }}
-              <span>{{ roundPrice(productPrice / 36) }} ₾</span>
-            </p>
-          }
-        }
-        <a>{{ productName }}</a>
-      </div>
-      <div class="buy">
-        <div class="compare">
-          <img src="https://zoommer.ge/icons/compare-card.svg" />
-        </div>
-        <div class="add">
-          <img src="https://zoommer.ge/icons/cart-button.svg" />
-          <h4 translate="add"></h4>
-        </div>
-      </div>
-    }
-  </div>
+      }
+    </div>
+  } @placeholder {
+    <div style="width: 140px; height: 283px"></div>
+  }
 }

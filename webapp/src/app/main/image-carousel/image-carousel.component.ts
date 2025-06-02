@@ -3,10 +3,11 @@ import { EContent, IBanner, IContentResponse } from '../../../interfaces/content
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { Router } from '@angular/router'
 import { ViewportService } from '../../services/viewport.service'
+import { SrcsetDirective } from '../../services/directives/srcset.directive'
 
 @Component({
   selector: 'app-image-carousel',
-  imports: [ContentLoaderModule],
+  imports: [ContentLoaderModule, SrcsetDirective],
   templateUrl: './image-carousel.component.html',
   styleUrl: './image-carousel.component.scss',
 })

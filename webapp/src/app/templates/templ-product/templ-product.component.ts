@@ -3,10 +3,11 @@ import { IProduct } from '../../../interfaces/content.interface'
 import { LocalStorageService } from '../../services/localstorage.service'
 import { Router } from '@angular/router'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { SrcsetDirective } from '../../services/directives/srcset.directive'
 
 @Component({
   selector: 'app-templ-product',
-  imports: [TranslateModule],
+  imports: [TranslateModule, SrcsetDirective],
   templateUrl: './templ-product.component.html',
   styleUrl: './templ-product.component.scss',
 })

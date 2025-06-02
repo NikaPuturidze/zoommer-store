@@ -3,9 +3,15 @@
     @for (banner of content.section[0].banners; track $index) {
       <div class="img-container" [style.maxWidth]="viewportWidth <= 1024 ? 'auto' : setImageDimension(banner)">
         <img
+          loading="lazy"
           [class]="banner.largeBanner ? 'image-large' : 'image-small'"
-          [src]="viewportWidth <= 1024 ? banner.mobileImageUrl : banner.webImageUrl"
           (click)="navigate(banner.route)"
+          [appSrcset]="(viewportWidth <= 1024 ? banner.mobileImageUrl : banner.webImageUrl)!"
+          [quality]="75"
+          [defaultWidth]="895"
+          [height]="banner.webDimensions?.heightInPixels"
+          [width]="banner.webDimensions?.widthInPixels"
+          style="background-color: #f7f7f7"
         />
       </div>
     }

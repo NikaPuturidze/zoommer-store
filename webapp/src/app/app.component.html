@@ -1,6 +1,8 @@
 @if (allGood) {
   <app-auth-popup [class.visible]="authService.popupVisibility$ | async"></app-auth-popup>
-  <app-search-popup [class.visible]="(searchService.isSearching$ | async) && visible"></app-search-popup>
+  <app-search-popup
+    [class.visible]="(searchService.isSearching$ | async) && router.url !== '/search'"
+  ></app-search-popup>
   <app-burger></app-burger>
   <app-navigation [topics]="topics"></app-navigation>
   <app-header></app-header>

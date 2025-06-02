@@ -4,10 +4,12 @@ import { CommonModule } from '@angular/common'
 import { TemplProductComponent } from '../../templates/templ-product/templ-product.component'
 import { Router } from '@angular/router'
 import { ViewportService } from '../../services/viewport.service'
+import { ContentLoaderModule } from '@ngneat/content-loader'
+import { SrcsetDirective } from '../../services/directives/srcset.directive'
 
 @Component({
   selector: 'app-sections',
-  imports: [CommonModule, TemplProductComponent],
+  imports: [CommonModule, TemplProductComponent, ContentLoaderModule, SrcsetDirective],
   templateUrl: './sections.component.html',
   styleUrl: './sections.component.scss',
 })

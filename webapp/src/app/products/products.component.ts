@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core'
 import { EProducts, IProductsResponse, ProductsOptions } from '../../interfaces/products.interface'
 import { CatalogComponent } from './catalog/catalog.component'
 import { FilterComponent } from './filter/filter.component'
@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit {
     ka: ['ფასი: კლებადობით', 'ფასი: ზრდადობით', 'დასახელება: A-Z', 'დასახელება: Z-A'],
   }
   public sortFallback = { en: 'Sort', ka: 'სორტირება' }
-  public sort? = {}
+  public sort?: { nameAsc?: boolean; priceAsc?: boolean } = {}
   public showGrid?: string
   public isLoading = false
   public isMore?: boolean
@@ -41,7 +41,8 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     private actR: ActivatedRoute,
     private localStorageService: LocalStorageService,
-    private title: Title
+    private title: Title,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -150,6 +151,10 @@ export class ProductsComponent implements OnInit {
         priceAsc,
       }
 
+      if (this.sort?.priceAsc === priceAsc && this.sort?.nameAsc === nameAsc) {
+        return
+      }
+
       if (priceAsc === true) this.currentSort = labels[0]
       else if (priceAsc === false) this.currentSort = labels[1]
       else if (nameAsc === true) this.currentSort = labels[2]
@@ -172,6 +177,7 @@ export class ProductsComponent implements OnInit {
             products: [...(this.productsResponse?.products ?? []), ...data.products],
           }
         }
+        this.cdr.detectChanges()
 
         this.isLoading = false
         if (callback) callback()
