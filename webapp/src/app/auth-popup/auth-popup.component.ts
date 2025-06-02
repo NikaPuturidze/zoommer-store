@@ -5,6 +5,8 @@ import {
   Component,
   ElementRef,
   HostBinding,
+  OnInit,
+  Renderer2,
   ViewChild,
 } from '@angular/core'
 import { AuthService } from '../services/auth.service'
@@ -20,19 +22,30 @@ import { BehaviorSubject, combineLatest } from 'rxjs'
   imports: [TranslateModule, AsyncPipe, LoginComponent, RegistrationComponent, AsyncPipe],
   templateUrl: './auth-popup.component.html',
   styleUrl: './auth-popup.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
-export class AuthPopupComponent implements AfterViewInit {
+export class AuthPopupComponent implements AfterViewInit, OnInit {
   @HostBinding('class.fade-out') hostFade = false
   @ViewChild('section') section?: ElementRef<HTMLInputElement>
 
   public closing = new BehaviorSubject<boolean>(false)
 
   constructor(
+    private renderer: Renderer2,
     public authService: AuthService,
     public viewport: ViewportService,
     public cdr: ChangeDetectorRef
   ) {}
+
+  ngOnInit(): void {
+    this.authService.popupVisibility$.subscribe((value) => {
+      if (value) {
+        this.renderer.addClass(document.body, 'no-scroll')
+      } else {
+        this.renderer.removeClass(document.body, 'no-scroll')
+      }
+    })
+  }
 
   ngAfterViewInit(): void {
     this.handleAnimations()

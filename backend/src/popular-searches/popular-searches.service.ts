@@ -3,46 +3,17 @@ import { supportedLanguages, deafaultLanguage } from '../interfaces/constants'
 import * as https from 'https'
 
 @Injectable()
-export class ProductsService {
-  async products(
-    lang: string,
-    accessToken: string,
-    page: number,
-    limit: number,
-    name: string,
-    notInStock: boolean,
-    specificationIds: string,
-    categoryId?: number,
-    categories?: string,
-    priceFrom?: number,
-    priceTo?: number,
-    priceAsc?: boolean,
-    nameAsc?: boolean
-  ): Promise<unknown> {
+export class PopularSearchesService {
+  async popularSearches(lang: string, accessToken: string): Promise<unknown> {
     const selectedLang = supportedLanguages.includes(lang) ? lang : deafaultLanguage
+
     const hostname = process.env.ENDPOINT_HOSTNAME
     const ip = process.env.ENDPOINT_HOST
-
-    const query = new URLSearchParams({
-      page: page.toString(),
-      limit: limit.toString(),
-      ...(name ? { name: name.toString() } : {}),
-      ...(notInStock ? { notInStock: notInStock.toString() } : {}),
-      ...(categoryId ? { categoryId: categoryId.toString() } : {}),
-      ...(categories ? { categories: categories.toString() } : {}),
-      ...(specificationIds ? { specificationIds: specificationIds.toString() } : {}),
-      ...(priceFrom ? { MinPrice: priceFrom.toString() } : {}),
-      ...(priceTo ? { MaxPrice: priceTo.toString() } : {}),
-      ...(priceAsc ? { PriceAsc: (!priceAsc).toString() } : {}),
-      ...(nameAsc ? { NameAsc: nameAsc.toString() } : {}),
-    }).toString()
-
-    const path = `/v1/Products/v3?${query}`
 
     const options: https.RequestOptions = {
       host: ip,
       port: 443,
-      path,
+      path: '/v1/Products/get-popular-searches',
       method: 'GET',
       headers: {
         Host: hostname,
@@ -73,8 +44,8 @@ export class ProductsService {
       })
 
       request.on('error', (error) => {
-        console.error('Error fetching products:', error)
-        reject(new ConflictException('Failed to fetch products'))
+        console.error('Error fetching mega menu:', error)
+        reject(new ConflictException('Failed to fetch popular searches'))
       })
 
       request.end()

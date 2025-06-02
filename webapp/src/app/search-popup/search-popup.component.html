@@ -1,0 +1,105 @@
+@let searchRespone = searchService.searchResponse | async;
+@let productResponse = searchService.productsResponse | async;
+@let searchFormValue = searchService.searchFormValue | async;
+
+<div class="search-container" (click)="$event.stopPropagation()">
+  @if (searchService.notFound) {
+    <h4 class="nf" translate="searchModal_productNotFound"></h4>
+  }
+  @if (!productResponse || !(searchFormValue && searchFormValue.length > 0) || searchService.notFound) {
+    @if (lastSearched.length > 0) {
+      <div class="last-searched">
+        <div class="title">
+          <h4 translate="searchModal_lastSearch_title"></h4>
+          <div class="clear" (click)="removeSearched()">
+            <img src="https://zoommer.ge/icons/bin.svg" />
+            <h4 translate="searchModal_lastSearch_clear"></h4>
+          </div>
+        </div>
+        <div class="last">
+          @if (lastSearched.length > 0) {
+            @for (item of lastSearched; track $index) {
+              <div class="element">
+                <h4 (click)="searchService.search.setValue({ search: item })">{{ item }}</h4>
+                <img
+                  (click)="searchService.removeLastSearched(item); getLastSearched()"
+                  src="https://zoommer.ge/icons/remove.svg"
+                />
+              </div>
+            }
+          }
+        </div>
+      </div>
+    }
+    <div class="search">
+      <h4 class="popular-s" translate="searchModal_popular_title"></h4>
+      <div class="searches">
+        @for (search of searchRespone?.popularSearches; track $index) {
+          <h4
+            (click)="searchService.search.setValue({ search })"
+            class="s-item"
+            [style.animationDelay.s]="0.0175 * $index"
+          >
+            {{ search }}
+          </h4>
+        }
+      </div>
+    </div>
+  }
+  @if (productResponse && searchFormValue && searchFormValue.length > 0 && !searchService.notFound) {
+    <div class="found">
+      <div class="title">
+        <div class="top">
+          <h4 translate="searchModal_results_title"></h4>
+          <h4
+            translate="searchModal_results_seeAll"
+            [routerLink]="['/search/', searchFormValue]"
+            (click)="searchService.endSearch()"
+          ></h4>
+        </div>
+        <div class="bottom">
+          @for (product of productResponse.products | uniqueArray: 'parentCategoryName'; track $index) {
+            <h4
+              [class.active]="this.searchService.categoryIds.includes(product.categoryId)"
+              (click)="toggleCategoryId(product.categoryId)"
+              class="s-item"
+              [style.animationDelay.s]="0.0175 * $index"
+            >
+              {{ product.parentCategoryName }}
+            </h4>
+          }
+        </div>
+      </div>
+      <div class="products">
+        @for (product of productResponse.products; track $index) {
+          <div class="product" (click)="navigateTo([product.route])">
+            <img [src]="product.imageUrl" [alt]="product.imageAlt" />
+            <div class="decsription">
+              <div class="wrapper">
+                <div class="name">{{ product.name }}</div>
+                <div class="prices">
+                  <div class="main">{{ product.price }} ₾</div>
+                  <div class="sale" [hidden]="!product.preSalePrice">
+                    {{ product.price }}
+                  </div>
+                </div>
+              </div>
+              <img src="https://zoommer.ge/icons/right-path.svg" />
+            </div>
+          </div>
+        }
+        @if (productResponse.productsCount > 20 && productResponse.products.length < productResponse.productsCount) {
+          <div class="more" (click)="searchService.loadMore()">
+            <div class="wrapper">
+              @if (searchService.isFetching.value) {
+                <app-pulse-loader color="#ec5e2a"></app-pulse-loader>
+              } @else {
+                <h4 translate="seeMore"></h4>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  }
+</div>

@@ -12,17 +12,22 @@
           <img src="https://zoommer.ge/icons/dots.svg" alt="dots" />
           <h4 translate="navigation"></h4>
         </div>
-        <div class="search">
+        <form class="search" [formGroup]="searchService.search" (click)="$event.stopPropagation()">
           <img src="https://zoommer.ge/icons/main-search.svg" alt="search" />
-          <input type="search" [placeholder]="'search' | translate" />
-        </div>
+          <input
+            (focus)="searchService.startSearch()"
+            type="search"
+            [placeholder]="'search' | translate"
+            formControlName="search"
+          />
+        </form>
       </div>
       <div class="second">
         <div class="cart">
           <img src="https://zoommer.ge/icons/header-cart.svg" />
           <div translate="cart"></div>
         </div>
-        <div class="login" (click)="authService.openPopup()">
+        <div class="login" (click)="authService.openPopup(); $event.stopPropagation()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path
               stroke="#000"
@@ -41,32 +46,30 @@
           </svg>
           <div translate="logIn"></div>
         </div>
-        <div class="discount" (click)="navigateTo(['/', 'promotion'])">
+        <div class="discount" (click)="navigateTo(['/promotion'])">
           <h4>%</h4>
         </div>
       </div>
     </div>
     <div class="right-content">
-      <img src="https://zoommer.ge/icons/search.svg" />
+      <img src="https://zoommer.ge/icons/search.svg" (click)="navigateTo(['/search'])" />
 
       <div class="cart">
         <img src="https://zoommer.ge/icons/header-cart.svg" />
       </div>
 
-      @if (currentFlag) {
-        <div class="language" (click)="toggleLanguageMenu()">
-          <div class="language-container">
-            <img [src]="currentFlag" />
-            <div
-              class="languages"
-              (click)="chooseLanguage($event)"
-              [ngClass]="isLanguageMenuOpen ? 'active' : 'inactive'"
-            >
-              <h4 translate="oppositeLang"></h4>
-            </div>
+      <div [hidden]="!currentFlag" class="language" (click)="toggleLanguageMenu()">
+        <div class="language-container">
+          <img [src]="currentFlag" />
+          <div
+            class="languages"
+            (click)="chooseLanguage($event)"
+            [ngClass]="isLanguageMenuOpen ? 'active' : 'inactive'"
+          >
+            <h4 translate="oppositeLang"></h4>
           </div>
         </div>
-      }
+      </div>
     </div>
   </div>
 </header>

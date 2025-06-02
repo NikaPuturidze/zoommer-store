@@ -79,7 +79,7 @@ export class FilterComponent implements OnInit {
               this.productOptions = {
                 page: this.page,
                 limit: this.limit,
-                ...(this.catInfo.isSuper ? { categories: this.catInfo.catId } : { categoryId: this.catInfo.catId }),
+                ...(this.catInfo.isSuper ? { categories: [this.catInfo.catId] } : { categoryId: this.catInfo.catId }),
                 ...(specificationIds ? { specificationIds: specificationIds } : {}),
                 ...(queryParameters['priceFrom'] ? { priceFrom: queryParameters['priceFrom'] as number } : {}),
                 ...(queryParameters['priceTo'] ? { priceTo: queryParameters['priceTo'] as number } : {}),
@@ -134,7 +134,9 @@ export class FilterComponent implements OnInit {
                   this.productOptions = {
                     page: this.page,
                     limit: this.limit,
-                    ...(this.catInfo.isSuper ? { categories: this.catInfo.catId } : { categoryId: this.catInfo.catId }),
+                    ...(this.catInfo.isSuper
+                      ? { categories: [this.catInfo.catId] }
+                      : { categoryId: this.catInfo.catId }),
                     ...(specificationIds ? { specificationIds: specificationIds } : {}),
                     ...(queryParameters['priceFrom'] ? { priceFrom: queryParameters['priceFrom'] as number } : {}),
                     ...(queryParameters['priceTo'] ? { priceTo: queryParameters['priceTo'] as number } : {}),

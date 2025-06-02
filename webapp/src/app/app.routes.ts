@@ -7,6 +7,7 @@ import { NotFoundComponent } from './not-found/not-found.component'
 import { AllCategoriesComponent } from './all-categories/all-categories.component'
 import { PromotionDetailComponent } from './promotion/promotion-detail/promotion-detail.component'
 import { PromotionComponent } from './promotion/promotion.component'
+import { SearchComponent } from './search/search.component'
 
 export const routes: Routes = [
   {
@@ -23,6 +24,14 @@ export const routes: Routes = [
     path: 'all-category',
     component: AllCategoriesComponent,
     title: 'Zoommer.ge',
+  },
+  {
+    path: 'search/:keyword',
+    component: SearchComponent,
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
   },
   {
     path: 'promotion',

@@ -14,6 +14,7 @@ import { CookieModule } from './cookie/cookie.module'
 import { UserModule } from './user/user.module'
 import { TokenModule } from './token/token.module'
 import { LoginModule } from './login/login.module'
+import { PopularSearchesModule } from './popular-searches/popular-searches.module'
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { LoginModule } from './login/login.module'
     UserModule,
     TokenModule,
     LoginModule,
+    PopularSearchesModule,
   ],
   controllers: [],
   providers: [],

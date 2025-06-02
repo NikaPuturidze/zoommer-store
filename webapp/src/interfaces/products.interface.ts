@@ -108,6 +108,8 @@ export interface IProduct {
 export interface IBaseParameters {
   page: number
   limit: number
+  name?: string
+  notInStock?: boolean
   specificationIds?: string
   priceFrom?: number
   priceTo?: number
@@ -116,7 +118,11 @@ export interface IBaseParameters {
 }
 
 export type ProductsOptions = IBaseParameters &
-  ({ categoryId: number; categories?: never } | { categories: number; categoryId?: never })
+  (
+    | { categoryId?: number; categories?: never }
+    | { categories?: number[]; categoryId?: never }
+    | { categories: never; categoryId: never }
+  )
 
 export interface ICategoryInfo {
   catId: number

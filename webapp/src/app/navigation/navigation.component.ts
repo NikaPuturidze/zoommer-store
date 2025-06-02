@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core'
+import { Component, HostListener, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { ITopicsResponse } from '../../interfaces/topics.interface'
 import { Router } from '@angular/router'
 import { TranslateModule, TranslateService } from '@ngx-translate/core'
+import { SearchService } from '../services/search.service'
 
 @Component({
   selector: 'app-navigation',
@@ -16,8 +17,14 @@ export class NavigationComponent {
 
   constructor(
     private router: Router,
+    public searchService: SearchService,
     public translateService: TranslateService
   ) {}
+
+  @HostListener('click')
+  public endSearch(): void {
+    this.searchService.endSearch()
+  }
 
   public toggleLanguageMenu(): void {
     this.isLanguageMenuOpen = !this.isLanguageMenuOpen

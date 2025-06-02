@@ -1,26 +1,23 @@
-import { Component, HostBinding, OnInit } from '@angular/core'
+import { Component, HostBinding, HostListener, OnInit } from '@angular/core'
 import { Router, RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { BurgerService } from '../services/burger.service'
-import { fromEvent, map, throttleTime } from 'rxjs'
+import { debounceTime, distinctUntilChanged, fromEvent, map, throttleTime } from 'rxjs'
 import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 import { AuthService } from '../services/auth.service'
+import { SearchService } from '../services/search.service'
+import { ReactiveFormsModule } from '@angular/forms'
 
 @UntilDestroy()
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, CommonModule, TranslateModule],
+  imports: [RouterModule, CommonModule, TranslateModule, ReactiveFormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
   public currentLang = 'ka'
-  public currentLanguage = ''
-  public navigation = ''
-  public cart = ''
-  public search = ''
-  public logIn = ''
   public currentFlag = ''
   public isLanguageMenuOpen = false
 
@@ -30,6 +27,7 @@ export class HeaderComponent implements OnInit {
     private translateService: TranslateService,
     private burgerService: BurgerService,
     private router: Router,
+    public searchService: SearchService,
     public authService: AuthService
   ) {}
 
@@ -39,6 +37,17 @@ export class HeaderComponent implements OnInit {
       this.currentFlag = `https://zoommer.ge/icons/footer/${this.currentLang === 'en' ? 'en.svg' : 'flag-geo.png'}`
     })
     this.listenToScroll()
+
+    this.searchService.search.valueChanges.pipe(debounceTime(350), distinctUntilChanged()).subscribe((keyword) => {
+      if (keyword.search && keyword.search.length >= 3) {
+        this.searchService.setValue(keyword.search)
+      }
+    })
+  }
+
+  @HostListener('click')
+  public endSearch(): void {
+    this.searchService.endSearch()
   }
 
   public listenToScroll(): void {

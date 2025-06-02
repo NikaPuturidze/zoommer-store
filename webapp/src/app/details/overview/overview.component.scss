@@ -80,6 +80,12 @@
           line-height: 17px;
           color: rgba($black-main, 0.6);
           @include regular;
+
+          &:last-child {
+            @media (width <= 600px) {
+              display: none;
+            }
+          }
         }
       }
     }
@@ -288,7 +294,10 @@
             line-height: 17px;
             color: rgba($black-main, 0.8);
             @include bold;
-            max-width: 210px;
+
+            @media (width <= 1024px) {
+              max-width: 210px;
+            }
           }
         }
 

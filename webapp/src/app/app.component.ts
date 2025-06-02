@@ -1,10 +1,10 @@
-import { Component, Input } from '@angular/core'
+import { ChangeDetectorRef, Component, Input } from '@angular/core'
 import { NavigationComponent } from './navigation/navigation.component'
 import { HeaderComponent } from './header/header.component'
 import { FooterComponent } from './footer/footer.component'
 import { ITopicsResponse } from '../interfaces/topics.interface'
 import { ApiService } from './services/api.service'
-import { NavigationEnd, Router, RouterOutlet } from '@angular/router'
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router'
 import { ViewportService } from './services/viewport.service'
 import { BurgerComponent } from './burger/burger.component'
 import { TokenService } from './services/token.service'
@@ -16,6 +16,9 @@ import { AsyncPipe } from '@angular/common'
 import { BottomBarComponent } from './bottom-bar/bottom-bar.component'
 import { IMegaMenu } from '../interfaces/mega-menu.interface'
 import { BurgerService } from './services/burger.service'
+import { SearchPopupComponent } from './search-popup/search-popup.component'
+import { SearchService } from './services/search.service'
+import { filter } from 'rxjs'
 @UntilDestroy()
 @Component({
   selector: 'app-root',
@@ -28,6 +31,7 @@ import { BurgerService } from './services/burger.service'
     AuthPopupComponent,
     AsyncPipe,
     BottomBarComponent,
+    SearchPopupComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -36,15 +40,20 @@ export class AppComponent {
   @Input() topics?: ITopicsResponse
   public viewportWidth = 0
   public allGood?: boolean
+  public visible = false
+  public isOut = false
 
   constructor(
     private apiService: ApiService,
     private translate: TranslateService,
-    private router: Router,
     private viewport: ViewportService,
     private tokenService: TokenService,
     private burgerService: BurgerService,
-    public authService: AuthService
+    private actR: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    public router: Router,
+    public authService: AuthService,
+    public searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -72,8 +81,16 @@ export class AppComponent {
       }
     })
 
-    this.viewport.Viewport$.subscribe((values) => {
-      this.viewportWidth = values.width
+    this.router.events
+      .pipe(filter((element): element is NavigationEnd => element instanceof NavigationEnd))
+      .subscribe((event) => {
+        this.visible = event.url === '/search'
+        this.updateVisibility()
+      })
+
+    this.viewport.Viewport$.pipe(untilDestroyed(this)).subscribe(({ width }) => {
+      this.viewportWidth = width
+      this.updateVisibility()
     })
 
     if (this.burgerService.megaMenuSubject.value === undefined) {
@@ -86,6 +103,11 @@ export class AppComponent {
         },
       })
     }
+  }
+
+  private updateVisibility(): void {
+    this.visible = !this.visible && this.viewportWidth > 1024
+    this.cdr.detectChanges()
   }
 
   private loadTopics(): void {

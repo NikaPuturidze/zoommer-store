@@ -1,9 +1,9 @@
 <div [style.transform]="'translateX(' + translate + '%' + ')'" class="burger">
   <div class="search-bar">
     <img class="s-img" (click)="toggleBurger()" src="https://zoommer.ge/icons/burger-close.svg" />
-    <div class="search">
+    <div class="search" (click)="navigate(['/search'])">
       <img src="https://zoommer.ge/icons/main-search.svg" />
-      <input type="text" [placeholder]="currentLang === 'en' ? 'Search' : 'ძიება'" />
+      <input #inpt type="text" [placeholder]="currentLang === 'en' ? 'Search' : 'ძიება'" />
     </div>
   </div>
   <div class="container">

@@ -1,0 +1,173 @@
+@let viewportWidth = (viewport.Viewport$ | async)?.width;
+
+@if ((viewportWidth && viewportWidth > 1024) || isOut) {
+  <div class="search-container" [class.main]="(viewportWidth && viewportWidth > 1024) || isOut">
+    <div class="title">
+      @if (products) {
+        <p translate="search-result-text"></p>
+        <h1
+          [innerHTML]="'search-result-page-title' | translate: { count: productsResponse?.productsCount, keyword }"
+        ></h1>
+      } @else {
+        <content-loader class="title-skeleton" [viewBox]="'0 0 300 63'">
+          <svg:rect x="0" y="0" rx="4" ry="4" width="60" height="20" fill="currentColor" />
+          <svg:rect x="0" y="43" rx="4" ry="4" width="300" height="20" fill="currentColor" />
+        </content-loader>
+      }
+    </div>
+    <div class="found">
+      @if (productsResponse && productsResponse.products.length > 0) {
+        @for (product of products; track $index) {
+          <app-templ-product [product]="product"></app-templ-product>
+        }
+      } @else {
+        @for (item of skeletonArray; track $index) {
+          <div class="sk" style="max-width: 160px">
+            <content-loader class="product-skelet" [viewBox]="'0 0 160 303'">
+              <svg:rect x="0" y="0" rx="4" ry="4" width="160" height="170" fill="currentColor" />
+              <svg:rect x="0" y="187.67" rx="4" ry="4" width="96" height="20" fill="currentColor" />
+              <svg:rect x="0" y="225.34" rx="4" ry="4" width="160" height="20" fill="currentColor" />
+              <svg:rect x="0" y="263" rx="4" ry="4" width="40" height="40" fill="currentColor" />
+              <svg:rect x="50" y="263" rx="4" ry="4" width="110" height="40" fill="currentColor" />
+            </content-loader>
+          </div>
+        }
+      }
+    </div>
+
+    @if (
+      productsResponse &&
+      productsResponse.productsCount > 30 &&
+      productsResponse.products.length < productsResponse.productsCount
+    ) {
+      <div class="see-more" (click)="loadMore()">
+        <div class="see-more-wrapper">
+          @if (loading) {
+            <app-pulse-loader color="#ec5e2a"></app-pulse-loader>
+          } @else {
+            <h4 translate="seeMore"></h4>
+          }
+        </div>
+      </div>
+    }
+  </div>
+} @else if (!(viewportWidth && viewportWidth > 1024) || !isOut) {
+  @let searchRespone = searchService.searchResponse | async;
+  @let productResponse = searchService.productsResponse | async;
+  @let searchFormValue = searchService.searchFormValue | async;
+
+  <div
+    class="search-container"
+    [class.out]="(viewportWidth && viewportWidth > 1024) || !(viewportWidth && viewportWidth > 1024) || !isOut"
+    (click)="$event.stopPropagation()"
+  >
+    <form class="search-bar" [formGroup]="searchService.search">
+      <div class="search-t">
+        <img src="https://zoommer.ge/icons/main-search.svg" />
+        <input
+          type="text"
+          [placeholder]="'search' | translate"
+          (focus)="searchService.startSearch()"
+          formControlName="search"
+        />
+      </div>
+    </form>
+    @if (!productResponse || !(searchFormValue && searchFormValue.length > 0) || searchService.notFound) {
+      @if (lastSearched.length > 0) {
+        <div class="last-searched">
+          <div class="title">
+            <h4>{{ 'searchModal_lastSearch_title' | translate }}:</h4>
+            <div class="clear" (click)="removeSearched()">
+              <img src="https://zoommer.ge/icons/bin.svg" />
+              <h4 translate="searchModal_lastSearch_clear"></h4>
+            </div>
+          </div>
+          <div class="last">
+            @if (lastSearched.length > 0) {
+              @for (item of lastSearched; track $index) {
+                <div class="element">
+                  <h4 (click)="searchService.search.setValue({ search: item })">{{ item }}</h4>
+                  <img
+                    (click)="searchService.removeLastSearched(item); getLastSearched()"
+                    src="https://zoommer.ge/icons/remove.svg"
+                  />
+                </div>
+              }
+            }
+          </div>
+        </div>
+      }
+      <div class="search">
+        <h4 class="popular-s">{{ 'searchModal_popular_title' | translate }}:</h4>
+        <div class="searches">
+          @for (search of searchRespone?.popularSearches; track $index) {
+            <h4
+              (click)="searchService.search.setValue({ search })"
+              class="s-item"
+              [style.animationDelay.s]="0.0175 * $index"
+            >
+              {{ search }}
+            </h4>
+          }
+        </div>
+      </div>
+    }
+
+    @if (productResponse && searchFormValue && searchFormValue.length > 0 && !searchService.notFound) {
+      <div class="found">
+        <div class="title">
+          <div class="top">
+            <h4 translate="searchModal_results_title"></h4>
+            <h4
+              translate="searchModal_results_seeAll"
+              [routerLink]="['/search/', searchFormValue]"
+              (click)="searchService.endSearch()"
+            ></h4>
+          </div>
+          <div class="bottom">
+            @for (product of productResponse.products | uniqueArray: 'parentCategoryName'; track $index) {
+              <h4
+                [class.active]="this.searchService.categoryIds.includes(product.categoryId)"
+                (click)="toggleCategoryId(product.categoryId)"
+                class="s-item"
+                [style.animationDelay.s]="0.0175 * $index"
+              >
+                {{ product.parentCategoryName }}
+              </h4>
+            }
+          </div>
+        </div>
+        <div class="products">
+          @for (product of productResponse.products; track $index) {
+            <div class="product" [style.animationDelay.s]="0.05 * $index" (click)="navigateTo([product.route])">
+              <img [src]="product.imageUrl" [alt]="product.imageAlt" />
+              <div class="decsription">
+                <div class="wrapper">
+                  <div class="name">{{ product.name }}</div>
+                  <div class="prices">
+                    <div class="main">{{ product.price }} ₾</div>
+                    <div class="sale" [hidden]="!product.preSalePrice">
+                      {{ product.price }}
+                    </div>
+                  </div>
+                </div>
+                <img src="https://zoommer.ge/icons/right-path.svg" />
+              </div>
+            </div>
+          }
+          @if (productResponse.productsCount > 20 && productResponse.products.length < productResponse.productsCount) {
+            <div class="more" (click)="searchService.loadMore()">
+              <div class="wrapper">
+                @if (searchService.isFetching.value) {
+                  <app-pulse-loader color="#ec5e2a"></app-pulse-loader>
+                } @else {
+                  <h4 translate="seeMore"></h4>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

@@ -14,6 +14,7 @@ import { IPromotionDetailsResponse } from '../../interfaces/promotion-details.in
 import { IUser } from 'webapp/src/interfaces/user.interface'
 import { IToken } from 'webapp/src/interfaces/token.interface'
 import { ILogin } from 'webapp/src/interfaces/login.interface'
+import { IPopularSearchesResponse } from 'webapp/src/interfaces/popular-searches.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -40,11 +41,25 @@ export class ApiService {
   }
 
   public products(options: ProductsOptions): Observable<IProductsResponse> {
-    const { page, limit, specificationIds, categoryId, categories, priceFrom, priceTo, priceAsc, nameAsc } = options
+    const {
+      page,
+      limit,
+      name,
+      notInStock,
+      specificationIds,
+      categoryId,
+      categories,
+      priceFrom,
+      priceTo,
+      priceAsc,
+      nameAsc,
+    } = options
     return this.httpClient.get<IProductsResponse>(this.serverUrl + 'products', {
       params: {
         Page: String(page),
         Limit: String(limit),
+        ...(name != null ? { Name: String(name) } : {}),
+        ...(notInStock != null ? { NotInStock: String(notInStock) } : {}),
         ...(categoryId != null ? { CategoryId: String(categoryId) } : {}),
         ...(categories != null ? { Categories: String(categories) } : {}),
         ...(specificationIds ? { SpecificationIds: specificationIds } : {}),
@@ -118,5 +133,9 @@ export class ApiService {
       email: credintails.email,
       password: credintails.password,
     })
+  }
+
+  public popularSearches(): Observable<IPopularSearchesResponse> {
+    return this.httpClient.get<IPopularSearchesResponse>(this.serverUrl + 'popular-searches')
   }
 }

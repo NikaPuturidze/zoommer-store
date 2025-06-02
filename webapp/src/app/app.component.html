@@ -1,7 +1,8 @@
 @if (allGood) {
   <app-auth-popup [class.visible]="authService.popupVisibility$ | async"></app-auth-popup>
+  <app-search-popup [class.visible]="(searchService.isSearching$ | async) && visible"></app-search-popup>
   <app-burger></app-burger>
-  <app-navigation [hidden]="viewportWidth < 1024" [topics]="topics"></app-navigation>
+  <app-navigation [topics]="topics"></app-navigation>
   <app-header></app-header>
   <router-outlet></router-outlet>
   <app-bottom-bar></app-bottom-bar>

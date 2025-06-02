@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { BurgerService } from '../services/burger.service'
 import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { combineLatest } from 'rxjs'
 import { Router } from '@angular/router'
 import { LanguageService } from '../services/language.service'
+import { SearchService } from '../services/search.service'
 
 @Component({
   selector: 'app-burger',
@@ -17,10 +18,13 @@ export class BurgerComponent implements OnInit {
   public categoryIndex = 0
   public currentLang: 'ka' | 'en' = 'en'
 
+  @ViewChild('inpt') input?: ElementRef<HTMLInputElement>
+
   constructor(
     private burgerService: BurgerService,
     private router: Router,
-    private languageService: LanguageService
+    private languageService: LanguageService,
+    public searchService: SearchService
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +36,12 @@ export class BurgerComponent implements OnInit {
       this.translate = translate
       this.megaMenu = megaMenu
       this.currentLang = currentLang
+    })
+
+    this.searchService.searchFormValue.subscribe((value) => {
+      if (this.input?.nativeElement && value) {
+        this.input.nativeElement.value = value
+      }
     })
   }
 
