@@ -30,12 +30,12 @@
         <div class="prices">
           <div class="price-min">
             <h4>MIN:</h4>
-            <input type="number" [(ngModel)]="minValue" (keydown)="preventText($event)" />
+            <input id="min" type="number" [(ngModel)]="minValue" (keydown)="preventText($event)" />
             <div>₾</div>
           </div>
           <div class="price-max">
             <h4>MAX:</h4>
-            <input type="number" [(ngModel)]="maxValue" (keydown)="preventText($event)" />
+            <input id="max" type="number" [(ngModel)]="maxValue" (keydown)="preventText($event)" />
             <div>₾</div>
           </div>
         </div>

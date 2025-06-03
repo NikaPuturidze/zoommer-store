@@ -1,6 +1,15 @@
 import { NgxSliderModule, Options } from '@angular-slider/ngx-slider'
 import { CommonModule } from '@angular/common'
-import { Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core'
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { ActivatedRoute, Params, Router } from '@angular/router'
 import { EFilter, IFilterResponse, ISpecification } from '../../../interfaces/filter.interface'
@@ -18,7 +27,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss',
 })
-export class FilterComponent implements OnInit {
+export class FilterComponent implements OnInit, AfterViewInit {
   @Output() readonly FiltersChanged = new EventEmitter<ProductsOptions>()
   @Input() filterOpen?: boolean
   public specifications?: ISpecification[]
@@ -32,17 +41,21 @@ export class FilterComponent implements OnInit {
   private limit = 28
   private catInfo?: ICategoryInfo
   private productOptions!: ProductsOptions
-  private filtersEmitted = false
 
   constructor(
     private apiService: ApiService,
     private translateService: TranslateService,
     private actR: ActivatedRoute,
     private router: Router,
-    private viewport: ViewportService
+    private viewport: ViewportService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   @HostBinding('class.mobile') isMobile = false
+
+  ngAfterViewInit(): void {
+    this.handleInputs()
+  }
 
   ngOnInit(): void {
     this.viewport.Viewport$.subscribe((values) => {
@@ -86,6 +99,8 @@ export class FilterComponent implements OnInit {
                 ...(queryParameters['priceTo'] ? { priceTo: queryParameters['priceTo'] as number } : {}),
               }
             }
+
+            this.FiltersChanged.emit(this.productOptions)
           })
         }
       })
@@ -217,6 +232,61 @@ export class FilterComponent implements OnInit {
       isSuper,
     }
     callback(this.catInfo)
+  }
+
+  private handleInputs(): void {
+    setTimeout(() => {
+      this.cdr.detectChanges()
+
+      const minInput = document.querySelector<HTMLInputElement>('#min')
+      const maxInput = document.querySelector<HTMLInputElement>('#max')
+
+      if (minInput) {
+        minInput.addEventListener('input', (event) => {
+          const input = event.target as HTMLInputElement
+          let value = input.value
+
+          if (value === '0') {
+            this.minValue = 0
+            this.onUserChangeEnd(this.minValue, this.maxValue)
+            return
+          }
+
+          value = value.replace(/^0+/, '')
+          input.value = value === '' ? '' : value
+
+          this.minValue = value === '' ? 0 : parseInt(value, 10)
+          this.onUserChangeEnd(this.minValue, this.maxValue)
+        })
+      }
+
+      if (maxInput) {
+        maxInput.addEventListener('input', (event) => {
+          const input = event.target as HTMLInputElement
+          let value = input.value
+
+          if (value === '0') {
+            this.maxValue = 0
+            this.onUserChangeEnd(this.minValue, this.maxValue)
+            return
+          }
+
+          value = value.replace(/^0+/, '')
+          input.value = value === '' ? '' : value
+          let parsedValue = value === '' ? 0 : parseInt(value, 10)
+
+          const maxAllowed = this.filterResponse?.maxPrice ?? Number.MAX_SAFE_INTEGER
+
+          if (parsedValue > maxAllowed) {
+            parsedValue = maxAllowed
+            input.value = String(maxAllowed)
+          }
+
+          this.maxValue = parsedValue
+          this.onUserChangeEnd(this.minValue, this.maxValue)
+        })
+      }
+    }, 1000)
   }
 
   public clearFilters(): void {
