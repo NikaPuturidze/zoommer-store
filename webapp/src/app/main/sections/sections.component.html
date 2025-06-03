@@ -70,7 +70,10 @@
                     <img
                       loading="lazy"
                       (click)="navigate(item.route)"
-                      [src]="viewportWidth <= 1024 ? item.mobileImageUrl : item.webImageUrl"
+                      [style.maxHeight.px]="item.webDimensions?.heightInPixels"
+                      [appSrcset]="(viewportWidth <= 1024 ? item.mobileImageUrl : item.webImageUrl)!"
+                      [quality]="60"
+                      [defaultWidth]="1200"
                     />
                   }
                 </div>
