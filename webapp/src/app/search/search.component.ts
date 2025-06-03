@@ -66,7 +66,10 @@ export class SearchComponent implements OnInit {
         this.isOut = Object.keys(values).length !== 0
       })
 
-      this.searchService.startSearch()
+      const pathParts = this.router.url.split('/')
+      if (pathParts[0] === '' && pathParts[1] === 'search' && pathParts.length === 2) {
+        this.searchService.startSearch()
+      }
     })
 
     this.searchService.search.valueChanges.pipe(debounceTime(350), distinctUntilChanged()).subscribe((keyword) => {
@@ -83,10 +86,6 @@ export class SearchComponent implements OnInit {
 
     this.viewport.Viewport$.subscribe((values) => {
       this.viewportWidth = values.width
-
-      if (!this.isOut && this.viewportWidth > 1024) {
-        this.navigateToMain()
-      }
     })
 
     this.getLastSearched()
