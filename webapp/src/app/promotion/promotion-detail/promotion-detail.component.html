@@ -30,7 +30,7 @@
             ></app-templ-product>
           }
         </div>
-        @if (promotionDetail.items.length >= 48) {
+        @if (promotionDetail.items.length >= 48 && !nextEmpty) {
           <button class="next" (click)="nextPage()">
             @if (!showLoader) {
               <h4 translate="seeMore"></h4>

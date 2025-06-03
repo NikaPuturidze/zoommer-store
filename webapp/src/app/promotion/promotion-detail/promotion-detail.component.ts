@@ -20,6 +20,7 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
   public categoryIds: number[] = []
   public justifyContent: 'center' | 'flex-start' = 'flex-start'
   public showLoader?: boolean
+  public nextEmpty = false
   private page = 1
   private promotionId?: number
 
@@ -66,6 +67,9 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
     this.showLoader = true
     this.apiService.promotionDetail(page, limit, promotionId, categoryIds).subscribe({
       next: (data) => {
+        if (data.items.length < 1) {
+          this.nextEmpty = true
+        }
         if (this.promotionDetail && page > 1) {
           this.promotionDetail.items = [...this.promotionDetail.items, ...data.items]
           this.promotionDetail.categories = data.categories
@@ -98,7 +102,7 @@ export class PromotionDetailComponent implements OnInit, AfterViewChecked {
   public nextPage(): void {
     if (this.promotionId) {
       this.page++
-      this.loadPromotionDetail(this.page, 48, this.promotionId)
+      this.loadPromotionDetail(this.page, 48, this.promotionId, this.categoryIds)
     }
   }
 }
