@@ -18,7 +18,7 @@
     <div class="found">
       @if (productsResponse && productsResponse.products.length > 0) {
         @for (product of products; track $index) {
-          <app-templ-product [product]="product"></app-templ-product>
+          <app-templ-product (click)="navigateTo([product.route])" [product]="product"></app-templ-product>
         }
       } @else {
         @for (item of skeletonArray; track $index) {

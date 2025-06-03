@@ -348,7 +348,8 @@
 
               @media (width <= 1024px) {
                 width: 300px !important;
-                overflow-x: hidden;
+                overflow-x: scroll;
+                scroll-snap-type: x mandatory;
               }
 
               div {
@@ -356,6 +357,8 @@
                 justify-content: center;
                 min-width: 300px;
                 margin-inline: 50px;
+                flex: 0 0 auto;
+                scroll-snap-align: start;
 
                 @media (width <= 1024px) {
                   margin-inline: 0;

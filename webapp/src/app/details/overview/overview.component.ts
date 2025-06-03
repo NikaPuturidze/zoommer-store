@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, ElementRef, Input, OnInit } from '@angular/core'
 import { IProduct } from '../../../interfaces/product.interface'
 import { Router } from '@angular/router'
 import { ViewportService } from '../../services/viewport.service'
@@ -13,15 +13,32 @@ import { TranslateModule } from '@ngx-translate/core'
 export class OverviewComponent implements OnInit {
   @Input() product?: IProduct
   public viewportWidth = 0
+  private prevWidth: number | null = null
 
   constructor(
     private router: Router,
-    private viewport: ViewportService
+    private viewport: ViewportService,
+    private hostReference: ElementRef<HTMLElement>
   ) {}
 
   ngOnInit(): void {
-    this.viewport.Viewport$.subscribe((value) => {
-      this.viewportWidth = value.width
+    this.viewport.Viewport$.subscribe(({ width }) => {
+      this.viewportWidth = width
+
+      if (this.prevWidth !== null) {
+        const crossedToSmall = this.prevWidth > 1024 && width <= 1024
+        const crossedToLarge = this.prevWidth <= 1024 && width > 1024
+
+        if ((crossedToSmall || crossedToLarge) && this.product?.translateX) {
+          this.product.translateX = 0
+          this.product.currentImage = 0
+
+          this.hostReference.nativeElement.scrollLeft = 0
+        }
+      }
+
+      this.prevWidth = width
+      this.viewportWidth = width
     })
   }
 

@@ -103,6 +103,8 @@
 
               .table-body {
                 .table-row {
+                  display: flex;
+                  gap: 17px;
                   .spec-name {
                     vertical-align: top;
                     width: 35%;
@@ -130,7 +132,6 @@
                       font-size: 14px;
                       line-height: 24px;
                       color: rgba($black-main, 0.7);
-                      width: 70%;
                       @include medium;
 
                       @media (width <= 1024px) {

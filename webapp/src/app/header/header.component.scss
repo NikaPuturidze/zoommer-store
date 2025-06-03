@@ -2,12 +2,12 @@
 
 :host {
   position: relative;
-  z-index: 99999;
+  z-index: 99998;
 
   &.sticky {
     position: sticky;
     top: 0;
-    z-index: 99999;
+    z-index: 99998;
     animation: slideDown 0.4s forwards;
   }
 
@@ -290,7 +290,7 @@
             align-items: center;
             justify-content: center;
             margin-top: 4px;
-            z-index: 2;
+            z-index: 9999;
             transition: none !important;
 
             h4 {
