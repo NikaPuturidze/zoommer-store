@@ -17,11 +17,5 @@ export class WarrantyComponent {
 
   public toggleWarranty(): void {
     this.isWarrantyOpen = !this.isWarrantyOpen
-
-    if (this.isWarrantyOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
-    }
   }
 }
