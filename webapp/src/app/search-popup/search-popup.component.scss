@@ -119,6 +119,10 @@
               color: rgba($black-main, 0.8);
               @include regular;
             }
+
+            img {
+              cursor: pointer;
+            }
           }
         }
       }

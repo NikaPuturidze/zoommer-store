@@ -35,7 +35,7 @@ export class CategoryComponent implements OnInit {
       this.loadMegaMenu()
     })
 
-    this.viewport.Viewport$.subscribe((values) => {
+    this.viewport.Viewport$.pipe(untilDestroyed(this)).subscribe((values) => {
       this.viewportWidth = values.width
     })
   }

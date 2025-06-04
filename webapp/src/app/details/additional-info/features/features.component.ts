@@ -2,7 +2,9 @@ import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } fr
 import { ISpecificationGroup } from 'webapp/src/interfaces/product.interface'
 import { ViewportService } from 'webapp/src/app/services/viewport.service'
 import { TranslateModule } from '@ngx-translate/core'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 
+@UntilDestroy()
 @Component({
   selector: 'app-features',
   imports: [TranslateModule],
@@ -25,7 +27,7 @@ export class FeaturesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.viewport.Viewport$.subscribe((values) => {
+    this.viewport.Viewport$.pipe(untilDestroyed(this)).subscribe((values) => {
       this.viewportWidth = values.width
       this.cdr.markForCheck()
     })

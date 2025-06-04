@@ -6,7 +6,7 @@ export class TokenController {
   constructor(private readonly tokenService: TokenService) {}
 
   @Post()
-  topic(
+  token(
     @Headers('accept-language') lang: string,
     @Headers('authorization') accessToken: string,
     @Body() body: { email: string; password: string }

@@ -58,7 +58,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.viewport.Viewport$.subscribe((values) => {
+    this.viewport.Viewport$.pipe(untilDestroyed(this)).subscribe((values) => {
       this.isMobile = values.width < 1024
     })
 
@@ -105,7 +105,7 @@ export class FilterComponent implements OnInit, AfterViewInit {
         }
       })
 
-    this.actR.params.subscribe((parameters) => {
+    this.actR.params.pipe(untilDestroyed(this)).subscribe((parameters) => {
       this.determineProduct(parameters, (categoryInfo) => {
         const queries = this.actR.snapshot.queryParams
         this.setSliderOptions(0, (queries['PriceTo'] as number) ?? 9999, (queries['PriceTo'] as number) ?? 9999)
@@ -171,7 +171,8 @@ export class FilterComponent implements OnInit, AfterViewInit {
                 } else this.FiltersChanged.emit(this.productOptions)
 
                 return []
-              })
+              }),
+              untilDestroyed(this)
             )
             .subscribe()
         })

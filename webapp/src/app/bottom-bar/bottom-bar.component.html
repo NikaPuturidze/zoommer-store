@@ -65,7 +65,7 @@
     </button>
     <h4 translate="compare"></h4>
   </div>
-  <div class="element" (click)="authService.openPopup()">
+  <div class="element" (click)="determineNavigate()">
     <button matRipple [matRippleCentered]="true" matRippleColor="rgba(0, 0, 0, 0.06)">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" class="">
         <g stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" opacity="0.6">
@@ -77,6 +77,12 @@
       </svg>
       <span></span>
     </button>
-    <h4 translate="logIn"></h4>
+    <h4>
+      {{
+        cookie.get('user-authed') == 'true' && cookie.get('access-token') != null
+          ? ('profile' | translate)
+          : ('logIn' | translate)
+      }}
+    </h4>
   </div>
 </div>

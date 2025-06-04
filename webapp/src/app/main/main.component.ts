@@ -11,6 +11,8 @@ import { IMegaMenu } from '../../interfaces/mega-menu.interface'
 import { BurgerService } from '../services/burger.service'
 import { TranslateService } from '@ngx-translate/core'
 import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy'
+import { TokenService } from '../services/token.service'
+import { CookieService } from 'ngx-cookie-service'
 
 @UntilDestroy()
 @Component({
@@ -33,12 +35,12 @@ export class MainComponent implements OnInit, AfterViewInit {
     private translateService: TranslateService,
     private localStorageService: LocalStorageService,
     private viewport: ViewportService,
-    private burgerService: BurgerService
+    private burgerService: BurgerService,
+    private tokenService: TokenService,
+    private cookie: CookieService
   ) {}
 
   ngOnInit(): void {
-    this.loadContent()
-    this.loadMegaMenu()
     this.translateService.onLangChange.pipe(untilDestroyed(this)).subscribe(() => {
       this.megaMenu = undefined
       this.content = undefined
@@ -46,9 +48,24 @@ export class MainComponent implements OnInit, AfterViewInit {
       this.loadMegaMenu()
     })
 
-    this.viewport.Viewport$.subscribe((values) => {
+    this.viewport.Viewport$.pipe(untilDestroyed(this)).subscribe((values) => {
       this.viewportWidth = values.width
     })
+
+    if (!this.cookie.get('access-token')) {
+      this.tokenService
+        .setAccessToken()
+        .then(() => {
+          this.loadContent()
+          this.loadMegaMenu()
+        })
+        .catch((error: unknown) => {
+          console.error(error)
+        })
+    } else {
+      this.loadContent()
+      this.loadMegaMenu()
+    }
 
     this.localStorageService.set('showGrid', 'true')
   }

@@ -1,0 +1,49 @@
+@let index = authService.index | async;
+
+<div class="profile">
+  <div class="title">
+    <img src="https://zoommer.ge/icons/profile-icon.svg" />
+    @if (name) {
+      <h4>{{ 'greeting_hello' | translate }}, {{ name }}</h4>
+    } @else {
+      <h4 translate="greeting_hello"></h4>
+    }
+  </div>
+  <div class="container">
+    <aside>
+      @for (section of profileMenuItems; track $index) {
+        <div [class]="section.class" [class.current]="index === $index" (click)="setCurrentIndex($index)">
+          <h4 [translate]="section.translateKey"></h4>
+        </div>
+      }
+    </aside>
+    <section class="content">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</div>
+
+@if (this.logout) {
+  <div class="logout">
+    <div class="section">
+      <div #section class="pop-up">
+        <img (click)="cancel()" src="https://zoommer.ge/icons/mobile-modal-close.svg" />
+        <div class="top">
+          <h4 translate="signOut"></h4>
+        </div>
+        <div class="message">
+          <h4 translate="areYouSureSignOut"></h4>
+          <h5 translate="cart_clearMessage"></h5>
+          <div class="confirm">
+            <button matRipple matRippleColor="rgba(0, 0, 0, 0.04)" [matRippleCentered]="true" (click)="logOutConfirm()">
+              <h4 class="yes" translate="yes"></h4>
+            </button>
+            <button matRipple matRippleColor="rgba(0, 0, 0, 0.04)" [matRippleCentered]="true" (click)="cancel()">
+              <h4 translate="no"></h4>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

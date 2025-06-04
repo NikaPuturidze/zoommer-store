@@ -3,16 +3,18 @@ import { Router, RouterModule } from '@angular/router'
 import { CommonModule } from '@angular/common'
 import { BurgerService } from '../services/burger.service'
 import { debounceTime, distinctUntilChanged, fromEvent, map, throttleTime } from 'rxjs'
-import { LangChangeEvent, TranslateModule, TranslateService } from '@ngx-translate/core'
+import { LangChangeEvent, TranslateModule, TranslatePipe, TranslateService } from '@ngx-translate/core'
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 import { AuthService } from '../services/auth.service'
 import { SearchService } from '../services/search.service'
 import { ReactiveFormsModule } from '@angular/forms'
+import { CookieService } from 'ngx-cookie-service'
+import { CartService } from '../services/cart.service'
 
 @UntilDestroy()
 @Component({
   selector: 'app-header',
-  imports: [RouterModule, CommonModule, TranslateModule, ReactiveFormsModule],
+  imports: [RouterModule, CommonModule, TranslateModule, ReactiveFormsModule, TranslatePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -27,8 +29,10 @@ export class HeaderComponent implements OnInit {
     private translateService: TranslateService,
     private burgerService: BurgerService,
     private router: Router,
+    public cookie: CookieService,
     public searchService: SearchService,
-    public authService: AuthService
+    public authService: AuthService,
+    public cartService: CartService
   ) {}
 
   ngOnInit(): void {
@@ -72,7 +76,8 @@ export class HeaderComponent implements OnInit {
 
   public chooseLanguage(event: MouseEvent): void {
     event.stopPropagation()
-    this.translateService.use(this.currentLang === 'en' ? 'ka' : 'en')
+    window.localStorage.setItem('language', this.translateService.currentLang === 'en' ? 'ka' : 'en')
+    this.translateService.use(this.translateService.currentLang === 'en' ? 'ka' : 'en')
     this.isLanguageMenuOpen = false
   }
 
@@ -80,5 +85,21 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(route).catch((error: unknown) => {
       console.error(error)
     })
+  }
+
+  public determineNavigate(): void {
+    if (this.cookie.get('user-authed') && this.cookie.get('access-token')) {
+      this.navigateTo(['/profile'])
+    } else {
+      this.authService.openPopup()
+    }
+  }
+
+  public determineNavigateCart(): void {
+    if (this.cookie.get('user-authed') && this.cookie.get('access-token')) {
+      this.navigateTo(['/cart'])
+    } else {
+      this.authService.openPopup()
+    }
   }
 }

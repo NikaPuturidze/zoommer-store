@@ -38,7 +38,11 @@
           </div>
           <div class="add">
             <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
-            <h4 translate="add"></h4>
+            @if (isInCart) {
+              <h4 translate="isInCart"></h4>
+            } @else {
+              <h4 translate="add" (click)="addToCart(product.id); $event.stopPropagation()"></h4>
+            }
           </div>
         </div>
       </div>
@@ -72,8 +76,14 @@
           <img src="https://zoommer.ge/icons/compare-card.svg" />
         </div>
         <div class="add">
-          <img src="https://zoommer.ge/icons/cart-button.svg" />
-          <h4 translate="add"></h4>
+          @if (!isInCart) {
+            <img src="https://zoommer.ge/icons/cart-button.svg" />
+          }
+          @if (isInCart) {
+            <h4 translate="isInCart"></h4>
+          } @else {
+            <h4 translate="add" (click)="addToCart(product.id); $event.stopPropagation()"></h4>
+          }
         </div>
       </div>
     }
@@ -117,8 +127,14 @@
             <img loading="lazy" src="https://zoommer.ge/icons/compare-card.svg" />
           </div>
           <div class="add">
-            <img loading="lazy" src="https://zoommer.ge/icons/cart-button.svg" />
-            <h4 translate="add"></h4>
+            @if (!isInCart) {
+              <img src="https://zoommer.ge/icons/cart-button.svg" />
+            }
+            @if (isInCart) {
+              <h4 translate="isInCart"></h4>
+            } @else {
+              <h4 translate="add" (click)="addToCart(productId || 0); $event.stopPropagation()"></h4>
+            }
           </div>
         </div>
       </div>
@@ -152,8 +168,14 @@
           <img src="https://zoommer.ge/icons/compare-card.svg" />
         </div>
         <div class="add">
-          <img src="https://zoommer.ge/icons/cart-button.svg" />
-          <h4 translate="add"></h4>
+          @if (!isInCart) {
+            <img src="https://zoommer.ge/icons/cart-button.svg" />
+          }
+          @if (isInCart) {
+            <h4 translate="isInCart"></h4>
+          } @else {
+            <h4 translate="add" (click)="addToCart(productId || 0); $event.stopPropagation()"></h4>
+          }
         </div>
       </div>
     }

@@ -6,7 +6,7 @@ export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
   @Post()
-  topic(
+  login(
     @Headers('accept-language') lang: string,
     @Headers('authorization') accessToken: string,
     @Body('username') username: string,

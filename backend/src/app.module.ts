@@ -15,6 +15,14 @@ import { UserModule } from './user/user.module'
 import { TokenModule } from './token/token.module'
 import { LoginModule } from './login/login.module'
 import { PopularSearchesModule } from './popular-searches/popular-searches.module'
+import { ProfileModule } from './profile/profile.module'
+import { CartModule } from './cart/cart.module'
+import { RenewModule } from './renew/renew.module'
+import { WishlistModule } from './wishlist/wishlist.module'
+import { ClearAllWishlistModule } from './clear-all-wishlist/clear-all-wishlist.module'
+import { SetSubscribeModule } from './set-subscribe/set-subscribe.module'
+import { AddFavouriteModule } from './add-favourite/add-favourite.module'
+import { DeleteFavouriteModule } from './delete-favourite/delete-favourite.module'
 
 @Module({
   imports: [
@@ -36,6 +44,14 @@ import { PopularSearchesModule } from './popular-searches/popular-searches.modul
     TokenModule,
     LoginModule,
     PopularSearchesModule,
+    ProfileModule,
+    CartModule,
+    RenewModule,
+    WishlistModule,
+    ClearAllWishlistModule,
+    SetSubscribeModule,
+    AddFavouriteModule,
+    DeleteFavouriteModule,
   ],
   controllers: [],
   providers: [],

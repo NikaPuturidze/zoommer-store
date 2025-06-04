@@ -1,0 +1,97 @@
+@let cart = cartService.cart$ | async;
+
+@if (cart && cart.items.length > 0) {
+  <div class="cart">
+    <div class="title">
+      <h4 translate="cartCount" [translateParams]="{ count: cart?.items?.length ?? 0 }"></h4>
+      <!-- <div class="clear">
+        <img src="https://zoommer.ge/icons/bin.svg" />
+        <h4 translate="searchModal_lastSearch_clear"></h4>
+      </div> -->
+    </div>
+    <div class="container">
+      <div class="items">
+        @for (item of cart.items; track $index) {
+          <div class="product">
+            <img [src]="item.imageUrl" />
+            <div class="desc">
+              <h4>{{ item.productName }}</h4>
+              <div class="price">
+                <h4 [class.only]="item.previousPrice">{{ item.price }} ₾</h4>
+                @if (item.previousPrice) {
+                  <h4 class="s">{{ item.previousPrice }} ₾</h4>
+                }
+              </div>
+            </div>
+            <div class="right">
+              <div class="amount">
+                <button
+                  matRipple
+                  matRippleColor="rgba(0, 0, 0, 0.04)"
+                  (click)="setCartAmount(item.productId, item.quantity - 1)"
+                >
+                  <h4>-</h4>
+                </button>
+                <h4>{{ cart.items[$index].quantity }}</h4>
+                <button
+                  matRipple
+                  matRippleColor="rgba(0, 0, 0, 0.04)"
+                  (click)="setCartAmount(item.productId, item.quantity + 1)"
+                >
+                  <h4>+</h4>
+                </button>
+              </div>
+              <div
+                matRipple
+                matRippleColor="rgba(0, 0, 0, 0.04)"
+                class="remove"
+                (click)="setCartAmount(item.productId, 0)"
+              >
+                <button matRipple matRippleColor="rgba(0, 0, 0, 0.04)">
+                  <img src="https://zoommer.ge/icons/bin.svg" />
+                </button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="checkout">
+        <div class="check">
+          <div class="top">
+            <div class="p">
+              <p class="name" translate="cost"></p>
+              <p class="p-total">{{ cart?.totalPrice }} ₾</p>
+            </div>
+            <div class="p">
+              <p class="name" translate="shippingCost"></p>
+              <p class="p-total">0</p>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="topay">
+              <p class="name" translate="amountToBePayed"></p>
+              <p class="p-total">{{ cart?.totalPrice }} ₾</p>
+            </div>
+          </div>
+        </div>
+
+        <button matRipple matRippleColor="rgba(0, 0, 0, 0.04)">
+          <h4 translate="next"></h4>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="bottom">
+    <div class="left">
+      <h4 translate="totalPrice"></h4>
+      <h4>{{ cart?.totalPrice }} ₾</h4>
+    </div>
+    <button matRipple matRippleColor="rgba(0, 0, 0, 0.04)">
+      <h4 translate="pay"></h4>
+    </button>
+  </div>
+} @else {
+  <div class="n">
+    <img class="m" src="https://zoommer.ge/icons/emptybag.svg" />
+  </div>
+}

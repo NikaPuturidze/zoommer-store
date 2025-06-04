@@ -16,7 +16,9 @@ import { LoginComponent } from './login/login.component'
 import { RegistrationComponent } from './registration/registration.component'
 import { ViewportService } from '../services/viewport.service'
 import { BehaviorSubject, combineLatest } from 'rxjs'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 
+@UntilDestroy()
 @Component({
   selector: 'app-auth-popup',
   imports: [TranslateModule, AsyncPipe, LoginComponent, RegistrationComponent, AsyncPipe],
@@ -38,7 +40,7 @@ export class AuthPopupComponent implements AfterViewInit, OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.popupVisibility$.subscribe((value) => {
+    this.authService.popupVisibility$.pipe(untilDestroyed(this)).subscribe((value) => {
       if (value) {
         this.renderer.addClass(document.body, 'no-scroll')
       } else {
@@ -55,8 +57,9 @@ export class AuthPopupComponent implements AfterViewInit, OnInit {
     const sectionElement = this.section?.nativeElement
     if (!sectionElement) return
 
-    combineLatest([this.viewport.Viewport$, this.authService.popupVisibility$, this.closing]).subscribe(
-      ([viewport, popupVisible, closing]) => {
+    combineLatest([this.viewport.Viewport$, this.authService.popupVisibility$, this.closing])
+      .pipe(untilDestroyed(this))
+      .subscribe(([viewport, popupVisible, closing]) => {
         const isDesktop = viewport.width > 1024
 
         const enterClass = isDesktop ? 'fade-in-sb' : 'fade-in-s'
@@ -87,8 +90,7 @@ export class AuthPopupComponent implements AfterViewInit, OnInit {
         } else {
           sectionElement.classList.remove('fade-in-s', 'fade-in-sb')
         }
-      }
-    )
+      })
   }
 
   public close(): void {

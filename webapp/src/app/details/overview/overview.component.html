@@ -1,5 +1,21 @@
 <div class="overview">
   @if (product) {
+    <div class="bottom">
+      <div class="left">
+        <h4>{{ product.price }} ₾</h4>
+      </div>
+      <div class="right">
+        <div class="compare">
+          <img src="https://zoommer.ge/icons/compare.svg" />
+        </div>
+        <div class="cart">
+          <img src="https://zoommer.ge/icons/cart.svg" />
+        </div>
+        <div class="buy">
+          <h4 translate="buy" routerLink="/cart"></h4>
+        </div>
+      </div>
+    </div>
     <div class="breadcrumbs-barcode-row">
       @if (viewportWidth > 1024) {
         <div class="breadcrumbs">
@@ -34,7 +50,14 @@
         </div>
         <div class="image-slider">
           <div class="heart">
-            <img src="https://zoommer.ge/icons/product-details-heart.svg" />
+            @if (isInWIshlist) {
+              <img
+                src="https://zoommer.ge/icons/product-details-heart-active.svg"
+                (click)="deleteFromWishlist(product.id)"
+              />
+            } @else {
+              <img src="https://zoommer.ge/icons/product-details-heart.svg" (click)="addToWishlist(product.id)" />
+            }
           </div>
           <div class="slider-wrapper">
             <div class="images" [style.transform]="'translateX(' + product.translateX + '%)'">

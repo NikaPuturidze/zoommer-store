@@ -54,19 +54,23 @@ export class WithNumberComponent implements OnInit {
       this.showLoader = true
       this.displayMsg = false
       const username = this.currentCountry.dialCode + String(this.withNumber!.get('phone')?.value)
-      this.apiService.user(username).subscribe({
-        next: (data) => {
-          if (data.success) this.authService.setLoginTypeCode()
-          this.authService.setUsername(username)
-          this.showLoader = false
-          this.withNumber?.reset()
-        },
-        error: (error: unknown) => {
-          console.error(error)
-          this.showLoader = false
-        },
-      })
+      this.callCodeVerify(username)
     }
+  }
+
+  public callCodeVerify(username: string): void {
+    this.apiService.user(username).subscribe({
+      next: (data) => {
+        if (data.success) this.authService.setLoginTypeCode()
+        this.authService.setUsername(username)
+        this.showLoader = false
+        this.withNumber?.reset()
+      },
+      error: (error: unknown) => {
+        console.error(error)
+        this.showLoader = false
+      },
+    })
   }
 
   public focusPhone(): void {

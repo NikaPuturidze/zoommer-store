@@ -5,6 +5,7 @@ import { IPopularSearchesResponse } from 'webapp/src/interfaces/popular-searches
 import { IProductsResponse } from 'webapp/src/interfaces/products.interface'
 import { FormControl, FormGroup } from '@angular/forms'
 import { CookieService } from 'ngx-cookie-service'
+import { Router } from '@angular/router'
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,8 @@ export class SearchService {
 
   constructor(
     private apiService: ApiService,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private router: Router
   ) {
     this.categoryToggled.pipe(debounceTime(350)).subscribe((value) => {
       if (value && this.searchFormValue.value) {

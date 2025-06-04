@@ -6,7 +6,7 @@ export class PromotionDetailController {
   constructor(private readonly promotionDetailService: PromotionDetailService) {}
 
   @Get()
-  topic(
+  promotionDetail(
     @Headers('accept-language') lang: string,
     @Headers('authorization') accessToken: string,
     @Query('Page') page: number,

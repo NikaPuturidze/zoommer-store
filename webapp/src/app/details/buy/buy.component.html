@@ -108,15 +108,27 @@
         </div>
       </div>
       <div class="buy">
-        <button type="button" translate="buy"></button>
+        <button
+          matRipple
+          matRippleColor="rgba(0,0,0,0.04)"
+          type="button"
+          translate="buy"
+          (click)="navigateTo(['cart'])"
+        ></button>
         <div>
           <button>
             <img src="https://zoommer.ge/icons/compare.svg" alt="" />
             <h4 translate="compare"></h4>
           </button>
           <button>
-            <img src="https://zoommer.ge/icons/cart-button.svg" alt="" />
-            <h4 translate="add"></h4>
+            @if (!isInCart) {
+              <img src="https://zoommer.ge/icons/cart-button.svg" />
+            }
+            @if (isInCart) {
+              <h4 translate="isInCart"></h4>
+            } @else {
+              <h4 translate="add" (click)="addToCart(product.id); $event.stopPropagation()"></h4>
+            }
           </button>
         </div>
       </div>

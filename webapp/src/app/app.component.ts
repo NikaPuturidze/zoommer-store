@@ -4,7 +4,7 @@ import { HeaderComponent } from './header/header.component'
 import { FooterComponent } from './footer/footer.component'
 import { ITopicsResponse } from '../interfaces/topics.interface'
 import { ApiService } from './services/api.service'
-import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router'
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router'
 import { ViewportService } from './services/viewport.service'
 import { BurgerComponent } from './burger/burger.component'
 import { TokenService } from './services/token.service'
@@ -19,6 +19,11 @@ import { BurgerService } from './services/burger.service'
 import { SearchPopupComponent } from './search-popup/search-popup.component'
 import { SearchService } from './services/search.service'
 import { filter } from 'rxjs'
+import { CartService } from './services/cart.service'
+import { CookieService } from 'ngx-cookie-service'
+import { ICart } from '../interfaces/cart.interface'
+import { IWishList } from '../interfaces/wishlist.interface'
+
 @UntilDestroy()
 @Component({
   selector: 'app-root',
@@ -49,11 +54,12 @@ export class AppComponent {
     private viewport: ViewportService,
     private tokenService: TokenService,
     private burgerService: BurgerService,
-    private actR: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     public router: Router,
     public authService: AuthService,
-    public searchService: SearchService
+    public searchService: SearchService,
+    public cartService: CartService,
+    public cookie: CookieService
   ) {}
 
   ngOnInit(): void {
@@ -75,7 +81,26 @@ export class AppComponent {
         console.error(error)
       })
 
-    this.router.events.subscribe((event) => {
+    if (this.cookie.get('user-authed') && this.cookie.get('access-token') && !this.cartService.cart$.value) {
+      this.apiService.cart().subscribe({
+        next: (data: ICart) => {
+          this.cartService.setCart(data)
+        },
+        error: (error: unknown) => {
+          console.error(error)
+        },
+      })
+      this.apiService.wishlist().subscribe({
+        next: (data: IWishList) => {
+          this.cartService.setWishlist(data)
+        },
+        error: (error: unknown) => {
+          console.error(error)
+        },
+      })
+    }
+
+    this.router.events.pipe(untilDestroyed(this)).subscribe((event) => {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0)
       }
@@ -83,6 +108,7 @@ export class AppComponent {
 
     this.router.events
       .pipe(filter((element): element is NavigationEnd => element instanceof NavigationEnd))
+      .pipe(untilDestroyed(this))
       .subscribe((event) => {
         this.visible = event.url === '/search'
         this.updateVisibility()

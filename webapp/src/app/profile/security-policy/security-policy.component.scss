@@ -1,0 +1,44 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .privacy-policy {
+    animation: slide 300ms ease-out forwards;
+    .privacy-policy-header {
+      h4 {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        color: $black-main;
+        @include bold;
+      }
+    }
+
+    .privacy-policy-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 20px;
+
+      .privacy-policy-paragraph {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        color: $black-main;
+        @include regular;
+      }
+
+      .privacy-policy-section-title {
+        color: $orange-main;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22px;
+        @include bold;
+      }
+    }
+  }
+}

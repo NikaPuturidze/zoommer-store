@@ -23,11 +23,17 @@
         </form>
       </div>
       <div class="second">
-        <div class="cart">
+        <div class="cart" (click)="determineNavigateCart()">
           <img src="https://zoommer.ge/icons/header-cart.svg" />
           <div translate="cart"></div>
+          @let cart = cartService.cart$ | async;
+          @if (cart && cart.items) {
+            <div class="amount">
+              <h4>{{ cart.items.length }}</h4>
+            </div>
+          }
         </div>
-        <div class="login" (click)="authService.openPopup(); $event.stopPropagation()">
+        <div class="login" (click)="determineNavigate(); $event.stopPropagation()">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
             <path
               stroke="#000"
@@ -44,7 +50,13 @@
               d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10"
             ></path>
           </svg>
-          <div translate="logIn"></div>
+          <div>
+            {{
+              cookie.get('user-authed') == 'true' && cookie.get('access-token') != null
+                ? ('profile' | translate)
+                : ('logIn' | translate)
+            }}
+          </div>
         </div>
         <div class="discount" (click)="navigateTo(['/promotion'])">
           <h4>%</h4>
@@ -54,7 +66,7 @@
     <div class="right-content">
       <img src="https://zoommer.ge/icons/search.svg" (click)="navigateTo(['/search'])" />
 
-      <div class="cart">
+      <div class="cart" (click)="determineNavigateCart()">
         <img src="https://zoommer.ge/icons/header-cart.svg" />
       </div>
 

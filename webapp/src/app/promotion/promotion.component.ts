@@ -30,7 +30,7 @@ export class PromotionComponent implements OnInit {
       this.loadPromotion()
     })
 
-    this.viewport.Viewport$.subscribe((values) => {
+    this.viewport.Viewport$.pipe(untilDestroyed(this)).subscribe((values) => {
       this.viewportWidth = values.width
     })
   }

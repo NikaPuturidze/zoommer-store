@@ -6,7 +6,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
-  topic(
+  user(
     @Headers('accept-language') lang: string,
     @Headers('authorization') accessToken: string,
     @Body('username') username: string

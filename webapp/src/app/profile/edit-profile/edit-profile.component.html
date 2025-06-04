@@ -1,0 +1,68 @@
+<div class="edit-profile">
+  <div class="title">
+    <h4 translate="profile_header_editProfile"></h4>
+  </div>
+  @if (edit) {
+    <form [formGroup]="edit" class="edit">
+      <div class="input-container">
+        <input spellcheck="false" #formInput formControlName="phone" type="number" />
+        <label translate="phoneNumber" [class.active]="this.edit.get('phone')?.value"></label>
+      </div>
+      <div class="input-container" [class.active]="currentEdit === 0">
+        <input spellcheck="false" #formInput formControlName="email" type="email" />
+        <label translate="email" [class.active]="this.edit.get('email')?.value"></label>
+        <div class="edit" (click)="startChange(0, $event)">
+          <button matRipple matRippleColor="rgba(0, 0, 0, 0.04)">
+            <img src="https://zoommer.ge/icons/edit-icon.svg" />
+          </button>
+        </div>
+      </div>
+      <div class="input-container" [class.active]="currentEdit === 1">
+        <input spellcheck="false" #formInput formControlName="name" type="text" />
+        <label translate="name" [class.active]="this.edit.get('name')?.value"></label>
+        <div class="edit" (click)="startChange(1, $event)">
+          <button matRipple matRippleColor="rgba(0, 0, 0, 0.04)" [matRippleCentered]="true">
+            <img src="https://zoommer.ge/icons/edit-icon.svg" />
+          </button>
+        </div>
+      </div>
+      <div class="input-container" [class.active]="currentEdit === 2">
+        <input spellcheck="false" #formInput formControlName="surname" type="text" />
+        <label translate="surname" [class.active]="this.edit.get('surname')?.value"></label>
+        <div class="edit" (click)="startChange(2, $event)">
+          <button matRipple matRippleColor="rgba(0, 0, 0, 0.04)">
+            <img src="https://zoommer.ge/icons/edit-icon.svg" />
+          </button>
+        </div>
+      </div>
+      <div class="toggle-container">
+        <h4 translate="georgianCitizen"></h4>
+        <div class="switcher" (click)="toggleSwitcher()" [class.active]="toggleState">
+          <div class="toggle" [class.active]="toggleState"></div>
+        </div>
+      </div>
+      <div class="input-container" [class.active]="currentEdit === 3">
+        <input spellcheck="false" #formInput formControlName="id" type="text" />
+        <label translate="personalNumber" [class.active]="this.edit.get('id')?.value"></label>
+        <div class="edit" (click)="startChange(3, $event)">
+          <button matRipple matRippleColor="rgba(0, 0, 0, 0.04)">
+            <img src="https://zoommer.ge/icons/edit-icon.svg" />
+          </button>
+        </div>
+      </div>
+      <h4
+        class="renew"
+        translate="infoChangedSuccessfully"
+        [class]="showInfoChange ? (infoChange ? 'success' : 'fail') : null"
+      ></h4>
+
+      <button class="button" matRipple matRippleColor="rgba(255,255,255, 0.2)" type="submit" (click)="onSubmit()">
+        @if (!showLoading) {
+          <h4 translate="reNew"></h4>
+        } @else {
+          <app-pulse-loader color="#fff"></app-pulse-loader>
+        }
+      </button>
+    </form>
+  }
+</div>

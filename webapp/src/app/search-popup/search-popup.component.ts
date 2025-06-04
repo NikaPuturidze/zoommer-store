@@ -8,7 +8,9 @@ import { PulseLoaderComponent } from '../ui/loaders/pulse-loader/pulse-loader.co
 import { Router, RouterModule } from '@angular/router'
 import { CookieService } from 'ngx-cookie-service'
 import { ViewportService } from '../services/viewport.service'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 
+@UntilDestroy()
 @Component({
   selector: 'app-search-popup',
   imports: [AsyncPipe, TranslateModule, ReactiveFormsModule, UniqueArrayPipe, PulseLoaderComponent, RouterModule],
@@ -17,6 +19,7 @@ import { ViewportService } from '../services/viewport.service'
 })
 export class SearchPopupComponent implements OnInit {
   public lastSearched: string[] = []
+  public route = ''
 
   constructor(
     private renderer: Renderer2,
@@ -27,7 +30,7 @@ export class SearchPopupComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.searchService.isSearching$.subscribe((value) => {
+    this.searchService.isSearching$.pipe(untilDestroyed(this)).subscribe((value) => {
       this.viewport.Viewport$.subscribe((values) => {
         if (value && values.width > 1024) {
           this.getLastSearched()

@@ -1,0 +1,24 @@
+<div class="orders">
+  <div class="toggler">
+    <div class="wrapper">
+      <div class="current" [class.active]="activeTab === 'current'" (click)="activeTab = 'current'">
+        <h4 translate="profile_orders_current"></h4>
+      </div>
+      <div class="completed" [class.active]="activeTab === 'completed'" (click)="activeTab = 'completed'">
+        <h4 translate="profile_orders_ended"></h4>
+      </div>
+      <div class="underline" [class.right]="activeTab === 'completed'"></div>
+    </div>
+  </div>
+  <div class="content">
+    @if (activeTab === 'current') {
+      <div class="current">
+        <h4 translate="profile_orders_current_empty_title"></h4>
+        <p translate="profile_orders_current_empty_description"></p>
+        <button matRipple matRippleColor="rgba(255,255,255, 0.2)" routerLink="/">
+          <h4 translate="startSearching"></h4>
+        </button>
+      </div>
+    }
+  </div>
+</div>

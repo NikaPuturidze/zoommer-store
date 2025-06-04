@@ -13,7 +13,9 @@ import { CookieService } from 'ngx-cookie-service'
 import { debounceTime, distinctUntilChanged } from 'rxjs'
 import { ReactiveFormsModule } from '@angular/forms'
 import { UniqueArrayPipe } from '../services/pipes/unique-array.pipe'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 
+@UntilDestroy()
 @Component({
   selector: 'app-search',
   imports: [
@@ -53,7 +55,7 @@ export class SearchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.actR.paramMap.subscribe((values) => {
+    this.actR.paramMap.pipe(untilDestroyed(this)).subscribe((values) => {
       this.keyword = ''
       this.productsResponse = undefined
       this.products = undefined
@@ -62,7 +64,7 @@ export class SearchComponent implements OnInit {
         this.loadProducts(this.keyword)
       }
 
-      this.actR.params.subscribe((values) => {
+      this.actR.params.pipe(untilDestroyed(this)).subscribe((values) => {
         this.isOut = Object.keys(values).length !== 0
       })
 
@@ -72,19 +74,21 @@ export class SearchComponent implements OnInit {
       }
     })
 
-    this.searchService.search.valueChanges.pipe(debounceTime(350), distinctUntilChanged()).subscribe((keyword) => {
-      if (this.viewportWidth <= 1024) {
-        if (keyword.search && keyword.search.length >= 3) {
-          this.searchService.setValue(keyword.search)
+    this.searchService.search.valueChanges
+      .pipe(debounceTime(350), distinctUntilChanged(), untilDestroyed(this))
+      .subscribe((keyword) => {
+        if (this.viewportWidth <= 1024) {
+          if (keyword.search && keyword.search.length >= 3) {
+            this.searchService.setValue(keyword.search)
+          }
         }
-      }
-    })
+      })
 
-    this.searchService.isSearching$.subscribe(() => {
+    this.searchService.isSearching$.pipe(untilDestroyed(this)).subscribe(() => {
       this.getLastSearched()
     })
 
-    this.viewport.Viewport$.subscribe((values) => {
+    this.viewport.Viewport$.pipe(untilDestroyed(this)).subscribe((values) => {
       this.viewportWidth = values.width
     })
 
@@ -140,6 +144,7 @@ export class SearchComponent implements OnInit {
         notInStock: true,
         ...(this.categoryIds.length !== 0 ? { categories: this.categoryIds } : {}),
       })
+      .pipe(untilDestroyed(this))
       .subscribe({
         next: (data: IProductsResponse) => {
           this.productsResponse = data

@@ -6,10 +6,14 @@ import { ApiService } from 'webapp/src/app/services/api.service'
 import { AuthService } from 'webapp/src/app/services/auth.service'
 import { ILogin } from 'webapp/src/interfaces/login.interface'
 import { IUser } from 'webapp/src/interfaces/user.interface'
+import { PulseLoaderComponent } from '../../../ui/loaders/pulse-loader/pulse-loader.component'
+import { CartService } from 'webapp/src/app/services/cart.service'
+import { ICart } from 'webapp/src/interfaces/cart.interface'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-code-verify',
-  imports: [ReactiveFormsModule, TranslateModule, TranslatePipe],
+  imports: [ReactiveFormsModule, TranslateModule, TranslatePipe, PulseLoaderComponent],
   templateUrl: './code-verify.component.html',
   styleUrl: './code-verify.component.scss',
 })
@@ -22,14 +26,17 @@ export class CodeVerifyComponent implements OnInit {
   public wrongCode = false
   public displayMsg = ''
   public showError = false
+  public showLoading = false
 
   @ViewChild('code') code?: ElementRef<HTMLInputElement>
 
   constructor(
     private apiservice: ApiService,
     public authService: AuthService,
+    public cartService: CartService,
     private cdr: ChangeDetectorRef,
-    private cookie: CookieService
+    private cookie: CookieService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -81,6 +88,7 @@ export class CodeVerifyComponent implements OnInit {
   }
 
   private login(code: string): void {
+    this.showLoading = true
     if (this.authService.sentUsername) {
       this.apiservice.login(this.authService.sentUsername, code).subscribe({
         next: (data: ILogin) => {
@@ -89,14 +97,32 @@ export class CodeVerifyComponent implements OnInit {
           }
           if (data.accessToken != null) {
             this.cookie.set('access-token', data.accessToken)
+            this.cookie.set('user-authed', 'true')
+            this.cart()
+            this.navigateTo(['/profile'])
+            this.authService.closePopup()
           }
           this.cdr.markForCheck()
+          this.showLoading = false
         },
         error: (error: unknown) => {
           console.error(error)
+          this.showLoading = false
         },
       })
     }
+  }
+
+  private cart(): void {
+    this.apiservice.cart().subscribe({
+      next: (data: ICart) => {
+        this.cartService.setCart(data)
+        this.cdr.markForCheck()
+      },
+      error: (error: unknown) => {
+        console.error(error)
+      },
+    })
   }
 
   public cleanup(): void {
@@ -106,5 +132,11 @@ export class CodeVerifyComponent implements OnInit {
     this.resendResponse = 'sendAgain'
     this.data = undefined
     this.displayMsg = ''
+  }
+
+  public navigateTo(route: string[]): void {
+    this.router.navigate(route).catch((error: unknown) => {
+      console.error(error)
+    })
   }
 }

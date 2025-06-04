@@ -13,6 +13,15 @@
   src: url('/fonts/firago-semibold.ttf'), format('truetype');
 }
 
+@keyframes slide {
+  from {
+    transform: translateY(25px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 body {
   overflow-x: hidden;
   min-height: 100vh;

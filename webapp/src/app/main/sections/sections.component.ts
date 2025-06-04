@@ -6,7 +6,9 @@ import { Router } from '@angular/router'
 import { ViewportService } from '../../services/viewport.service'
 import { ContentLoaderModule } from '@ngneat/content-loader'
 import { SrcsetDirective } from '../../services/directives/srcset.directive'
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy'
 
+@UntilDestroy()
 @Component({
   selector: 'app-sections',
   imports: [CommonModule, TemplProductComponent, ContentLoaderModule, SrcsetDirective],
@@ -28,7 +30,7 @@ export class SectionsComponent implements OnChanges, OnInit {
   }
 
   ngOnInit(): void {
-    this.viewport.Viewport$.subscribe((values) => {
+    this.viewport.Viewport$.pipe(untilDestroyed(this)).subscribe((values) => {
       this.viewportWidth = values.width
     })
   }

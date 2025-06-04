@@ -1,0 +1,68 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  animation: slide 300ms ease-out forwards;
+
+  .wishlist {
+    .title {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h4 {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        color: $black-main;
+        @include bold;
+      }
+
+      .clear {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+
+        h4 {
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 14px;
+          color: rgba($black-main, 0.8);
+          @include medium;
+        }
+      }
+    }
+
+    .products {
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+
+      @media (width <= 730px) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      @media (width <= 560px) {
+        gap: 10px;
+        column-gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .product {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-width: 160px;
+        cursor: pointer;
+        border-radius: 4%;
+        transition: 0.2s;
+        height: 303px;
+        justify-content: space-between;
+        background: $white-main;
+      }
+    }
+  }
+}

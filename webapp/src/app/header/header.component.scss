@@ -153,6 +153,19 @@
               padding-top: 1px;
               @include regular;
 
+              &[type='search'] {
+                -webkit-appearance: none;
+                -moz-appearance: textfield;
+                appearance: none;
+
+                &::-webkit-search-decoration,
+                &::-webkit-search-cancel-button,
+                &::-webkit-search-results-button,
+                &::-webkit-search-results-decoration {
+                  display: none;
+                }
+              }
+
               &::placeholder {
                 @include regular;
               }
@@ -186,6 +199,27 @@
 
             &:hover {
               opacity: 1;
+            }
+
+            .amount {
+              position: absolute;
+              top: -8px;
+              left: 40px;
+              width: 20px;
+              height: 20px;
+              background: $orange-main;
+              border-radius: 50%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              h4 {
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 14px;
+                color: $white-main;
+                @include medium;
+              }
             }
 
             div {

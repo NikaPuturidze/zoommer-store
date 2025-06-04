@@ -1,0 +1,19 @@
+<div class="notifications">
+  <div class="title">
+    <h4 translate="profile_header_notifications"></h4>
+  </div>
+  <div class="content">
+    <div class="toggle">
+      <h4 translate="news"></h4>
+      <div class="toggler" (click)="toggleSwitcher()" [class.active]="toggleState">
+        <div class="circle" [class.active]="toggleState"></div>
+      </div>
+    </div>
+    <div class="toggle">
+      <h4 class="inactive" translate="hotOffers"></h4>
+      <div class="toggler inactive">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+</div>

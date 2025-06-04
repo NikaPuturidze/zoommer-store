@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
+import { IProfile } from 'webapp/src/interfaces/profile.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,25 @@ export class AuthService {
   public finalHeight = new BehaviorSubject<number>(507)
   public finalHeightReg = new BehaviorSubject<number>(407)
   public sentUsername: string | null = null
+  private profile = new BehaviorSubject<IProfile | null>(null)
+  public name = new BehaviorSubject<string | null>(null)
+  public index = new BehaviorSubject<number>(0)
+
+  public setProfile(profile: IProfile): void {
+    this.profile.next(profile)
+  }
+
+  public remveProfile(): void {
+    this.profile.next(null)
+  }
+
+  public getProfile(): Observable<IProfile | null> {
+    return this.profile.asObservable()
+  }
+
+  public setName(name: string | null): void {
+    this.name.next(name)
+  }
 
   public addHeight(number: number): void {
     this.finalHeight.next(this.finalHeight.value + number)

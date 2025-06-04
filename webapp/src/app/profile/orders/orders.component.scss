@@ -1,0 +1,134 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  .orders {
+    animation: slide 300ms ease-out forwards;
+
+    .toggler {
+      height: 40px;
+      display: flex;
+      gap: 46px;
+      border-bottom: 2px solid $gray-primary;
+
+      .wrapper {
+        display: flex;
+        width: fit-content;
+        position: relative;
+        gap: 46px;
+        width: calc(240px * 2 + 46px);
+
+        @media (width <= 1024px) {
+          width: 100%;
+          gap: 10px;
+        }
+
+        .current,
+        .completed {
+          cursor: pointer;
+          padding: 0px 0px 20px;
+          width: 240px;
+
+          @media (width <= 1024px) {
+            width: 50%;
+          }
+
+          h4 {
+            text-align: center;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 22px;
+            color: $black-main;
+            opacity: 1;
+            transition: 0.2s;
+            @include bold;
+
+            @media (width <= 1024px) {
+              width: 100%;
+              font-weight: 500;
+              font-size: 14px;
+              line-height: 19px;
+              text-align: center;
+            }
+          }
+        }
+
+        .underline {
+          width: 240px;
+          position: absolute;
+          top: calc(100% - 2px);
+          left: 0px;
+          height: 2px;
+          background-color: $orange-main;
+          transition: 0.15s;
+
+          @media (width <= 1024px) {
+            width: 46%;
+          }
+
+          &.right {
+            left: calc(246px + 46px);
+
+            @media (width <= 1024px) {
+              left: 54%;
+            }
+          }
+        }
+      }
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .current {
+        transform: translateY(30px);
+        animation: slide 300ms ease-out forwards;
+        max-width: 400px;
+        width: 100%;
+        margin-top: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        h4 {
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 17px;
+          color: $black-main;
+          @include bold;
+        }
+
+        p {
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 17px;
+          color: $black-main;
+          margin: 30px auto 50px;
+          @include regular;
+          text-align: center;
+        }
+
+        button {
+          width: 100%;
+          background-color: $orange-main;
+          cursor: pointer;
+          height: 49px;
+          outline: none;
+          border: 0;
+          border-radius: 12px;
+
+          h4 {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 17px;
+            color: $white-main;
+            @include bold;
+          }
+        }
+      }
+    }
+  }
+}

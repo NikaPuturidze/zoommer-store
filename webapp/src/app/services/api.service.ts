@@ -15,6 +15,15 @@ import { IUser } from 'webapp/src/interfaces/user.interface'
 import { IToken } from 'webapp/src/interfaces/token.interface'
 import { ILogin } from 'webapp/src/interfaces/login.interface'
 import { IPopularSearchesResponse } from 'webapp/src/interfaces/popular-searches.interface'
+import { ICart } from 'webapp/src/interfaces/cart.interface'
+import { IProfile } from 'webapp/src/interfaces/profile.interface'
+import { IRenew } from 'webapp/src/interfaces/renew.interface'
+import { IWishList } from 'webapp/src/interfaces/wishlist.interface'
+import { IClearAllWishlist } from 'webapp/src/interfaces/clear-all-wishlist.interface'
+import { ISetSubscribe } from 'webapp/src/interfaces/set-subscribe.interface'
+import { ICartPost } from 'webapp/src/interfaces/cart-post.interfase'
+import { IAddFavourite } from 'webapp/src/interfaces/add-favourite.interface'
+import { IDeleteFavourite } from 'webapp/src/interfaces/delete-favaourite.interface'
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +32,7 @@ export class ApiService {
   constructor(private readonly httpClient: HttpClient) {}
 
   private serverUrl = 'http://localhost:3000/api/'
+  // private serverUrl = 'https://api.darkhost.space/zoommer/api/'
 
   public topics(): Observable<ITopicsResponse> {
     return this.httpClient.get<ITopicsResponse>(this.serverUrl + 'topics')
@@ -137,5 +147,58 @@ export class ApiService {
 
   public popularSearches(): Observable<IPopularSearchesResponse> {
     return this.httpClient.get<IPopularSearchesResponse>(this.serverUrl + 'popular-searches')
+  }
+
+  public cart(): Observable<ICart> {
+    return this.httpClient.get<ICart>(this.serverUrl + 'cart')
+  }
+
+  public cartPost(productId: number, quantity: number): Observable<ICartPost> {
+    return this.httpClient.post<ICartPost>(this.serverUrl + 'cart', {
+      productId,
+      quantity,
+    })
+  }
+
+  public profile(): Observable<IProfile> {
+    return this.httpClient.get<IProfile>(this.serverUrl + 'profile')
+  }
+
+  public renew(
+    citizenOfAnotherCountry: boolean,
+    email: string,
+    lastName: string,
+    name: string,
+    personalNumber: string
+  ): Observable<IRenew> {
+    return this.httpClient.post<IRenew>(this.serverUrl + 'renew', {
+      citizenOfAnotherCountry,
+      email,
+      lastName,
+      name,
+      personalNumber,
+    })
+  }
+
+  public wishlist(): Observable<IWishList> {
+    return this.httpClient.get<IWishList>(this.serverUrl + 'wishlist')
+  }
+
+  public clearAllWishList(): Observable<IClearAllWishlist> {
+    return this.httpClient.post<IClearAllWishlist>(this.serverUrl + 'clear-all-wishlist', {})
+  }
+
+  public addFavourite(productId: number): Observable<IAddFavourite> {
+    return this.httpClient.post<IAddFavourite>(this.serverUrl + 'add-favourite', { productId })
+  }
+
+  public deleteFavourite(id: number): Observable<IDeleteFavourite> {
+    return this.httpClient.post<IDeleteFavourite>(this.serverUrl + 'delete-favourite', { id })
+  }
+
+  public setSubscribe(set: boolean): Observable<ISetSubscribe> {
+    return this.httpClient.post<ISetSubscribe>(this.serverUrl + 'set-subscribe', {
+      subscribe: set,
+    })
   }
 }

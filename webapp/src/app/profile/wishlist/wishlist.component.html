@@ -1,0 +1,16 @@
+<div class="wishlist">
+  <div class="title">
+    <h4 translate="wishList"></h4>
+    <div class="clear">
+      <img src="https://zoommer.ge/icons/bin.svg" />
+      <h4 translate="searchModal_lastSearch_clear" (click)="clearAll()"></h4>
+    </div>
+  </div>
+  <div class="products">
+    @for (product of wishlist?.productItems; track $index) {
+      <div class="product">
+        <app-templ-product [product]="product" [route]="[product.route]"></app-templ-product>
+      </div>
+    }
+  </div>
+</div>

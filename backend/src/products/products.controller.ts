@@ -6,7 +6,7 @@ export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
   @Get()
-  topic(
+  products(
     @Headers('accept-language') lang: string,
     @Headers('authorization') accessToken: string,
     @Query('Page') page: number,

@@ -1,0 +1,235 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  .edit-profile {
+    animation: slide 300ms ease-out forwards;
+
+    .title {
+      h4 {
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 22px;
+        color: $black-main;
+        @include bold;
+      }
+    }
+
+    form {
+      margin-top: 30px;
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      @media (width <= 1024px) {
+        width: 100%;
+      }
+
+      .input-container {
+        background: $gray-primary;
+        position: relative;
+        box-sizing: border-box;
+        height: 50px;
+        border: 1px solid $gray-primary;
+        border-radius: 12px;
+        margin: 0px;
+        padding: 16px 20px;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        pointer-events: none;
+
+        &.active {
+          border: 1px solid $orange-main;
+          background: $white-main;
+          pointer-events: auto;
+        }
+
+        label {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          letter-spacing: 0px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          align-items: center;
+          transition: 0.175s ease-out;
+          pointer-events: none;
+          max-width: calc(100% - 1.25rem);
+          display: block;
+          color: rgba($black-main, 0.6);
+          opacity: 0.6;
+          @include medium;
+          cursor: text;
+
+          &.active {
+            transform: translateY(-1.2rem);
+            font-size: 12px;
+          }
+        }
+
+        input {
+          border: none;
+          outline: none;
+          width: calc(100% - 1.5rem);
+          padding: 0px;
+          font-family: $black-main;
+          font-size: 14px;
+          line-height: 17px;
+          color: rgba($black-main, 0.6);
+          appearance: none;
+          background: transparent;
+          flex-shrink: 0;
+          margin-top: 10px;
+          font-weight: 500;
+          @include medium;
+          -moz-appearance: textfield;
+          &::-webkit-outer-spin-button,
+          &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
+        }
+
+        .edit {
+          margin-right: -8px;
+          cursor: pointer;
+          pointer-events: all;
+          transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+
+          :hover {
+            background-color: rgba($black-main, 0.04) !important;
+          }
+
+          button {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            outline: none;
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            background-color: inherit;
+            :hover {
+              background-color: transparent !important;
+            }
+          }
+        }
+      }
+
+      .toggle-container {
+        height: 50px;
+        width: 100%;
+        background-color: $gray-primary;
+        border-radius: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px 22px;
+
+        h4 {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          color: rgba($black-main, 0.6);
+          @include medium;
+        }
+
+        .switcher {
+          position: relative;
+          min-width: 42px;
+          height: 22px;
+          background-color: rgb(199, 191, 191);
+          display: flex;
+          justify-content: flex-start;
+          border-radius: 16px;
+          padding: 3px;
+          cursor: pointer;
+
+          &.active {
+            background-color: $orange-main;
+          }
+
+          .toggle {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $white-main;
+            border-radius: 50px;
+            transition: 0.3s;
+            transition: left 0.3s ease;
+
+            &.active {
+              left: calc(100% - 19px);
+            }
+          }
+        }
+      }
+
+      .renew {
+        display: none;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 17px;
+        color: $green-main;
+        @include bold;
+        height: 0px;
+        opacity: 0;
+        transition: 0.2s;
+
+        &.success {
+          display: block;
+          animation: fadeIn 0.2s ease-out forwards;
+        }
+
+        &.fail {
+          display: block;
+          color: $red-main;
+          animation: fadeIn 0.2s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+            transform: translateY(10px);
+            color: $green-main;
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+            color: $green-main;
+          }
+        }
+      }
+
+      .button {
+        width: 100%;
+        margin-top: 30px;
+        min-width: 64px;
+        cursor: pointer;
+        height: 49px;
+        border: 0;
+        outline: 0;
+        background-color: $orange-main;
+        border-radius: 12px;
+        box-shadow: 0;
+
+        h4 {
+          font-weight: 700;
+          font-size: 14px;
+          line-height: 17px;
+          color: $white-main;
+          @include bold;
+        }
+      }
+    }
+  }
+}

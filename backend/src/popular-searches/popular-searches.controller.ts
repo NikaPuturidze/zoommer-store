@@ -6,7 +6,10 @@ export class PopularSearchesController {
   constructor(private readonly popularSearchesService: PopularSearchesService) {}
 
   @Get()
-  megaMenu(@Headers('accept-language') lang: string, @Headers('authorization') accessToken: string): Promise<unknown> {
+  popularSearches(
+    @Headers('accept-language') lang: string,
+    @Headers('authorization') accessToken: string
+  ): Promise<unknown> {
     return this.popularSearchesService.popularSearches(lang, accessToken)
   }
 }

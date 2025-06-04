@@ -29,7 +29,11 @@
       </div>
     </div>
     <button type="submit">
-      <h4 translate="submitCode"></h4>
+      @if (!showLoading) {
+        <h4 translate="sendCode"></h4>
+      } @else {
+        <app-pulse-loader color="#fff"></app-pulse-loader>
+      }
     </button>
   </form>
 }

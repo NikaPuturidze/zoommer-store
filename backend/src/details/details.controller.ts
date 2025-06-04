@@ -6,7 +6,7 @@ export class DetailsController {
   constructor(private readonly detailsService: DetailsService) {}
 
   @Get()
-  topic(
+  details(
     @Headers('accept-language') lang: string,
     @Headers('authorization') accessToken: string,
     @Query('productId') productId: number

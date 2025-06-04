@@ -44,7 +44,7 @@ export class DetailsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.actR.params.subscribe((parameters) => {
+    this.actR.params.pipe(untilDestroyed(this)).subscribe((parameters) => {
       this.loadDetails(this.getProductId(parameters))
     })
 
@@ -54,7 +54,7 @@ export class DetailsComponent {
       this.loadDetails(this.getProductId(this.actR.snapshot.params))
     })
 
-    this.viewport.Viewport$.subscribe((value) => {
+    this.viewport.Viewport$.pipe(untilDestroyed(this)).subscribe((value) => {
       this.viewportWidth = value.width
     })
 

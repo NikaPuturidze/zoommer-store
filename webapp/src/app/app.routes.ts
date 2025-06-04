@@ -8,6 +8,14 @@ import { AllCategoriesComponent } from './all-categories/all-categories.componen
 import { PromotionDetailComponent } from './promotion/promotion-detail/promotion-detail.component'
 import { PromotionComponent } from './promotion/promotion.component'
 import { SearchComponent } from './search/search.component'
+import { ProfileComponent } from './profile/profile.component'
+import { profileGuard } from './services/guards/profile.guard'
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component'
+import { OrdersComponent } from './profile/orders/orders.component'
+import { WishlistComponent } from './profile/wishlist/wishlist.component'
+import { NotificationsComponent } from './profile/notifications/notifications.component'
+import { SecurityPolicyComponent } from './profile/security-policy/security-policy.component'
+import { CartComponent } from './cart/cart.component'
 
 export const routes: Routes = [
   {
@@ -42,6 +50,45 @@ export const routes: Routes = [
     path: 'not-found',
     component: NotFoundComponent,
     title: '404',
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
+    title: 'Cart',
+    canActivate: [profileGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [profileGuard],
+    title: 'Profile',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'edit-profile',
+      },
+      {
+        path: 'edit-profile',
+        component: EditProfileComponent,
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent,
+      },
+      {
+        path: 'wishlist',
+        component: WishlistComponent,
+      },
+      {
+        path: 'notifications',
+        component: NotificationsComponent,
+      },
+      {
+        path: 'policy',
+        component: SecurityPolicyComponent,
+      },
+    ],
   },
   {
     path: 'promotion/:detail',

@@ -1,0 +1,84 @@
+@use '../../../styles.scss' as *;
+
+:host {
+  .notifications {
+    .title {
+      h4 {
+        @include bold;
+      }
+    }
+
+    .content {
+      animation: slide 300ms ease-out forwards;
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+
+      @media (width <= 1024px) {
+        margin-top: 20px;
+        gap: 20px;
+      }
+
+      .toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h4 {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 17px;
+          color: $black-main;
+          opacity: 0.8;
+          @include medium;
+
+          &.inactive {
+            pointer-events: none !important;
+            opacity: 0.4 !important;
+          }
+        }
+
+        .toggler {
+          position: relative;
+          min-width: 42px;
+          height: 22px;
+          background-color: rgb(199, 191, 191);
+          display: flex;
+          justify-content: flex-start;
+          border-radius: 16px;
+          padding: 3px;
+          cursor: pointer;
+
+          &.inactive {
+            pointer-events: none !important;
+            opacity: 0.4 !important;
+          }
+
+          &.active {
+            background-color: $orange-main;
+          }
+
+          .circle {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $white-main;
+            border-radius: 50px;
+            transition: 0.3s;
+
+            &.active {
+              left: calc(100% - 19px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
