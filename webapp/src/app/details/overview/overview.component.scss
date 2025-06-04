@@ -14,6 +14,10 @@
       display: flex;
       justify-content: space-between;
 
+      @media (width> 1024px) {
+        display: none;
+      }
+
       .left {
         display: flex;
         align-items: end;
